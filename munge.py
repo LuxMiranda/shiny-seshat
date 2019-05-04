@@ -39,6 +39,12 @@ def downloadSeshat():
     os.remove(unencodedName)
 
 
+# Check if a directory is empty, excluding
+# hidden files like .gitignore
+def directoryEmpty(dr):
+    return [f for f in os.listdir(dr) if not f.startswith('.')] == []
+
+
 # Download all required files
 def downloadReqs():
     # Download the database if we haven't already
@@ -46,7 +52,7 @@ def downloadReqs():
         downloadSeshat()
     if not os.path.isfile('scrape/nga-list.html'):
         scrape.get.downloadNGAlist(basedir='scrape/')
-    if not os.listdir('scrape/ngas/'):
+    if directoryEmpty('scrape/ngas/'):
         scrape.get.getPolities(basedir='scrape/')
 
 downloadReqs()

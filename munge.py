@@ -259,6 +259,38 @@ polities = polities.set_index('Polity')
 polities['Store of wealth'].loc['JpKemmu']  = 1      # This is set to "warehouse" instead of being a simple boolean
 polities['Polity territory'].loc['IdKahur'] = 175000 # This still had 'km^2' units left on it
 
+# Drop some redundant entries
+polities = polities.drop('Pre-colonial Garo Hills')
+polities = polities.drop('British colonial period and early independent India')
+polities = polities.drop('Iceland Commonwealth Period (930-1262 CE)')
+polities = polities.drop('Norway Kingdom')
+polities = polities.drop('Ottoman Yemen')
+polities = polities.drop('Modern Yemen')
+polities = polities.drop('Pre-Brooke Raj Period')
+polities = polities.drop('Brooke Raj and Colonial Period')
+polities = polities.drop('Late Qing')
+polities = polities.drop('Early Chinese')
+polities = polities.drop('Pre-Colonial Finger Lakes')
+polities = polities.drop('Iroquois Early Colonial')
+polities = polities.drop('Colonial Lowland Andes')
+polities = polities.drop('Ecuadorian')
+polities = polities.drop('Russia Pre-Russian period')
+polities = polities.drop('Russia Early Russian')
+polities = polities.drop('Oro Pre-Colonial')
+polities = polities.drop('Oro Early Colonial')
+
+# Drop some ghost entities not listed on the Seshat website.
+# They're especially sparse entries, anyway.
+polities = polities.drop('Mali Kingdom of Gao Za Dynasty (700-1080 CE)')
+polities = polities.drop('Mali Kingdom of Gao (1080-1236 CE)')
+polities = polities.drop('Peru Cuzco chiefdom Middle Horizon (650-1000 CE)')
+polities = polities.drop('Peru Lucre Basin (1000-1250 CE)')
+polities = polities.drop('Peru Cuzco Valley Killke (1000-1250)')
+polities = polities.drop('Peru Lucre Basin (1300-1400 CE)')
+polities = polities.drop('Peru Cuzco Valley Killke (1250-1400)')
+polities = polities.drop('MlToucl')
+
+
 # Export
 polities.to_csv('shiny-seshat.csv', sep=',')
 print("Exported to shiny-seshat.csv!")

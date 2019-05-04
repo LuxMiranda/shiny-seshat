@@ -94,19 +94,6 @@ def valConvert(value):
     else:
         return value
 
-# Format Seshat date style to an integer year
-def formatDate(date):
-    # Regex split the number from the CE/BCE. Example:
-    # if   date = '1210BCE'
-    # then re is ['', '1210', 'BCE']
-    [null, year, era] = re.split('([0-9]+)',date)
-    # Cast the year
-    num = int(year)
-    # If we are Before Common Era, make it negative
-    if era == 'BCE':
-        num *= -1
-    return num
-
 # Convert "present" and "absent" variables to boolean integers
 seshat['Value_From'] = seshat['Value_From'].apply(valConvert)
 
@@ -263,43 +250,41 @@ polities = polities.reindex(sorted(polities.columns), axis=1)
 # Index by Polity
 polities = polities.set_index('Polity')
 
-# Fix some weirdness
-polities['Store of wealth'].loc['JpKemmu']  = 1      # This is set to "warehouse" instead of being a simple boolean
-polities['Polity territory'].loc['IdKahur'] = 175000 # This still had 'km^2' units left on it
+## Fix some weirdness
+polities.at['JpKemmu', 'Store of wealth'] = 1 # This is set to "warehouse" instead of being a simple boolean
+polities.at['IdKahur', 'Polity territory'] = 175000 # This still had 'km^2' units left on it
 
 # Drop some redundant entries
-polities = polities.drop('Pre-colonial Garo Hills')
-polities = polities.drop('British colonial period and early independent India')
-polities = polities.drop('Iceland Commonwealth Period (930-1262 CE)')
-polities = polities.drop('Norway Kingdom')
-polities = polities.drop('Ottoman Yemen')
-polities = polities.drop('Modern Yemen')
-polities = polities.drop('Pre-Brooke Raj Period')
-polities = polities.drop('Brooke Raj and Colonial Period')
-polities = polities.drop('Late Qing')
-polities = polities.drop('Early Chinese')
-polities = polities.drop('Pre-Colonial Finger Lakes')
-polities = polities.drop('Iroquois Early Colonial')
-polities = polities.drop('Colonial Lowland Andes')
-polities = polities.drop('Ecuadorian')
-polities = polities.drop('Russia Pre-Russian period')
-polities = polities.drop('Russia Early Russian')
-polities = polities.drop('Oro Pre-Colonial')
-polities = polities.drop('Oro Early Colonial')
+polities = polities.drop(['Pre-colonial Garo Hills'
+    ,'British colonial period and early independent India'
+    ,'Iceland Commonwealth Period (930-1262 CE)'
+    ,'Norway Kingdom'
+    ,'Ottoman Yemen'
+    ,'Modern Yemen'
+    ,'Pre-Brooke Raj Period'
+    ,'Brooke Raj and Colonial Period'
+    ,'Late Qing'
+    ,'Early Chinese'
+    ,'Pre-Colonial Finger Lakes'
+    ,'Iroquois Early Colonial'
+    ,'Colonial Lowland Andes'
+    ,'Ecuadorian'
+    ,'Russia Pre-Russian period'
+    ,'Russia Early Russian'
+    ,'Oro Pre-Colonial'
+    ,'Oro Early Colonial'])
 
 
 # Drop some ghost entities not listed on the Seshat website.
 # They're especially sparse entries, anyway.
-polities = polities.drop('Mali Kingdom of Gao Za Dynasty (700-1080 CE)')
-polities = polities.drop('Mali Kingdom of Gao (1080-1236 CE)')
-polities = polities.drop('Peru Cuzco chiefdom Middle Horizon (650-1000 CE)')
-polities = polities.drop('Peru Lucre Basin (1000-1250 CE)')
-polities = polities.drop('Peru Cuzco Valley Killke (1000-1250)')
-polities = polities.drop('Peru Lucre Basin (1300-1400 CE)')
-polities = polities.drop('Peru Cuzco Valley Killke (1250-1400)')
-polities = polities.drop('MlToucl')
-
-
+polities = polities.drop(['Mali Kingdom of Gao Za Dynasty (700-1080 CE)'
+    ,'Mali Kingdom of Gao (1080-1236 CE)'
+    ,'Peru Cuzco chiefdom Middle Horizon (650-1000 CE)'
+    ,'Peru Lucre Basin (1000-1250 CE)'
+    ,'Peru Cuzco Valley Killke (1000-1250)'
+    ,'Peru Lucre Basin (1300-1400 CE)'
+    ,'Peru Cuzco Valley Killke (1250-1400)'
+    ,'MlToucl'])
 
 # Fetch era dates and full polity names
 nameDates = pd.read_csv('scrape/nameDates.csv')
@@ -358,6 +343,9 @@ polities = polities.drop('Era',axis=1)
 firstCols = ['NGA','Polity_name','Era_start','Era_end']
 cols = list(polities.drop(firstCols,axis=1).columns.values)
 polities = polities[firstCols + cols]
+
+# Consistency change
+polities = polities.rename(columns={'Polity_Population': 'Polity_population'})
 
 # Fix all columns to use underscores instead of spaces
 polities.columns = polities.columns.str.replace(' ', '_')

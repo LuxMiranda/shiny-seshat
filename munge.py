@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import urllib.request
 import os
 import os.path
@@ -13,6 +14,7 @@ import scrape.parse
 # If one variable has multiple values over a range of dates, only the latest-date
 # version of the value is stored.
 # If a value is a range, the midpoint is stored.
+# Dates are stored as signed integers with 1AD centered at 0
 
 SESHAT_URL = 'http://seshatdatabank.info/data/dumps/seshat-20180402.csv'
 
@@ -279,6 +281,7 @@ polities = polities.drop('Russia Early Russian')
 polities = polities.drop('Oro Pre-Colonial')
 polities = polities.drop('Oro Early Colonial')
 
+
 # Drop some ghost entities not listed on the Seshat website.
 # They're especially sparse entries, anyway.
 polities = polities.drop('Mali Kingdom of Gao Za Dynasty (700-1080 CE)')
@@ -290,6 +293,68 @@ polities = polities.drop('Peru Lucre Basin (1300-1400 CE)')
 polities = polities.drop('Peru Cuzco Valley Killke (1250-1400)')
 polities = polities.drop('MlToucl')
 
+
+
+# Fetch era dates and full polity names
+nameDates = pd.read_csv('scrape/nameDates.csv')
+# Drop duplicates from the nameDate scraper
+nameDates = nameDates.drop_duplicates(subset='Polity')
+# Combine our shiny dataset with era ranges and full polity names
+polities  = pd.merge(polities, nameDates, on='Polity')
+
+# Delete a weird entry
+polities = polities.drop(polities[
+    (polities['Polity'] == 'FrBurbL') & (polities['NGA'] == 'Cahokia')].index)
+
+# Group NGAs into lists and clean things up
+goodNgas = pd.DataFrame(polities.groupby('Polity').NGA.agg(lambda x: list(x)))
+polities = pd.merge(goodNgas,polities,on='Polity')
+polities = polities.drop('NGA_y',axis=1)
+polities = polities.drop_duplicates(subset='Polity')
+polities = polities.set_index('Polity')
+polities = polities.rename(columns={'NGA_x': 'NGA'})
+
+# Drop unneccesary columns
+polities = polities.drop('Other', axis=1)
+polities = polities.drop('Other site', axis=1)
+
+# Check if a string is a date
+def isDate(s):
+    return (s[-2:] == 'CE')
+
+# Convert a date string to an integer
+def dateToInt(date):
+    if date[-3:] == 'BCE':
+        return -1*int(date[:-3])
+    elif date[-2:] == 'CE':
+        return int(date[:-2]) - 1
+    else:
+        raise Exception('Invalid date')
+
+# Convert an era string to a tuple of year integers
+def getDatesFromEra(eraStr):
+    [start, end] = eraStr.replace(' ','').split('-')
+    end = dateToInt(end)
+    if isDate(start):
+        start = dateToInt(start)
+    else:
+        start = int(start)*np.sign(end)
+        if start > 0:
+            start -= 1
+    return start,end
+
+# Convert eras to date integers
+polities['Era'] = polities['Era'].apply(getDatesFromEra)
+polities[['Era_start', 'Era_end']] = pd.DataFrame(polities['Era'].tolist(), index=polities.index)  
+polities = polities.drop('Era',axis=1)
+
+# Reorganize columns for human-readability
+firstCols = ['NGA','Polity_name','Era_start','Era_end']
+cols = list(polities.drop(firstCols,axis=1).columns.values)
+polities = polities[firstCols + cols]
+
+# Fix all columns to use underscores instead of spaces
+polities.columns = polities.columns.str.replace(' ', '_')
 
 # Export
 polities.to_csv('shiny-seshat.csv', sep=',')

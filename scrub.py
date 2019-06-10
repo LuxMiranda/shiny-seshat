@@ -9,6 +9,7 @@ import re
 from tqdm import tqdm
 import scrape.get
 import scrape.parse
+from impute import impute
 
 # Munging notes:
 # If one variable has multiple values over a range of dates, only the latest-date
@@ -344,11 +345,11 @@ firstCols = ['NGA','Polity_name','Era_start','Era_end']
 cols = list(polities.drop(firstCols,axis=1).columns.values)
 polities = polities[firstCols + cols]
 
-# Consistency change
-polities = polities.rename(columns={'Polity_Population': 'Polity_population'})
-
 # Fix all columns to use underscores instead of spaces
 polities.columns = polities.columns.str.replace(' ', '_')
+
+# Impute missing entries
+polities = impute(polities)
 
 # Export
 polities.to_csv('shiny-seshat.csv', sep=',')

@@ -141,6 +141,9 @@ for index, row in seshat.iterrows():
 
 pbar.close()
 
+# Add final series that we haven't added it
+polities = polities.append(curSeries.copy(), ignore_index=True)
+
 # Delete duplicate columns
 polities = polities.drop(columns=[
     'Written records_1',
@@ -148,6 +151,7 @@ polities = polities.drop(columns=[
     'Time_1',
     'Population of the largest settlement_1'
     ])
+
 
 # Standard max function takes NaN as larger than everything
 def notDumbMax(l, r):
@@ -292,7 +296,7 @@ nameDates = pd.read_csv('scrape/nameDates.csv')
 # Drop duplicates from the nameDate scraper
 nameDates = nameDates.drop_duplicates(subset='Polity')
 # Combine our shiny dataset with era ranges and full polity names
-polities  = pd.merge(polities, nameDates, on='Polity')
+polities  = pd.merge(polities, nameDates, on='Polity', how='outer')
 
 # Delete a weird entry
 polities = polities.drop(polities[
@@ -302,13 +306,17 @@ polities = polities.drop(polities[
 goodNgas = pd.DataFrame(polities.groupby('Polity').NGA.agg(lambda x: list(x)))
 polities = pd.merge(goodNgas,polities,on='Polity')
 polities = polities.drop('NGA_y',axis=1)
+
 polities = polities.drop_duplicates(subset='Polity')
+
 polities = polities.set_index('Polity')
 polities = polities.rename(columns={'NGA_x': 'NGA'})
 
 # Drop unneccesary columns
 polities = polities.drop('Other', axis=1)
 polities = polities.drop('Other site', axis=1)
+
+print('Unique polities: {}'.format(polities.reset_index()['Polity'].nunique()))
 
 # Check if a string is a date
 def isDate(s):
@@ -325,6 +333,9 @@ def dateToInt(date):
 
 # Convert an era string to a tuple of year integers
 def getDatesFromEra(eraStr):
+    # For polities without a date range, just return nan
+    if pd.isnull(eraStr):
+        return np.nan,np.nan
     [start, end] = eraStr.replace(' ','').split('-')
     end = dateToInt(end)
     if isDate(start):
@@ -348,7 +359,10 @@ polities = polities[firstCols + cols]
 # Fix all columns to use underscores instead of spaces
 polities.columns = polities.columns.str.replace(' ', '_')
 
+# Export unimputed data
+polities.to_csv('shiny-seshat-unimputed.csv', sep=',')
 # Impute missing entries
+print('Unique polities: {}'.format(polities.reset_index()['Polity'].nunique()))
 polities = impute(polities)
 
 # Export

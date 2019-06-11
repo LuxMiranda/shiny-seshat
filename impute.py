@@ -22,6 +22,7 @@ def impute(shiny):
     names     = shiny['Polity_name']
     eraStarts = shiny['Era_start']
     eraEnds   = shiny['Era_end']
+    avgSC     = shiny['avgSC']
     seshat = shiny.set_index('Polity')
     n_polities, n_features = seshat.shape
     print(n_polities)
@@ -52,6 +53,7 @@ def impute(shiny):
     impSeshat['Polity_name'] = names
     impSeshat['Era_start']   = eraStarts
     impSeshat['Era_end']     = eraEnds
+    impSeshat['avgSC']       = avgSC
     impSeshat = impSeshat.set_index('Polity')
     impSeshat = roundBools(impSeshat)
     # Replace negative imputed populations with 0 population

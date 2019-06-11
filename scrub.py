@@ -153,12 +153,21 @@ polities = polities.drop(columns=[
     ])
 
 
-# Standard max function takes NaN as larger than everything
+# A "smart max" function.
+# Returns non-nan values when able.
+# If given lists, returns the largest non-nan list.
 def notDumbMax(l, r):
     if math.isnan(l):
         return r
     elif math.isnan(r):
         return l
+    elif isinstance(l, list) and isinstance(r,list):
+        if np.isnan(l).any():
+            return r
+        elif np.isnan(r).any():
+            return l
+        else:
+            return l if len(l) >= len(r) else r
     else:
         return max(l,r)
 
@@ -291,9 +300,13 @@ polities = polities.drop(['Mali Kingdom of Gao Za Dynasty (700-1080 CE)'
     ,'Peru Cuzco Valley Killke (1250-1400)'
     ,'MlToucl'])
 
+polities = polities.reset_index()
+polities['Polity'] = polities['Polity'].apply(lambda x: str(x).replace('*',''))
+
 # Fetch era dates and full polity names
 nameDates = pd.read_csv('scrape/nameDates.csv')
-# Drop duplicates from the nameDate scraper
+# Fix polity names and duplicates from the nameDate scraper
+nameDates['Polity'] = nameDates['Polity'].apply(lambda x: str(x).replace('*',''))
 nameDates = nameDates.drop_duplicates(subset='Polity')
 # Combine our shiny dataset with era ranges and full polity names
 polities  = pd.merge(polities, nameDates, on='Polity', how='outer')
@@ -359,12 +372,65 @@ polities = polities[firstCols + cols]
 # Fix all columns to use underscores instead of spaces
 polities.columns = polities.columns.str.replace(' ', '_')
 
+# Fix more weirdness
+polities.at['CnImQin','Polity_name'] = polities.at['cnimqin','Polity_name']
+polities.at['CnImQin','Era_start']   = polities.at['cnimqin','Era_start']
+polities.at['CnImQin','Era_end']     = polities.at['cnimqin','Era_end']
+polities = polities.drop('cnimqin')
+
+# Drop polities with namedate info but no other info
+polities = polities.drop('ChaBd')
+polities = polities.drop('IrQajar')
+polities = polities.drop('TrOttm5')
+
+
+# Add SC information
+turchinSC = pd.read_csv('turchinSC.csv')
+# Take the mean of imputed SC to store
+turchinSC['SC'] = (turchinSC['V1'] +
+                      turchinSC['V2'] +
+                      turchinSC['V3'] +
+                      turchinSC['V4'] +
+                      turchinSC['V5'] +
+                      turchinSC['V6'] +
+                      turchinSC['V7'] +
+                      turchinSC['V8'] +
+                      turchinSC['V9'] +
+                      turchinSC['V10'] +
+                      turchinSC['V11'] +
+                      turchinSC['V12'] +
+                      turchinSC['V13'] +
+                      turchinSC['V14'] +
+                      turchinSC['V15'] +
+                      turchinSC['V16'] +
+                      turchinSC['V17'] +
+                      turchinSC['V18'] +
+                      turchinSC['V19'] +
+                      turchinSC['V20']) / 20.0
+
+# Trim things down
+turchinSC = turchinSC[['PolID','SC']]
+turchinSC['PolID'] = turchinSC['PolID'].apply(lambda x: str(x).replace('*',''))
+
+# Take the average SC over all SCs a polity has
+turchinSC = turchinSC.groupby('PolID').mean()
+turchinSC = turchinSC.reset_index()
+
+turchinSC = turchinSC.rename(columns={'PolID':'Polity','SC':'avgSC'})
+
+polities  = polities.reset_index()
+
+polities  = pd.merge(polities, turchinSC, on='Polity', how='outer')
+
+polities  = polities.set_index('Polity')
+
 # Export unimputed data
 polities.to_csv('shiny-seshat-unimputed.csv', sep=',')
+
 # Impute missing entries
-print('Unique polities: {}'.format(polities.reset_index()['Polity'].nunique()))
 polities = impute(polities)
 
-# Export
+## Export
 polities.to_csv('shiny-seshat.csv', sep=',')
 print("Exported to shiny-seshat.csv!")
+

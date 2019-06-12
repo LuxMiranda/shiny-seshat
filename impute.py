@@ -18,8 +18,10 @@ def roundBools(impSeshat):
 
 def impute(shiny):
     shiny = shiny.reset_index()
+    # Save variables that we want to keep but not impute
     polities  = shiny['Polity']
     names     = shiny['Polity_name']
+    nga       = shiny['NGA']
     eraStarts = shiny['Era_start']
     eraEnds   = shiny['Era_end']
     avgSC     = shiny['avgSC']
@@ -54,6 +56,7 @@ def impute(shiny):
     impSeshat['Era_start']   = eraStarts
     impSeshat['Era_end']     = eraEnds
     impSeshat['avgSC']       = avgSC
+    impSeshat['NGA']         = nga
     impSeshat = impSeshat.set_index('Polity')
     impSeshat = roundBools(impSeshat)
     # Replace negative imputed populations with 0 population

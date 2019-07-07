@@ -14,6 +14,7 @@ SESHAT_URL   = 'http://seshatdatabank.info/moralizinggodsdata/data/download.csv'
 OUT_FILENAME = 'shiny-seshat.csv'
 
 pd.options.mode.chained_assignment = None  # default='warn'
+PROGRESS_BAR = tqdm(total=(3+520))
 
 def downloadSeshat():
     # Set encodings and filenames
@@ -40,6 +41,7 @@ def removeUndesiredVariables(seshat):
             'RA',
             'Alternative names',
             'Expert',
+            'Editor',
             'alternate Names of Official Cult',
     ]
     seshat = seshat[~seshat['Variable'].isin(undesiredVariables)]
@@ -105,15 +107,21 @@ def phase0Tidy(seshat):
     seshat.columns = seshat.columns.str.replace(' ','_')
     # Remove undesired variables
     seshat = removeUndesiredVariables(seshat)
-    # Convert booleans from "present/absent" to "1/0"
-    seshat['Value_From'] = seshat['Value_From'].map(convertBooleans)
     # Remove the asterisks in polity IDs.
     # These asterisks apparently exist so that all Polity IDs are the same
     # number of characters... Except for the ones that aren't. Anyway, they
     # suck and we don't need them.
     seshat['Polity'] = seshat['Polity'].map(lambda x: x.replace('*',''))
     # Rename polities with long gross names 
-    seshat['Polity'] = seshat['Polity'].map(polityIDreplace)	
+    seshat['Polity'] = seshat['Polity'].map(polityIDreplace)
+    # Remove leading spaces in the value field
+    seshat['Value_From'] = seshat['Value_From'].map(
+            lambda x: x[1:] if x[0] == ' ' else x
+            )
+    # Convert booleans from "present/absent" to "1/0"
+    seshat['Value_From'] = seshat['Value_From'].map(convertBooleans)
+    # Delete stray polity with only two datapoints
+    seshat = seshat[seshat['Polity'] != 'UsIroqP']
     return seshat
 
 # Check if a string is a date
@@ -122,19 +130,28 @@ def isDate(s):
 
 # Convert a date string to an integer
 def dateToInt(date):
-    if date[-3:] == 'BCE':
+    if isinstance(date, float) or isinstance(date, int):
+        return date
+
+    date = date.lower()
+    if date[-3:] == 'bce':
         return -1*int(date[:-3])
-    elif date[-2:] == 'CE':
+    elif date[-2:] == 'ce':
         return int(date[:-2]) - 1
     else:
-        raise Exception('Invalid date')
+        if isinstance(date, str):
+            try:
+                return int(date)
+            except:
+                print(date)
+                raise Exception('Invalid date')
 
 # Convert a Duration string to a tuple of year integers
 def getDatesFromDuration(eraStr):
     # For polities without a date range, just return nan
     if pd.isnull(eraStr):
         return np.nan,np.nan
-    [start, end] = eraStr.replace(' ','').split('-')
+    [start, end] = eraStr.replace(' ','').replace('–','-').split('-')
     end = dateToInt(end)
     if isDate(start):
         start = dateToInt(start)
@@ -154,13 +171,16 @@ def getAllDates(polityData):
             + getDatesFromCol('Date_To', polityData)
 
 def getTimePoints(polityData):
+    # FIXME TODO Clean this up 
+    timePoints = []
     # First, the "Duration" field contains the first and last possible 
     # time points for the polity.
-    duration = polityData[polityData['Variable'] == 'Duration']\
-                 .reset_index()\
-                 .iloc[0]['Value_From']
-    start, end = getDatesFromDuration(duration)
-    timePoints = [start,end]
+    duration = polityData[polityData['Variable'] == 'Duration'].reset_index()
+    empty = duration.empty
+    if not empty:
+        duration = duration.iloc[0]['Value_From']
+        start, end = getDatesFromDuration(duration)
+        timePoints = [start,end]
     # Next, simply add all other dates we come across
     timePoints += getAllDates(polityData)
     # Remove duplicate entries and sort
@@ -171,6 +191,12 @@ def getTimePoints(polityData):
 def initTemperocultures(timePoints, polityData):
     nga, polity = polityData['NGA'].iloc[0], polityData['Polity'].iloc[0]
     tcultures = []
+    if len(timePoints) == 0:
+        return [pd.Series({'NGA' : nga, 'Temperoculture': polity + '-1'})]
+    elif len(timePoints) == 1:
+        # FIXME Prettify this code
+        return [pd.Series({'NGA' : nga, 'Temperoculture': polity + '-0', 'Period_end':timePoints[0]})]
+
     for i in range(1,len(timePoints)):
         tcultures.append(pd.Series({
             'NGA' : nga,
@@ -178,6 +204,39 @@ def initTemperocultures(timePoints, polityData):
 	    'Period_start'   : timePoints[i-1],
 	    'Period_end'     : timePoints[i]
         }))
+    return tcultures
+
+def extractDatumValue(datum):
+    if datum['Value_Note'] == 'range':
+        return (float(datum['Value_From']) + float(datum['Value_To']))/2.0
+    elif datum['Value_Note'] == 'disputed':
+        return np.nan
+    else:
+        return datum['Value_From']
+
+
+def addDatum(tcultures, datum, dated=True):
+    # Fetch the value from the datum
+    value = extractDatumValue(datum)
+    # Take advantage of the fact that our data is sorted by Date_From by
+    # allowing values to be overwritten if the datum has a newer date
+    for tculture in tcultures:
+        # Strictly greater than since there will always be a temperoculture
+        # existing right at the bounds.
+        if not dated or tculture['Period_end'] > datum['Date_From']:
+            tculture[datum['Variable']] = value
+    return tcultures
+
+def populateTemperocultures(tcultures, polityData):
+    # Prepare the data 
+    polityData['Date_From'] = polityData['Date_From'].apply(dateToInt)
+    polityData['Date_To']   = polityData['Date_To'].apply(dateToInt)
+    # Ensure that the data is sorted by Date_From
+    polityData = polityData.sort_values('Date_From')
+    # For each datum in the polity data
+    for i, datum in polityData.iterrows():
+        dated = (datum['Date_Note'] in ['simple','range'])
+        tcultures = addDatum(tcultures, datum, dated=dated)
     return tcultures
 
 # Given a slice of seshat that contains a single polity and NGA, return all
@@ -189,7 +248,7 @@ def getSubPeriods(polityData):
     # Initialize the temperocultures
     tcultures  =  initTemperocultures(timePoints, polityData)
     # Return the populated temperocultures
-    return populateTemperocultures(polityData, seshat)
+    return populateTemperocultures(tcultures, polityData)
 
 # Fetch all NGA/Polity pairs 
 def getNgaPolityPairs(seshat):
@@ -202,20 +261,20 @@ def flatten(l):
 
 # Fetch the part of seshat containing only data for the given NGA/polity pair
 def getDataSlice(nga, polity, seshat):
+#    PROGRESS_BAR.update(1)
     ngaSlice = seshat[seshat['NGA'] == nga]
-    return ngaSlice[ngaSlice['Polity'] == polity]
+    ret = ngaSlice[ngaSlice['Polity'] == polity]
+    print(nga,polity)
+    print(ret)
+    return ret
 
 # Transform Seshat from a long listing of data points into a nice matrix where
 # rows are temperocultures (sub-periods of polities) and columns are features
 def makeTemperocultureWise(seshat):
-    nga, polity = 'Big Island Hawaii', 'Hawaii2'
-    print(getSubPeriods(getDataSlice(nga,polity,seshat)))
-    exit()
-#    print(getSubPeriods(seshat[))
-#    return pd.DataFrame([
-#        flatten(getSubPeriods(nga, polity, seshat)) 
-#        for nga,polity in getNgaPolityPairs(seshat)
-#    ])
+    return pd.DataFrame(flatten([
+        getSubPeriods(getDataSlice(nga, polity, seshat))
+        for nga,polity in getNgaPolityPairs(seshat)
+    ]))
 
 def phase1Tidy(seshat):
     return
@@ -233,9 +292,9 @@ def export(seshat):
     seshat.to_csv(OUT_FILENAME, sep=',')
 
 def main():
-    ensureReqs()
-    seshat = getSeshat()
-    seshat = phase0Tidy(seshat)
+    ensureReqs();                            PROGRESS_BAR.update(1)
+    seshat = getSeshat();                    PROGRESS_BAR.update(1)
+    seshat = phase0Tidy(seshat);             PROGRESS_BAR.update(1)
     seshat = makeTemperocultureWise(seshat)
 #    seshat = phase1Tidy(seshat)
 #    seshat = addSC(seshat)

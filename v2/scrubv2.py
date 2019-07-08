@@ -42,6 +42,7 @@ def removeUndesiredVariables(seshat):
             'Alternative names',
             'Expert',
             'Editor',
+            'Editer', # Really?,
             'alternate Names of Official Cult',
     ]
     seshat = seshat[~seshat['Variable'].isin(undesiredVariables)]
@@ -276,8 +277,24 @@ def makeTemperocultureWise(seshat):
         for nga,polity in getNgaPolityPairs(seshat)
     ]))
 
+# By default, Seshat will store duplicate tcultures with different NGAs listed
+# if a tculture happens to span more than one NGA. We change this instead to 
+# have unique tcultures simply keep track of a list of NGAs they span.
+def groupNGAs(seshat):
+    goodNgas = pd.DataFrame(seshat.groupby('Temperoculture').NGA.agg(
+        lambda x: list(x)
+        ))
+    seshat = pd.merge(goodNgas,seshat,on='Temperoculture')
+    seshat = seshat.drop('NGA_y',axis=1)
+    seshat = seshat.drop_duplicates(subset='Temperoculture')
+    seshat = seshat.rename(columns={'NGA_x': 'NGA'})
+    return seshat
+    
+
 def phase1Tidy(seshat):
-    return
+    # Handle tcultures spanning multiple NGAs
+    seshat = groupNGAs(seshat)
+    return seshat
 
 def addSC(seshat):
     return seshat
@@ -292,11 +309,12 @@ def export(seshat):
     seshat.to_csv(OUT_FILENAME, sep=',')
 
 def main():
-    ensureReqs();                            PROGRESS_BAR.update(1)
-    seshat = getSeshat();                    PROGRESS_BAR.update(1)
-    seshat = phase0Tidy(seshat);             PROGRESS_BAR.update(1)
-    seshat = makeTemperocultureWise(seshat)
-#    seshat = phase1Tidy(seshat)
+#    ensureReqs();                            PROGRESS_BAR.update(1)
+#    seshat = getSeshat();                    PROGRESS_BAR.update(1)
+#    seshat = phase0Tidy(seshat);             PROGRESS_BAR.update(1)
+#    seshat = makeTemperocultureWise(seshat)
+    seshat = pd.read_csv('phase1.csv',index_col=0)
+    seshat = phase1Tidy(seshat)
 #    seshat = addSC(seshat)
 #    seshat = phase2Tidy(seshat)
 #    exportUnimputed(seshat)

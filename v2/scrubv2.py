@@ -8,7 +8,8 @@ import io
 import re
 from tqdm import tqdm
 from dictionaries import POLITY_ID_REPLACEMENTS, NGA_UTMs, COLUMN_NAME_REMAP,\
-        RITUAL_VARIABLES, COLUMN_MERGE, RITUAL_VARIABLE_RENAMES
+        RITUAL_VARIABLES, COLUMN_MERGE, RITUAL_VARIABLE_RENAMES,\
+        COLUMN_REORDERING
 
 
 SESHAT_URL   = 'http://seshatdatabank.info/moralizinggodsdata/data/download.csv'
@@ -376,6 +377,18 @@ def df_column_uniquify(df):
     df.columns = new_columns
     return df
 
+# Delete columns with <0.5% representation in the dataset
+def deleteUltraSparse(seshat):
+    return seshat.drop(columns=[
+	'Religious_tradition',
+	'Description_of_the_normative_ideology',
+	'Religionfamily',
+	'Name_1',
+	'Frequency_for_the_participants',
+	'Religionsect'
+    ])
+
+
 def phase1Tidy(seshat):
     # Handle tcultures spanning multiple NGAs
     seshat = groupNGAs(seshat)
@@ -395,6 +408,12 @@ def phase1Tidy(seshat):
     seshat = combineColumns(seshat)
     # Another once-over on renaming those darn unwieldy ritual variable names
     seshat = seshat.rename(remapRitualVars, axis='columns')
+    # Delete ultra-sparse columns
+    seshat = deleteUltraSparse(seshat) 
+    # Fix single orphaned value deleted in the above step
+    seshat.at[1192,'Most_euphoric_ritual_name'] = 'feast'
+    # Finally, reorder the columns into a nice curated order
+    seshat = seshat[COLUMN_REORDERING]
     return seshat
 
 def addSC(seshat):

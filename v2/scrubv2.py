@@ -6,6 +6,7 @@ import os.path
 import math
 import io
 import re
+from imputv2 import impute
 from tqdm import tqdm
 from dictionaries import POLITY_ID_REPLACEMENTS, NGA_UTMs, COLUMN_NAME_REMAP,\
         RITUAL_VARIABLES, COLUMN_MERGE, RITUAL_VARIABLE_RENAMES,\
@@ -47,7 +48,7 @@ def removeUndesiredVariables(seshat):
             'Alternative names',
             'Expert',
             'Editor',
-            'Editer', # Really?,
+            'Editer', # Nice
             'alternate Names of Official Cult',
     ]
     seshat = seshat[~seshat['Variable'].isin(undesiredVariables)]
@@ -62,17 +63,25 @@ def ensureReqs():
 def getSeshat():
     return pd.read_csv('seshat.csv')
 
-# Function mapped to Value_From to convert from
+# Function mapped to Value_From and Value_To to convert from
 # string data to integer data
 def convertBooleans(colValue):
-    value = colValue.lower()
-    if value in ['present', 'inferred present', 'inferred inferred present']:
-        return 1
-    elif value in ['absent','inferred absent']:
-        return 0
+    value = colValue
+    if isinstance(value, str):
+        value = value.lower()
+    if value in ['present', 'inferred present', 'inferred inferred present', 'present]']:
+        return 1.0
+    elif value in ['inferred present','inferred inferred present']:
+        return 0.9
+    elif value in ['absent']:
+        return 0.0
+    elif value in ['inferred absent']:
+        return 0.1
+    elif value in ['present absent','inferred']:
+        return 0.5
     elif value in [
-        'unknown','suspected unknown', 'inferred', 'uncoded', 'present absent'
-            ]:
+        'unknown','suspected unknown', 'uncoded', 'suspected unknwon',
+        'suspect unknown', 'suspected unkown']:
         return np.nan
     else:
         return colValue
@@ -99,11 +108,12 @@ def phase0Tidy(seshat):
             )
     # Convert booleans from "present/absent" to "1/0"
     seshat['Value_From'] = seshat['Value_From'].map(convertBooleans)
+    seshat['Value_To'] = seshat['Value_From'].map(convertBooleans)
     # Delete stray polity with only two datapoints
     seshat = seshat[seshat['Polity'] != 'UsIroqP']
     return seshat
 
-# Check if a string is a date
+# check if a string is a date
 def isDate(s):
     return (s[-2:] == 'CE')
 
@@ -185,10 +195,9 @@ def initTemperocultures(timePoints, polityData):
     return tcultures
 
 def extractDatumValue(datum):
-    if datum['Value_Note'] == 'range':
+    if datum['Value_Note'] in ['range','disputed']\
+            and isinstance(datum['Value_From'],float):
         return (float(datum['Value_From']) + float(datum['Value_To']))/2.0
-    elif datum['Value_Note'] == 'disputed':
-        return np.nan
     else:
         return datum['Value_From']
 
@@ -219,7 +228,10 @@ def addDatum(tcultures, datum, dated=True):
             tculture = handleDatumAdd(tculture, datum, value)
     return tcultures
 
+NUM_POPS = 0
+
 def populateTemperocultures(tcultures, polityData):
+    global NUM_POPS
     # Prepare the data 
     polityData['Date_From'] = polityData['Date_From'].apply(dateToInt)
     polityData['Date_To']   = polityData['Date_To'].apply(dateToInt)
@@ -416,6 +428,50 @@ def phase1Tidy(seshat):
     seshat = seshat[COLUMN_REORDERING]
     return seshat
 
+# Create the "complexity component" variables used for imputation
+def createCCs(seshat):
+    # CC_PolPop  :
+    #   Log_10 of the population.
+
+    # CC_PolTerr :
+    #   Log_10 of the territory.
+
+    # CC_CapPop  :
+    #   Log_10 of the capital's population.
+
+    # CC_Hier    :
+
+    # CC_Govt    :
+
+    # CC_Infra   :
+
+    # CC_Writing :
+    #   0 = No evidence (clear absense; not simply null)
+    #   1 = At least mnemonic devices present
+    #   2 = At least non-written records present
+    #   3 = At least script present
+    #   4 = Written records present
+    # Presence or absence of a “less sophisticated” writing variable doesn't 
+    # affect this scale (so if “script” is present, it does not matter wither 
+    # non-written records are present or absent). (Turchin 2018)
+
+    # CC_Texts   :
+    #   Sum all of:
+    #      Lists, tables, and classifications
+    #      Calendar
+    #      Sacred texts
+    #      Religious literature
+    #      Practical literature
+    #      History
+    #      Philosophy
+    #      Scientific literature
+    #      Fiction
+    #   Ignore null entries. Only sum if absolutely "present" (1.0).
+    #   Ignore "inferred present" (0.9) and below.
+
+    # CC_Money   :
+    return seshat
+
 def addSC(seshat):
     return seshat
 
@@ -436,7 +492,8 @@ def main():
     if DEBUG:
         seshat = pd.read_csv('phase1.csv',index_col=0)
     seshat = phase1Tidy(seshat)
-#    seshat = impute(seshat)
+#    seshat = createCCs(seshat)
+    seshat = impute(seshat)
 #    seshat = addSC(seshat)
 #    seshat = phase2Tidy(seshat)
     export(seshat) 

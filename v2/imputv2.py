@@ -23,7 +23,19 @@ Notes:
 
 # Pair down to only datapoints with all 51 variables
 def pairDown(fullSeshat):
-    seshat = fullSeshat[FEATURES_TO_IMPUTE + ['NGA','Temperoculture']]
+    seshat = fullSeshat[[
+        'CC_PolPop',
+        'CC_PolTerr',
+        'CC_CapPop',
+        'CC_Hier',
+        'CC_Govt',
+        'CC_Infra',
+        'CC_Writing',
+        'CC_Texts',
+        'CC_Money',
+        'NGA',
+        'Temperoculture']]
+ 
     seshat = seshat[seshat.isna().sum(axis=1) == 0]
     return seshat
 

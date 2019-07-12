@@ -6,6 +6,7 @@ import os.path
 import math
 import io
 import re
+from math import log10
 from imputv2 import impute
 from tqdm import tqdm
 from dictionaries import POLITY_ID_REPLACEMENTS, NGA_UTMs, COLUMN_NAME_REMAP,\
@@ -401,6 +402,17 @@ def deleteUltraSparse(seshat):
     ])
 
 
+# Fix singular orphaned values arisen from human error in encoding Seshat.
+def findHomesForThePoorOrphanChildren(seshat):
+    # This little child was so busy feasting, they drifted into a deleted column
+    seshat.at[1192,'Most_euphoric_ritual_name'] = 'feast'
+    # This little child was ~very~ found of extraneous units
+    seshat.at[441, 'Polity_territory'] = 175000
+    # This pair of little twins never really got a hang of intervals in math class
+    seshat.at[49, 'Population_of_the_largest_settlement'] = 22500
+    seshat.at[50, 'Population_of_the_largest_settlement'] = 22500
+    return seshat
+
 def phase1Tidy(seshat):
     # Handle tcultures spanning multiple NGAs
     seshat = groupNGAs(seshat)
@@ -422,57 +434,195 @@ def phase1Tidy(seshat):
     seshat = seshat.rename(remapRitualVars, axis='columns')
     # Delete ultra-sparse columns
     seshat = deleteUltraSparse(seshat) 
-    # Fix single orphaned value deleted in the above step
-    seshat.at[1192,'Most_euphoric_ritual_name'] = 'feast'
+    # Fix single orphaned values that arose from human error in coding Seshat
+    seshat = findHomesForThePoorOrphanChildren(seshat)
     # Finally, reorder the columns into a nice curated order
     seshat = seshat[COLUMN_REORDERING]
     return seshat
 
-# Create the "complexity component" variables used for imputation
-def createCCs(seshat):
-    # CC_PolPop  :
-    #   Log_10 of the population.
 
-    # CC_PolTerr :
-    #   Log_10 of the territory.
+def log10float(x):
+    return log10(float(x))
 
-    # CC_CapPop  :
-    #   Log_10 of the capital's population.
-
-    # CC_Hier    :
-
-    # CC_Govt    :
-
-    # CC_Infra   :
-
-    # CC_Writing :
-    #   0 = No evidence (clear absense; not simply null)
-    #   1 = At least mnemonic devices present
-    #   2 = At least non-written records present
-    #   3 = At least script present
-    #   4 = Written records present
-    # Presence or absence of a “less sophisticated” writing variable doesn't 
-    # affect this scale (so if “script” is present, it does not matter wither 
-    # non-written records are present or absent). (Turchin 2018)
-
-    # CC_Texts   :
-    #   Sum all of:
-    #      Lists, tables, and classifications
-    #      Calendar
-    #      Sacred texts
-    #      Religious literature
-    #      Practical literature
-    #      History
-    #      Philosophy
-    #      Scientific literature
-    #      Fiction
-    #   Ignore null entries. Only sum if absolutely "present" (1.0).
-    #   Ignore "inferred present" (0.9) and below.
-
-    # CC_Money   :
+# CC_PolPop
+#   Log_10 of the population.
+def createCC_PolPop(seshat):
+    seshat['CC_PolPop'] = seshat['Polity_population'].map(log10float)
     return seshat
 
-def addSC(seshat):
+# CC_PolTerr 
+#   Log_10 of the territory.
+def createCC_PolTerr(seshat):
+    seshat['CC_PolTerr'] = seshat['Polity_territory'].map(log10float)
+    return seshat
+
+# CC_CapPop  
+#   Log_10 of the capital's population.
+def createCC_CapPop(seshat):
+    seshat['CC_CapPop'] = seshat['Population_of_the_largest_settlement']\
+        .map(log10float)
+    return seshat
+
+# CC_Hier    
+#   Simply average all non-missing hierarchy variables
+def createCC_Hier(seshat):
+    seshat['CC_Hier'] = seshat[[
+        'Administrative_levels',
+        'Military_levels',
+        'Religious_levels',
+        'Settlement_hierarchy']].mean(axis=1)
+    return seshat
+
+
+# CC_Govt    
+#   Add together and normalize govt variables.
+#   Only include the govt entry if there's at least one non-null variable.
+def createCC_Govt(seshat):
+    govtVarData = seshat[[
+        'Specialized_government_buildings',
+        'Professional_lawyers',
+        'Professional_military_officers',
+        'Professional_priesthood',
+        'Professional_soldiers',
+        'Bureaucracy_examination_system',
+        'Bureaucracy_merit_promotion',
+        'Fulltime_bureaucrats',
+        'Courts',
+        'Formal_legal_code',
+        'Judges']]
+    # Nix entries with all nulls
+    govtVarData = govtVarData[govtVarData.isna().sum(axis=1) < 11]
+    seshat['CC_Govt'] = govtVarData.sum(axis=1) / 11.0
+    return seshat
+
+
+# CC_Infra   
+#   Sum and normalize infrasturcture variables.
+#   Only include the infra entry if there's at least one non-null variable.
+def createCC_Infra(seshat):
+    infraVarData = seshat[[
+        'Bridges',
+        'Canals',
+        'Ports',
+        'Mines_or_quarries',
+        'Roads',
+        'Irrigation_systems',
+        'Markets',
+        'Food_storage_sites',
+        'Drinking_water_supply_systems']]
+    infraVarData = infraVarData[infraVarData.isna().sum(axis=1) < 9]
+    seshat['CC_Infra'] = infraVarData.sum(axis=1) / 9.0
+    return seshat
+
+#   0 = No evidence (clear absense; not simply null)
+#   1 = At least mnemonic devices present
+#   2 = At least non-written records present
+#   3 = At least script present
+#   4 = Written records present
+# Presence or absence of a “less sophisticated” writing variable doesn't 
+# affect this scale (so if “script” is present, it does not matter wither 
+# non-written records are present or absent). (Turchin 2018)
+def determineWritingScore(series):
+    if series['Written_records'] >= 0.9:
+        return 4
+    elif series['Script'] >= 0.9:
+        return 3
+    elif series['Nonwritten_records'] >= 0.9:
+        return 2
+    elif series['Mnemonic_devices'] >= 0.9:
+        return 1
+    elif series['Mnemonic_devices'] <= 0.1:
+        return 0
+    else:
+        return np.nan
+
+# CC_Writing 
+def createCC_Writing(seshat):
+    writingData = seshat[[
+        'Mnemonic_devices',
+        'Nonwritten_records',
+        'Script',
+        'Written_records']]
+    seshat['CC_Writing'] = writingData.apply(determineWritingScore, axis=1)
+    return seshat
+
+
+def countAbsolutePresents(series):
+    count = 0
+    for item in series:
+        if float(item) == 1.0:
+            count += 1
+    return count
+
+# CC_Texts   
+#   Sum and normalize texts variables.
+#   Ignore null entries. Only sum if absolutely "present" (1.0).
+#   Ignore "inferred present" (0.9) and below.
+#   Only count polities with at data for at least one text variable.
+def createCC_Texts(seshat):
+    textVarData = seshat[[
+        'Lists_tables_and_classifications',
+        'Calendar',
+        'Sacred_texts',
+        'Religious_literature',
+        'Practical_literature',
+        'History',
+        'Philosophy',
+        'Scientific_literature',
+        'Fiction']]
+    textVarData = textVarData[textVarData.isna().sum(axis=1) < 9]
+    seshat['CC_Texts'] = textVarData.apply(countAbsolutePresents, axis=1) / 9.0
+    return seshat
+
+#   Similar to the writing scale:
+#       0 = clear absense
+#       1 = Articles
+#       2 = Tokens
+#       3 = Precious metals
+#       4 = Foreign coins
+#       5 = Indigenous coins
+#       6 = Paper currency
+def determineMoneyScore(series):
+    if series['Paper_currency'] >= 0.9:
+        return 6
+    elif series['Indigenous_coins'] >= 0.9:
+        return 5
+    elif series['Foreign_coins'] >= 0.9:
+        return 4
+    elif series['Precious_metals'] >= 0.9:
+        return 3
+    elif series['Tokens'] >= 0.9:
+        return 2
+    elif series['Articles'] >= 0.9:
+        return 1
+    elif series['Articles'] <= 0.1:
+        return 0
+    else:
+        return np.nan
+
+# CC_Money
+def createCC_Money(seshat):
+    moneyVarData = seshat[[
+        'Articles',
+        'Tokens',
+        'Precious_metals',
+        'Foreign_coins',
+        'Indigenous_coins',
+        'Paper_currency']]
+    seshat['CC_Money'] = moneyVarData.apply(determineMoneyScore, axis=1)
+    return seshat
+
+# Create the "complexity component" variables used for imputation
+def createCCs(seshat):
+    seshat = createCC_PolPop(seshat)
+    seshat = createCC_PolTerr(seshat)
+    seshat = createCC_CapPop(seshat)
+    seshat = createCC_Hier(seshat)
+    seshat = createCC_Govt(seshat)
+    seshat = createCC_Infra(seshat)
+    seshat = createCC_Writing(seshat)
+    seshat = createCC_Texts(seshat)
+    seshat = createCC_Money(seshat)
     return seshat
 
 def phase2Tidy(seshat):
@@ -492,11 +642,11 @@ def main():
     if DEBUG:
         seshat = pd.read_csv('phase1.csv',index_col=0)
     seshat = phase1Tidy(seshat)
-#    seshat = createCCs(seshat)
+    seshat = createCCs(seshat)
     seshat = impute(seshat)
-#    seshat = addSC(seshat)
+    exit()
 #    seshat = phase2Tidy(seshat)
-    export(seshat) 
+#    export(seshat) 
 
 if __name__ == '__main__':
     main()

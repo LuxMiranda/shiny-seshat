@@ -11,8 +11,7 @@ from imputv2 import impute
 from tqdm import tqdm
 from dictionaries import POLITY_ID_REPLACEMENTS, NGA_UTMs, COLUMN_NAME_REMAP,\
         RITUAL_VARIABLES, COLUMN_MERGE, RITUAL_VARIABLE_RENAMES,\
-        COLUMN_REORDERING
-
+        COLUMN_REORDERING, NGA_REGIONS
 
 SESHAT_URL   = 'http://seshatdatabank.info/moralizinggodsdata/data/download.csv'
 OUT_FILENAME = 'shiny-seshat.csv'
@@ -414,6 +413,13 @@ def findHomesForThePoorOrphanChildren(seshat):
     seshat.at[50, 'Population_of_the_largest_settlement'] = 22500
     return seshat
 
+def addRegionInfo(seshat):
+    seshat['Region'] = seshat['NGA'].map(
+            lambda ngaList:
+            list(pd.unique([NGA_REGIONS[nga] for nga in ngaList]))
+    )
+    return seshat
+
 def phase1Tidy(seshat):
     # Handle tcultures spanning multiple NGAs
     seshat = groupNGAs(seshat)
@@ -437,6 +443,8 @@ def phase1Tidy(seshat):
     seshat = deleteUltraSparse(seshat) 
     # Fix single orphaned values that arose from human error in coding Seshat
     seshat = findHomesForThePoorOrphanChildren(seshat)
+    # Add Region
+    seshat = addRegionInfo(seshat)
     # Finally, reorder the columns into a nice curated order
     seshat = seshat[COLUMN_REORDERING]
     return seshat

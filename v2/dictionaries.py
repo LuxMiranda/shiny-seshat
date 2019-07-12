@@ -63,6 +63,39 @@ NGA_UTMs = {
     'Ghanaian Coast' : ['30N']
 }
 
+NGA_REGIONS = {
+    'Big Island Hawaii' : 'Oceania-Australia',
+    'Chuuk Islands' : 'Oceania-Australia',
+    'Oro PNG' : 'Oceania-Australia',
+    'Lowland Andes' : 'South America',
+    'Cuzco' : 'South America',
+    'Valley of Oaxaca' : 'North America',
+    'North Colombia' : 'South America',
+    'Cahokia' : 'North America',
+    'Finger Lakes' : 'North America',
+    'Middle Yellow River Valley' : 'East Asia',
+    'Kansai' : 'East Asia',
+    'Southern China Hills' : 'East Asia',
+    'Cambodian Basin' : 'Southeast Asia',
+    'Central Java' : 'Southeast Asia',
+    'Kapuasi Basin' : 'Southeast Asia',
+    'Kachi Plain' : 'South Asia',
+    'Deccan' : 'South Asia',
+    'Garo Hills' : 'South Asia',
+    'Susiana' : 'Southwest Asia',
+    'Konya Plain' : 'Southwest Asia',
+    'Yemeni Coastal Plain' : 'Southwest Asia',
+    'Sogdiana' : 'Central Eurasia',
+    'Orkhon Valley' : 'Central Eurasia',
+    'Lena River Valley' : 'Central Eurasia',
+    'Latium' : 'Europe',
+    'Paris Basin' : 'Europe',
+    'Iceland' : 'Europe',
+    'Upper Egypt' : 'Africa',
+    'Niger Inland Delta' : 'Africa',
+    'Ghanaian Coast' : 'Africa'
+}
+
 COLUMN_NAME_REMAP = {
     'Original_name' : 'Original_culture_name',
     'Examination_system' : 'Bureaucracy_examination_system',
@@ -270,6 +303,7 @@ COLUMN_REORDERING = [
 # Other
 'Peak_date',
 'UTM_zone',
+'Region',
 'Capital',
 # Language, lineage, and relations
 'Degree_of_centralization',

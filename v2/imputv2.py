@@ -1,4 +1,10 @@
 from dictionaries import FEATURES_TO_IMPUTE
+from sklearn import linear_model
+from sklearn.linear_model import LinearRegression
+import statsmodels.api as sm
+from scipy import stats
+import pandas as pd
+
 """
 Algorithm
 Pair down the dataset to only cases with fully known 51 variables
@@ -20,11 +26,7 @@ Notes:
     Create each CC
 """
 
-
-# Pair down to only datapoints with all 51 variables
-def pairDown(fullSeshat):
-    seshat = fullSeshat[[
-        'CC_PolPop',
+CCs = [ 'CC_PolPop',
         'CC_PolTerr',
         'CC_CapPop',
         'CC_Hier',
@@ -32,26 +34,40 @@ def pairDown(fullSeshat):
         'CC_Infra',
         'CC_Writing',
         'CC_Texts',
-        'CC_Money',
-        'NGA',
-        'Temperoculture']]
+        'CC_Money']
  
+
+def buildModel(seshat):
+#    for cc in CCs:
+    predictors = {}
+    for cc in CCs:
+        target = seshat[cc]
+        X = sm.add_constant(seshat.drop(cc,axis='columns'))
+        ordinaryLeastSquares  = sm.OLS(target, X)
+        results               = ordinaryLeastSquares.fit(transform=False)
+        lines = results.summary().as_csv().split('\n')[10:-7]
+        with open('temp','w') as f:
+            for line in lines:
+                f.write(line + '\n')
+        res = pd.read_csv('temp',index_col=0)['P>|t| ']
+        predictors[cc] = [pred.replace(' ','') for pred, val in res.items() if val < 0.05]
+    return seshat
+
+# Pair down to only datapoints with all 51 variables
+def pairDown(fullSeshat):
+    seshat = fullSeshat[CCs]
     seshat = seshat[seshat.isna().sum(axis=1) == 0]
     return seshat
 
 def impute(fullSeshat):
-    # Pair down to only datapoints with all 51 variables
+    # Pair down to only datapoints with all CC variables
     seshat = pairDown(fullSeshat)
-    # Build the full imputation model
 
+    # Build the full imputation model
     # Use the model to impute the dataset 20 times.
+    seshat = buildModel(seshat)
 
     # (Each imputation introduces variance from sampling the residual to add to the final vals)
 
     # return recombine()
-    seshat['num_NGAs'] = seshat['NGA'].map(len)
-    seshat['Temperoculture'] = seshat['Temperoculture'].map(lambda x : x[:-2])
-    seshat = seshat.drop_duplicates(subset='Temperoculture')
-    print(seshat)
-    print(seshat['num_NGAs'].sum())
-    return fullSeshat
+    return seshat

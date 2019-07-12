@@ -16,6 +16,7 @@ from dictionaries import POLITY_ID_REPLACEMENTS, NGA_UTMs, COLUMN_NAME_REMAP,\
 
 SESHAT_URL   = 'http://seshatdatabank.info/moralizinggodsdata/data/download.csv'
 OUT_FILENAME = 'shiny-seshat.csv'
+OUT_UNIMPUTED_FILENAME = 'shiny-seshat-unimputed.csv'
 
 pd.options.mode.chained_assignment = None  # default='warn'
 PROGRESS_BAR = tqdm(total=(3+520))
@@ -74,7 +75,7 @@ def convertBooleans(colValue):
         return 1.0
     elif value in ['inferred present','inferred inferred present']:
         return 0.9
-    elif value in ['absent']:
+    elif value in ['absent','none']:
         return 0.0
     elif value in ['inferred absent']:
         return 0.1
@@ -631,8 +632,9 @@ def phase2Tidy(seshat):
 def exportUnimputed(seshat):
     return
 
-def export(seshat):
-    seshat.to_csv(OUT_FILENAME, sep=',')
+def export(seshat, imputed=True):
+    outFile = OUT_FILENAME if imputed else OUT_UNIMPUTED_FILENAME
+    seshat.to_csv(outFile, sep=',')
 
 def main():
 #    ensureReqs();                            PROGRESS_BAR.update(1)
@@ -643,10 +645,10 @@ def main():
         seshat = pd.read_csv('phase1.csv',index_col=0)
     seshat = phase1Tidy(seshat)
     seshat = createCCs(seshat)
+    export(seshat, imputed=False) 
     seshat = impute(seshat)
-    exit()
 #    seshat = phase2Tidy(seshat)
-#    export(seshat) 
+    export(seshat, imputed=True)
 
 if __name__ == '__main__':
     main()

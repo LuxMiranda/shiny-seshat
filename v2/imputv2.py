@@ -1,32 +1,31 @@
-from dictionaries import FEATURES_TO_IMPUTE
-from sklearn import linear_model
-from sklearn.linear_model import LinearRegression
+from dictionaries import FEATURE_SELECT
+import sklearn.linear_model as lm
+import sklearn.ensemble as ens
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+import sklearn.feature_selection as fs
 import statsmodels.api as sm
 from scipy import stats
 import pandas as pd
 import numpy as np
 from hyperopt import fmin, tpe, hp
 import os
+import sys
 
 """
-Algorithm
-Pair down the dataset to only cases with fully known 51 variables
-For each feature A we're building a model to predict:
-    Build a linear regression using all features to predict A
-    Select a more refined model using the P-values for each term in the regression
-    coeffs, residuals, p^2 = optimize()
-        # ^ Here, we get a residual for every value we attempted to predict!
+Predictive power test
 
-Optimize
-Fetch coefficients from the search algorithm
-For each train/test set in the 10-fold cross-validation:
-    Compute p^2 for the prediction.
-Average all P^2 for a master P^2.
-P^2 is the fitness function. Will need to flop like silcoeff to turn it into a minimization thing. 
+Pair down data to only cases with complete CCs
 
-
-Notes:
-    Create each CC
+For each model M we wish to test:
+    For each variable Q we wish to predict:
+        Split the data into train and test set
+        Remove the Q data from the test set
+        Fit an imputer on the train set using model M
+        Multiple-impute the test set
+        Get the average p2 from the multiple imputation
+    model M has p2 values for these variables
+    
 """
 
 CCs = [ 'CC_PolPop',
@@ -38,6 +37,17 @@ CCs = [ 'CC_PolPop',
         'CC_Writing',
         'CC_Texts',
         'CC_Money']
+
+ESTIMATORS = {
+    'LinearRegression'     : lm.LinearRegression(),
+#    'Lasso'                : lm.Lasso(),
+#    'LassoCV'              : lm.LassoCV(),
+#    'ExtraTreesRegressor'  : ens.ExtraTreesRegressor(n_estimators=10, random_state=0),
+#    'BayesianRidge'        : lm.BayesianRidge(),
+#    'LassoLarsIC'          : lm.LassoLarsIC(criterion='aic', fit_intercept=True),
+#    'RANSAC'               : lm.RANSACRegressor(),
+#    'RidgeCV'              : lm.RidgeCV(),                                                               
+}
 
 # Really, REALLY janky way of going about parsing p-values from the
 # regression result. But hey, it works. Returns a list of significant coeffs
@@ -72,76 +82,112 @@ def selectPredictors(seshat):
     return predictors
 
 def p2prediction(predicted, actual):
-    num  = np.sum([(p - a)**2 for p,a in list(zip(predicted,actual))])
     yBar = np.mean(actual)
     dem  = np.sum([(yBar - a)**2 for a in actual])
-    return 1.0 - (num/dem)
+    if dem == 0:
+        num = np.sum([-np.abs(p - yBar) for p in predicted])
+        return num/yBar + 1
+    else:
+        num  = np.sum([(p - a)**2 for p,a in list(zip(predicted,actual))])
+        return 1.0 - (num/dem)
 
 def regionKFold(seshat):
+    regions = seshat['Region'].apply(lambda x: x[0]).unique()
+    regionSelector = lambda reg : seshat['Region'].map(lambda l: reg in l)
     return [
-        (seshat[seshat['Region'] != reg], seshat[seshat['Region'] == reg])
-            for reg in seshat['Region'].unique() 
-    ]
-
-def predict(targetVar, parms, trainSet):
-    return
-
-def evaluateModel(seshat, targetVar, parms):
-    p2s = []
-    # For each slice in the k-fold validation
-    for trainSet,testSet in regionKFold(seshat):
-        # Use the train set to predict the given variable
-        predicted = predict(targetVar, parms, trainSet)
-        actual    = list(testSet[targetVar])
-        # Use the predicted and actual data to get a p2 value
-        p2s.append(p2prediction(predicted, actual))
-    # Return the average of all p2 values
-    return np.mean(p2s)
-
-def makeSearchSpace(targetVar, predictors):
-    allVars = ['constant','polPop','polTerr','capPop','hier','govt','infra',
-               'writing', 'texts', 'money']
-    searchSpace = []
-    for var in allVars:
-        if var != targetVar and var in predictors:
-            searchSpace.append(hp.uniform(var, -5.0, 5.0))
-        else:
-            searchSpace.append(hp.uniform(var, 0.0, 0.0))
-    return tuple(searchSpace)
-
-def optimizeCoeffs(seshat,targetVar,predictors):
-    searchSpace = makeSearchSpace(targetVar, predictors)
-    return fmin(
-        fn=(lambda parms : evaluateModel(seshat, targetVar, parms)),
-        space=searchSpace, algo=tpe.suggest, max_evals=1000
+        (
+            seshat[~regionSelector(reg)],
+            seshat[regionSelector(reg)],
+            reg
         )
-
-
-def buildModel(seshat):
-    predictors = selectPredictors(seshat)
-    model = {}
-    # For each predictor
-    for targetVar,predictors in predictors.iteritems():
-        # Find the best coefficients for predicting the variable
-        model[targetVar] = optimizeCoeffs(seshat,targetVar,predictors)
-    # Return all info found
-    return model
+        for reg in regions
+    ]
 
 # Pair down to only datapoints with all 51 variables
 def pairDown(fullSeshat):
-    seshat = fullSeshat[CCs]
-    seshat = seshat[seshat.isna().sum(axis=1) == 0]
+    ccs = fullSeshat[CCs]
+    return fullSeshat[ccs.isna().sum(axis=1) == 0]
+
+def trackImputes(series):
+    return [1 if null else 0 for null in series.isnull()]
+
+def includeImputeInfo(seshat):
+    seshat['Percent_CCs_imputed'] = seshat[CCs].isnull().sum(axis=1) / len(CCs)
+    seshat['CCs_imputed'] = seshat[CCs].apply(trackImputes, axis=1)
     return seshat
 
-def impute(fullSeshat):
-    # Pair down to only datapoints with all CC variables
-    seshat = pairDown(fullSeshat)
+def featureSelect(train,test,ccPredict):
+    return train[FEATURE_SELECT[ccPredict]], test[FEATURE_SELECT[ccPredict]]
 
-    # Build the full imputation model
-    # Use the model to impute the dataset 20 times.
-    model = buildModel(seshat)
+def prepareModel(data, responseVar):
+    print('')
+    print(data)
+    exit()
 
-    # (Each imputation introduces variance from sampling the residual to add to the final vals)
+def testMultImputation(train, test, ccPredict, ccActual, estimator):
+    # Perform imputation 20 times and take the average p2 of all of them.
+    num_imputations = 1
+    p2s = []
 
-    # return recombine()
+    for i in range(num_imputations):
+        imputer = IterativeImputer(
+                    estimator=ESTIMATORS[estimator],
+                    max_iter=10,
+                    min_value=0, 
+                    random_state=i,
+                    sample_posterior=False,
+                    verbose=0)
+
+        # Prepare models
+        train = prepareModel(train,ccPredict)
+        test  = prepareModel(test,ccPredict)
+
+        # Janky workaround for sklearn bug affecting .fit().transform()
+        allData     = np.concatenate([np.array(train),np.array(test)])
+        imputedData = imputer.fit_transform(allData)
+ 
+        predicted = imputedData[train.shape[0]:,FEATURE_SELECT[ccPredict].index(ccPredict)]
+        p2s.append(p2prediction(predicted, ccActual.copy()))
+
+    return np.mean(p2s)
+
+def testImputationModel(ccData, estimator):
+    meanp2s = []
+
+    for i,ccPredict in enumerate(CCs):
+        sys.stdout.write('\rTesting {} (CC {}/9)...'.format(estimator,i+1))
+        sys.stdout.flush()
+
+        p2s = []
+        for train, test, testRegion in regionKFold(ccData):
+            # Remove the cc we're predicting in the test set
+            ccActual = test[ccPredict].copy()
+            test[ccPredict] = test[ccPredict].map(lambda x: np.nan)
+            p2s.append(testMultImputation(train, test, ccPredict, ccActual, estimator))
+        meanp2s.append(np.mean(p2s))
+
+    print('')
+
+    return meanp2s
+
+def testImputationModels(seshat):
+    ccData  = pairDown(seshat)
+    p2data  = []
+    for estimator in ESTIMATORS.keys():
+        p2data.append(
+            testImputationModel(ccData, estimator) + [estimator]
+        )
+        pd.DataFrame(p2data, columns=(CCs+['Estimator'])).to_csv('estimator-predictions.csv',mode='a',header=False)
+    return pd.DataFrame(p2data, columns=(CCs + ['Estimator']))
+
+def impute(seshat):
+    # Keep track of which CC's we're imputing
+    seshat = includeImputeInfo(seshat)
+
+    # Test imputation methods
+    results = testImputationModels(seshat)
+    results = results.set_index('Estimator')
+    print(results)
+
+
     return seshat

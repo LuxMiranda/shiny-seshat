@@ -345,4 +345,15 @@ COLUMN_REORDERING = [
 'Name_of_other_significant_religious_or_ideological_systems'
 ]
 
-FEATURES_TO_IMPUTE = ['Polity_population','Polity_territory','Population_of_the_largest_settlement','Administrative_levels','Military_levels','Religious_levels','Settlement_hierarchy','Professional_military_officers','Professional_soldiers','Professional_priesthood','Fulltime_bureaucrats','Bureaucracy_examination_system','Bureaucracy_merit_promotion','Specialized_government_buildings','Courts','Formal_legal_code','Judges','Professional_lawyers','Irrigation_systems','Drinking_water_supply_systems','Markets','Food_storage_sites','Roads','Bridges','Canals','Ports','Mines_or_quarries','Couriers','Postal_stations','General_postal_service','Mnemonic_devices','Nonwritten_records','Written_records','Script','Nonphonetic_writing','Phonetic_alphabetic_writing','Lists_tables_and_classifications','Calendar','Sacred_texts','Religious_literature','Practical_literature','History','Philosophy','Scientific_literature','Fiction','Articles','Tokens','Precious_metals','Foreign_coins','Indigenous_coins','Paper_currency']
+# Table SI3 in Turchin et. al.
+FEATURE_SELECT = {
+     'CC_PolPop'  : ['CC_PolPop','CC_PolTerr','CC_CapPop','CC_Hier','CC_Writing'],
+     'CC_PolTerr' : ['CC_PolPop','CC_PolTerr'],
+     'CC_CapPop'  : ['CC_PolPop','CC_CapPop', 'CC_Hier'],
+     'CC_Hier'    : ['CC_PolPop', 'CC_CapPop', 'CC_Hier', 'CC_Infra', 'CC_Writing'],
+     'CC_Govt'    : ['CC_Govt','CC_Infra','CC_Writing','CC_Texts'],
+     'CC_Infra'   : ['CC_Hier','CC_Govt','CC_Infra','CC_Texts','CC_Money'],
+     'CC_Writing' : ['CC_PolPop','CC_Hier','CC_Govt','CC_Writing','CC_Texts','CC_Money'],
+     'CC_Texts'   : ['CC_Govt','CC_Infra','CC_Writing','CC_Texts'],
+     'CC_Money'   : ['CC_Infra','CC_Writing','CC_Money']
+}

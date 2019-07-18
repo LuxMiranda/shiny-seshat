@@ -15,7 +15,7 @@ from dictionaries import POLITY_ID_REPLACEMENTS, NGA_UTMs, COLUMN_NAME_REMAP,\
 
 SESHAT_URL   = 'http://seshatdatabank.info/moralizinggodsdata/data/download.csv'
 OUT_FILENAME = 'shiny-seshat.csv'
-OUT_UNIMPUTED_FILENAME = 'shiny-seshat-unimputed.csv'
+OUT_UNRESOLVED_FILENAME = 'shiny-seshat-unresolved.csv'
 
 pd.options.mode.chained_assignment = None  # default='warn'
 PROGRESS_BAR = tqdm(total=(3+520))
@@ -634,14 +634,56 @@ def createCCs(seshat):
     seshat = createCC_Money(seshat)
     return seshat
 
-def phase2Tidy(seshat):
+def roundToCentury(year):
+    return np.nan if np.isnan(year) else int(np.ceil(year / 100.0)) * 100
+
+def makeTimeSeriesEntry(polityInfo, t):
+    polityData = polityInfo[polityInfo['Period_start'] <= t]
+    polityData = polityData.sort_values('Period_start')
+    series     = polityData.reset_index().iloc[-1].copy()
+    series['Temperoculture'] = series['BasePolity'] + ('+' if t >= 0 else '') + str(int(t)) 
+    series['Period_start']   = t
+    series['Period_end']     = t + 100
+    return series
+
+# Create a century-resolved time series for the given polity
+def makeTimeSeries(seshat, polity):
+    # Get info for just this polity
+    polityInfo = seshat[seshat['BasePolity'] == polity]
+    # Get the start year
+    startYear = roundToCentury(np.min(polityInfo['Period_start']))
+    # Get the end year
+    endYear   = roundToCentury(np.max(polityInfo['Period_end']))
+
+    if np.isnan(startYear):
+        return []
+
+    return [
+        makeTimeSeriesEntry(polityInfo.copy(), t)
+        for t in range(startYear,endYear+100,100)
+    ]
+
+# Turn each polity into a timeseries with century-level resolution
+def createFullTimeSeries(seshat):
+    # Get the list of all polities
+    seshat['BasePolity'] = seshat['Temperoculture'].map(lambda x: x.split('-')[0])
+    polities = seshat['BasePolity'].unique()
+
+    # For each polity, generate its timeseries
+    serieses = []
+    for p in polities:
+        series = np.array(makeTimeSeries(seshat,p))
+        if series.shape[0] > 0:
+            serieses.append(series)
+
+    columns = ['i'] + list(seshat.columns)
+    seshat = pd.DataFrame(np.concatenate(serieses), columns=columns)
+    seshat = seshat.drop('i',axis='columns')
     return seshat
 
-def exportUnimputed(seshat):
-    return
-
-def export(seshat, imputed=True):
-    outFile = OUT_FILENAME if imputed else OUT_UNIMPUTED_FILENAME
+def export(seshat, timeResolved=True):
+    seshat = seshat.set_index('Temperoculture')
+    outFile = OUT_FILENAME if timeResolved else OUT_UNRESOLVED_FILENAME
     seshat.to_csv(outFile, sep=',')
 
 def main():
@@ -653,10 +695,12 @@ def main():
         seshat = pd.read_csv('phase1.csv',index_col=0)
     seshat = phase1Tidy(seshat)
     seshat = createCCs(seshat)
-    export(seshat, imputed=False) 
+    export(seshat, timeResolved=False) 
+    seshat = createFullTimeSeries(seshat)
+    export(seshat, timeResolved=True) 
     seshat = impute(seshat)
 #    seshat = phase2Tidy(seshat)
-    export(seshat, imputed=True)
+#    export(seshat)
 
 if __name__ == '__main__':
     main()

@@ -357,3 +357,16 @@ FEATURE_SELECT = {
      'CC_Texts'   : ['CC_Govt','CC_Infra','CC_Writing','CC_Texts'],
      'CC_Money'   : ['CC_Infra','CC_Writing','CC_Money']
 }
+
+# Complexity characteristics
+CCs = [ 'CC_PolPop',
+        'CC_PolTerr',
+        'CC_CapPop',
+        'CC_Hier',
+        'CC_Govt',
+        'CC_Infra',
+        'CC_Writing',
+        'CC_Texts',
+        'CC_Money']
+
+

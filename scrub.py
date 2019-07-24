@@ -430,6 +430,11 @@ polities.to_csv('shiny-seshat-unimputed.csv', sep=',')
 # Impute missing entries
 polities = impute(polities)
 
+from dictionaries import FEATURES_TO_IMPUTE
+pols = polities[FEATURES_TO_IMPUTE]
+pols = polities[polities.isna().sum(axis=1) == 0]
+print(pols)
+
 ## Export
 polities.to_csv('shiny-seshat.csv', sep=',')
 print("Exported to shiny-seshat.csv!")

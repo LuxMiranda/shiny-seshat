@@ -19,35 +19,37 @@ def main():
     folds = regionKFold(df)
     folds += [(df_train_all,df_test_all,'all regions')]
 
-    modelVars = [col for col in list(df.columns) if col[:2] == 'CC']
+    #modelVars = [col for col in list(df.columns) if col[:2] == 'CC']
+    modelVars = CCs
 
 
-    p2s = []
-    for df_train,df_test,region in folds:
+    for var in CCs:
+        if var != 'CC_PolPop':
+            with open('crossValResults.txt','a') as f:
+                p2s = []
+                f.write('<><><>{}<><><>\n'.format(var))
+                for df_train,df_test,region in folds:
 
-        predictVar = 'CC_PolPop'
+                    predictVar = var
 
-        actual = df_test[predictVar].copy()
+                    actual = df_test[predictVar].copy()
 
-        df_test[predictVar] = df_test[predictVar].map(lambda _ : np.nan)
+                    df_test[predictVar] = df_test[predictVar].map(lambda _ : np.nan)
 
-        imputer = datawig.SimpleImputer(
-                input_columns=listWithout(modelVars,predictVar),
-                output_column=predictVar,
-                output_path='model/imputer_model1'
-                )
-        imputer.fit_hpo(train_df=df_train, num_epochs=1000,
-                user_defined_scores=[(myScore, 'p2_prediction')])
-        imputed = imputer.predict(df_test)
-        predicted = imputed['CC_PolPop_imputed']
+                    imputer = datawig.SimpleImputer(
+                            input_columns=listWithout(modelVars,predictVar),
+                            output_column=predictVar,
+                            output_path='model/imputer_model1'
+                            )
+                    imputer.fit_hpo(train_df=df_train, num_epochs=1000,
+                            user_defined_scores=[(myScore, 'p2_prediction')])
+                    imputed = imputer.predict(df_test)
+                    predicted = imputed['{}_imputed'.format(var)]
 
-        p2s.append((region,p2prediction(predicted,actual)))
+                    p2s.append((region,p2prediction(predicted,actual)))
 
-    
-
-   # print("P2 - {} - {}: {}".format(predictVar,region,p2prediction(predicted,actual)))
-    for region,p2 in p2s:
-        print('p2 for {}: {}'.format(region,p2))
+                for region,p2 in p2s:
+                    f.write('p2 for {}: {}\n'.format(region,p2))
 
     return
 

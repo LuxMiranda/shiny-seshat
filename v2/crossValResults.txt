@@ -1,0 +1,14 @@
+<><><>CC_PolTerr<><><>
+<><><>CC_PolTerr<><><>
+<><><>CC_PolTerr<><><>
+p2 for South Asia: -1.7401773001738268
+p2 for Southwest Asia: 0.13328116195523187
+p2 for Central Eurasia: -0.3390089640591203
+p2 for Africa: 0.8034070965077772
+p2 for Southeast Asia: -2.6824699168909425
+p2 for East Asia: 0.6624452267920082
+p2 for South America: 0.8208811838442458
+p2 for Europe: 0.5674137579036672
+p2 for North America: -1.5993639471224008
+p2 for Oceania-Australia: -0.2556507090340352
+p2 for all regions: 0.8735878654568302

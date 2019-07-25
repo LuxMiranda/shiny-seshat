@@ -63,6 +63,8 @@ NGA_UTMs = {
     'Ghanaian Coast' : ['30N']
 }
 
+NGAs = list(NGA_UTMs.keys())
+
 NGA_REGIONS = {
     'Big Island Hawaii' : 'Oceania-Australia',
     'Chuuk Islands' : 'Oceania-Australia',
@@ -369,4 +371,49 @@ CCs = [ 'CC_PolPop',
         'CC_Texts',
         'CC_Money']
 
-
+NON_NUMERIC_COLUMNS = [
+'Temperoculture',
+'NGA',
+'Original_culture_name',
+'Period_start',
+'Period_end',
+'Bureaucracy_source_of_support',
+'Peak_date',
+'UTM_zone',
+'Region',
+'Capital',
+'Degree_of_centralization',
+'Language',
+'Linguistic_family',
+'Preceding_(quasi)polity',
+'Relationship_to_preceding_(quasi)polity',
+'Succeeding_(quasi)polity',
+'Supracultural_entity',
+'Scale_of_supracultural_interaction',
+'Suprapolity_relations',
+'Supernatural_enforcement_of_fairness',
+'Supernatural_enforcement_of_human_reciprocity',
+'Supernatural_enforcement_of_ingroup_loyalty',
+'Name_of_official_cult',
+'Largest_scale_ritual_name',
+'Largest_scale_collective_ritual_of_the_official_cult_frequency_for_the_audience',
+'Largest_scale_ritual_frequency_for_ritual_specialist',
+'Largest_scale_ritual_frequency_per_participant',
+'Most_dysphoric_ritual_name',
+'Most_dysphoric_ritual_frequency_for_audience',
+'Most_dysphoric_ritual_frequency_for_ritual_specialist',
+'Most_dysphoric_ritual_frequency_per_participant',
+'Most_euphoric_ritual_name',
+'Most_euphoric_ritual_frequency_for_audience',
+'Most_euphoric_ritual_frequency_for_ritual_specialist',
+'Most_euphoric_ritual_frequency_per_participant',
+'Most_frequent_ritual_name',
+'Most_frequent_ritual_frequency_for_audience',
+'Most_frequent_ritual_frequency_for_ritual_specialist',
+'Most_frequent_ritual_frequency_per_participant',
+'Most_widespread_ritual_name',
+'Most_widespread_ritual_frequency_for_audience',
+'Most_widespread_ritual_frequency_for_ritual_specialist',
+'Most_widespread_ritual_frequency_per_participant',
+'Name_of_other_significant_religious_or_ideological_systems'
+]

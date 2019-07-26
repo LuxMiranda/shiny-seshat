@@ -12,3 +12,110 @@ p2 for Europe: 0.5674137579036672
 p2 for North America: -1.5993639471224008
 p2 for Oceania-Australia: -0.2556507090340352
 p2 for all regions: 0.8735878654568302
+<><><>CC_PolPop<><><>
+p2 for all regions: 0.9028554033769587
+<><><>CC_PolPop<><><>
+p2 for all regions: 0.9028554033769587
+<><><>CC_PolPop<><><>
+p2 for all regions: 0.8667295143024926
+
+
+With proper regression vars
+<><><>CC_PolPop<><><>
+p2 for all regions: 0.8667295143024926
+<><><>CC_PolTerr<><><>
+p2 for all regions: 0.24529494373602623
+<><><>CC_CapPop<><><>
+p2 for all regions: 0.4505643019749741
+<><><>CC_Hier<><><>
+p2 for all regions: 0.5955456779495419
+<><><>CC_Govt<><><>
+p2 for all regions: 0.5786344191387608
+<><><>CC_Infra<><><>
+p2 for all regions: 0.4001472099923774
+<><><>CC_Writing<><><>
+p2 for all regions: 0.6717328853288418
+<><><>CC_Texts<><><>
+p2 for all regions: 0.5298522262284209
+<><><>CC_Money<><><>
+p2 for all regions: 0.36194229645115505
+
+With improper regression vars
+---CC_PolPop---
+p2 for all regions: 0.9028554033769587
+---CC_PolTerr---
+p2 for all regions: 0.6213997561481764
+---CC_CapPop---
+p2 for all regions: 0.3603937307014501
+---CC_Hier---
+p2 for all regions: 0.6937736201119145
+---CC_Govt---
+p2 for all regions: 0.70712973454176
+---CC_Infra---
+p2 for all regions: 0.6463897567179184
+---CC_Writing---
+p2 for all regions: 0.49908554590188836
+---CC_Texts---
+p2 for all regions: 0.32489486917651966
+---CC_Money---
+p2 for all regions: 0.16476841511377616
+
+With CCs only
+---CC_PolPop---
+p2 for all regions: 0.8765262828698486
+---CC_PolTerr---
+p2 for all regions: 0.3199151246027553
+---CC_CapPop---
+p2 for all regions: 0.3108197859636401
+---CC_Hier---
+p2 for all regions: 0.5535476389493239
+---CC_Govt---
+p2 for all regions: 0.4377708718361134
+---CC_Infra---
+p2 for all regions: 0.3218895638769508
+---CC_Writing---
+p2 for all regions: -0.12927918519826642
+---CC_Texts---
+p2 for all regions: 0.08925993029332946
+---CC_Money---
+p2 for all regions: -0.05271923900566389
+
+MAGIC, just CCs
+---CC_PolPop---
+p2 for all regions: 0.8967246149992504
+---CC_PolTerr---
+p2 for all regions: 0.3333115435442483
+---CC_CapPop---
+p2 for all regions: 0.376055559574886
+---CC_Hier---
+p2 for all regions: 0.4517367230749336
+---CC_Govt---
+p2 for all regions: 0.4275632330453635
+---CC_Infra---
+p2 for all regions: 0.30174335016916554
+---CC_Writing---
+p2 for all regions: 0.7171117336774079
+---CC_Texts---
+p2 for all regions: 0.054811040981034065
+---CC_Money---
+p2 for all regions: -0.09235035227417532
+
+STRAIGHT UP MAGIC
+---CC_PolPop---
+p2 for all regions: 0.9392462838009008
+---CC_PolTerr---
+p2 for all regions: 0.5889993011346575
+---CC_CapPop---
+p2 for all regions: 0.5686048943505266
+---CC_Hier---
+p2 for all regions: 0.8064287037328794
+---CC_Govt---
+p2 for all regions: 0.6580439366581305
+---CC_Infra---
+p2 for all regions: 0.8153266750405468
+---CC_Writing---
+p2 for all regions: 0.6899573858532633
+---CC_Texts---
+p2 for all regions: 0.27185634967564476
+---CC_Money---
+p2 for all regions: 0.21321373731879323

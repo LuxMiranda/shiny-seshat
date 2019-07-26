@@ -222,8 +222,13 @@ def p2Score(true, predicted, confidence):
 def modelExists(predictVar):
     return os.path.isdir('model/{}_imputer0'.format(predictVar))
 
-def getCCTrainSet():
-    return pd.read_csv('model/regressions-master.csv', index_col='Temperoculture')
+
+def ccVars(df):
+    return [col for col in list(df.columns) if col[:2] == 'CC' and col != 'CCs_imputed']
+
+def getCCTrainSet(seshat):
+    trainSet = seshat[ccVars(seshat)]
+    return trainSet[trainSet.isnull().sum(axis=1) == 0]
 
 def combineRegWithSeshat(seshat, trainSet):
     seshat.set_index('Temperoculture')
@@ -231,36 +236,58 @@ def combineRegWithSeshat(seshat, trainSet):
         seshat[regVar] = trainSet[regVar]
     return seshat
 
+def testImpute(data, modelVars):
+    train, test = datawig.utils.random_split(data)
+    predictVar = 'CC_PolPop'
+    actual = test[predictVar].copy()
+    test[predictVar] = test[predictVar].map(lambda _ : np.nan)
+
+    imputer = datawig.SimpleImputer(
+                input_columns = lDel(modelVars, predictVar),
+                output_column = predictVar,
+                output_path   = 'model/test_imputer'.format(predictVar)
+                )
+
+    imputer.fit_hpo(train_df=train, num_epochs=1000,
+            user_defined_scores=[(p2Score, 'p2_prediction')])
+    imputed = imputer.predict(test)
+    predicted = imputed['{}_imputed'.format(predictVar)]
+    print('Pred: {}'.format(p2prediction(predicted,actual)))
+
+
 def imputeCCs(seshat):
-    trainSet  = getCCTrainSet()
-    modelVars = [col for col in list(trainSet.columns) if col[:2] == 'CC' and col != 'CCs_imputed']
+    trainSet    = getCCTrainSet(seshat)
+    modelVars   = ccVars(seshat)
     predictData = seshat[modelVars]
 
-    predictVar = 'CC_PolPop'
-#    if modelExists(predictVar):
-#        imputer = datawig.SimpleImputer.load('model/{}_imputer'.format(predictVar))
-    if True:
-        imputer = datawig.SimpleImputer(
-                    input_columns = lDel(modelVars, predictVar),
-                    output_column = predictVar,
-                    output_path   = 'model/{}_imputer'.format(predictVar)
-                    )
+    testImpute(trainSet, modelVars)
+    exit()
 
-    imputer.fit_hpo(train_df=trainSet, num_epochs=1000,
-            user_defined_scores=[(p2Score, 'p2_prediction')])
-    #imputer.load_hpo_model(hpo_name=0)
+    for predictVar in CCs:
+    #    if modelExists(predictVar):
+    #        imputer = datawig.SimpleImputer.load('model/{}_imputer'.format(predictVar))
+        if True:
+            imputer = datawig.SimpleImputer(
+                        input_columns = lDel(modelVars, predictVar),
+                        output_column = predictVar,
+                        output_path   = 'model/{}_imputer'.format(predictVar)
+                        )
+
+        imputer.fit_hpo(train_df=trainSet, num_epochs=1000,
+                user_defined_scores=[(p2Score, 'p2_prediction')])
+        #imputer.load_hpo_model(hpo_name=0)
 
 
-    imputed = imputer.predict(seshat[CCs])
-    return imputed
+        seshat[predictVar] = imputer.predict(predictData)['{}_imputed'.format(predictVar)]
+    return seshat
 
 def impute(seshat):
     # Keep track of which CC's we're imputing
-    seshat = includeImputeInfo(seshat)
-    seshat = makeRegressionVars(seshat)
+#    seshat = includeImputeInfo(seshat)
+#    seshat = makeRegressionVars(seshat)
     if DEBUG:
         seshat = pd.read_csv('model/seshat-with-regression-vars.csv')
-#    seshat = imputeCCs(seshat)
-#    seshat.to_csv('impute-test.csv')
+    seshat = imputeCCs(seshat)
+    seshat.to_csv('shiny-seshat-imputed.csv')
 
     return seshat

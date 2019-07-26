@@ -16,20 +16,24 @@ def myScore(true, predicted, confidence):
     return p2prediction(predicted,true)
 
 def main():
-    df = pd.read_csv('model/regressions-master.csv',index_col='Temperoculture')
+    df = pd.read_csv('model/magic-master.csv',index_col='Temperoculture')
+    modelVars = [col for col in list(df.columns) if col[:2] == 'CC' and col != 'CCs_imputed']
+    #modelVars = CCs
+    df = df[modelVars]
+    df = df[df.isnull().sum(axis=1) == 0]
     df_train_all, df_test_all = datawig.utils.random_split(df)
-    folds = regionKFold(df)
+    #folds = regionKFold(df)
+    folds = []
     folds += [(df_train_all,df_test_all,'all regions')]
 
-    modelVars = [col for col in list(df.columns) if col[:2] == 'CC' and col != 'CCs_imputed']
     #modelVars = CCs
 
 
     for var in CCs:
-        if var == 'CC_PolPop':
+        if True:
             with open('crossValResults.txt','a') as f:
                 p2s = []
-                f.write('<><><>{}<><><>\n'.format(var))
+                f.write('---{}---\n'.format(var))
                 for df_train,df_test,region in folds:
                     if region == 'all regions':
 
@@ -42,7 +46,7 @@ def main():
                         imputer = datawig.SimpleImputer(
                                 input_columns=listWithout(modelVars,predictVar),
                                 output_column=predictVar,
-                                output_path='model/imputer_model1'
+                                output_path='model/imputer_model_datawig'
                                 )
                         imputer.fit_hpo(train_df=df_train, num_epochs=1000,
                                 user_defined_scores=[(myScore, 'p2_prediction')])

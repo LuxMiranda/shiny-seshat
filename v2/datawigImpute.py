@@ -19,8 +19,8 @@ def main():
     folds = regionKFold(df)
     folds += [(df_train_all,df_test_all,'all regions')]
 
-    #modelVars = [col for col in list(df.columns) if col[:2] == 'CC']
-    modelVars = CCs
+    modelVars = [col for col in list(df.columns) if col[:2] == 'CC']
+    #modelVars = CCs
 
 
     for var in CCs:

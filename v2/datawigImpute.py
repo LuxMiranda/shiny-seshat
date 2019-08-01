@@ -16,8 +16,8 @@ def myScore(true, predicted, confidence):
     return p2prediction(predicted,true)
 
 def main():
-    df = pd.read_csv('model/magic-master.csv',index_col='Temperoculture')
-    modelVars = [col for col in list(df.columns) if col[:2] == 'CC' and col != 'CCs_imputed']
+    df = pd.read_csv('model/seshat-with-regression-vars.csv',index_col='Temperoculture')
+    modelVars = [col for col in list(df.columns) if col[:2] == 'CC']
     #modelVars = CCs
     df = df[modelVars]
     df = df[df.isnull().sum(axis=1) == 0]

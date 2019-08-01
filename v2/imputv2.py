@@ -107,7 +107,7 @@ def prepareRegressionX1(data, responseVar):
                 # Compute the distance between the polities
                 distance = computeDistanceInKm(rowi,rowj)
                 # Return exp(-(distance/1100))*responseVar
-                diffusions.append(np.exp(-(distance/1100.0))*rowj[responseVar])
+                diffusions.append(np.exp(-(distance/1100.0))*rowi[responseVar])
         regression_x1.append(smartSum(diffusions))
     data['{}_Regression_x1'.format(responseVar)] = pd.Series(regression_x1) 
     progBar.close()
@@ -181,7 +181,7 @@ def prepareRegressionX2(data, responseVar):
             pbar.update(1)
             if j != i and rowi['Period_start'] == rowj['Period_start']:
                 # Compute the distance between the polities
-                diffusions.append(languageFactor(rowi,rowj)*rowj[responseVar])
+                diffusions.append(languageFactor(rowi,rowj)*rowi[responseVar])
         regression_x2.append(smartSum(diffusions))
     data['{}_Regression_x2'.format(responseVar)] = pd.Series(regression_x2) 
     pbar.close()
@@ -260,22 +260,18 @@ def imputeCCs(seshat):
     modelVars   = ccVars(seshat)
     predictData = seshat[modelVars]
 
-    testImpute(trainSet, modelVars)
-    exit()
-
     for predictVar in CCs:
-    #    if modelExists(predictVar):
-    #        imputer = datawig.SimpleImputer.load('model/{}_imputer'.format(predictVar))
-        if True:
+        if modelExists(predictVar):
+            imputer = datawig.SimpleImputer.load('model/{}_imputer'.format(predictVar))
+            imputer.load_hpo_model(hpo_name=0)
+        else:
             imputer = datawig.SimpleImputer(
                         input_columns = lDel(modelVars, predictVar),
                         output_column = predictVar,
                         output_path   = 'model/{}_imputer'.format(predictVar)
                         )
-
-        imputer.fit_hpo(train_df=trainSet, num_epochs=1000,
-                user_defined_scores=[(p2Score, 'p2_prediction')])
-        #imputer.load_hpo_model(hpo_name=0)
+            imputer.fit_hpo(train_df=trainSet, num_epochs=1000,
+                    user_defined_scores=[(p2Score, 'p2_prediction')])
 
 
         seshat[predictVar] = imputer.predict(predictData)['{}_imputed'.format(predictVar)]
@@ -289,5 +285,4 @@ def impute(seshat):
         seshat = pd.read_csv('model/seshat-with-regression-vars.csv')
     seshat = imputeCCs(seshat)
     seshat.to_csv('shiny-seshat-imputed.csv')
-
     return seshat

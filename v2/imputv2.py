@@ -1,4 +1,4 @@
-from dictionaries import CCs, NGAs, NON_NUMERIC_COLUMNS
+from dictionaries import CCs, NGAs, NON_NUMERIC_COLUMNS, IMPUTABLE_VARS
 import pandas as pd
 import numpy as np
 import utm.conversion as utmc
@@ -51,11 +51,14 @@ def pairDown(fullSeshat):
     return pairedDown
 
 def trackImputes(series):
-    return [1 if null else 0 for null in series.isnull()]
+    return [1 if null else 0 for null in series]
+
+def imputeDict(series):
+    return str(dict(zip(IMPUTABLE_VARS,trackImputes(series))))
 
 def includeImputeInfo(seshat):
     seshat['Percent_CCs_imputed'] = seshat[CCs].isnull().sum(axis=1) / len(CCs)
-    seshat['CCs_imputed'] = seshat[CCs].apply(trackImputes, axis=1)
+    seshat['Features_imputed'] = seshat[IMPUTABLE_VARS].isnull().apply(imputeDict, axis=1)
     return seshat
 
 def utmCentroid(utm):
@@ -212,7 +215,8 @@ def makeRegressionVars(seshat):
 
 # Functional list delete
 def lDel(l,x):
-    l.remove(x)
+    m = l.copy()
+    m.remove(x)
     return l
 
 # Scoring function for use with the datawig
@@ -220,7 +224,7 @@ def p2Score(true, predicted, confidence):
     return p2prediction(predicted, true)
 
 def modelExists(predictVar):
-    return os.path.isdir('model/{}_imputer0'.format(predictVar))
+    return os.path.isdir('model/{}_imputer'.format(predictVar))
 
 
 def ccVars(df):
@@ -255,12 +259,14 @@ def testImpute(data, modelVars):
     print('Pred: {}'.format(p2prediction(predicted,actual)))
 
 
+
 def imputeCCs(seshat):
     trainSet    = getCCTrainSet(seshat)
     modelVars   = ccVars(seshat)
-    predictData = seshat[modelVars]
 
     for predictVar in CCs:
+        predictData = seshat[modelVars]
+        predictData = predictData[predictData[predictVar].isnull()]
         if modelExists(predictVar):
             imputer = datawig.SimpleImputer.load('model/{}_imputer'.format(predictVar))
             imputer.load_hpo_model(hpo_name=0)
@@ -277,12 +283,42 @@ def imputeCCs(seshat):
         seshat[predictVar] = imputer.predict(predictData)['{}_imputed'.format(predictVar)]
     return seshat
 
-def impute(seshat):
-    # Keep track of which CC's we're imputing
+def firstImpute(seshat):
+    # Keep track of which variables we're imputing
 #    seshat = includeImputeInfo(seshat)
 #    seshat = makeRegressionVars(seshat)
     if DEBUG:
         seshat = pd.read_csv('model/seshat-with-regression-vars.csv')
     seshat = imputeCCs(seshat)
-    seshat.to_csv('shiny-seshat-imputed.csv')
+    seshat.set_index('Temperoculture').to_csv('shiny-seshat-CCs-imputed.csv')
+    if DEBUG:
+        seshat = pd.read_csv('shiny-seshat-CCs-imputed.csv')
+    return seshat
+
+def secondImpute(seshat):
+    # Already imputed the CCs, so just grab everything else that is imputable
+    varsToImpute = [v for v in IMPUTABLE_VARS if v not in CCs]
+    for predictVar in tqdm(varsToImpute):
+        imputeData = seshat[IMPUTABLE_VARS]
+        # Train set is all of the entries where the target column is not null
+        trainSet = imputeData[~imputeData[predictVar].isnull()]
+        # And the prediction set is everything else
+        predictSet = imputeData[imputeData[predictVar].isnull()]
+        # If the training set is the entire set, we've hit a CC-related var we've
+        # already imputed, so just skip this feature
+        if trainSet.shape[0] == seshat.shape[0]:
+            continue
+        if modelExists(predictVar):
+            imputer = datawig.SimpleImputer.load('model/{}_imputer'.format(predictVar))
+            imputer.load_hpo_model(hpo_name=0)
+        else:
+            imputer = datawig.SimpleImputer(
+                        input_columns = lDel(IMPUTABLE_VARS, predictVar),
+                        output_column = predictVar,
+                        output_path   = 'model/{}_imputer'.format(predictVar)
+                        )
+            imputer.fit(train_df=trainSet, num_epochs=1000)
+
+        pred = imputer.predict(predictSet)['{}_imputed'.format(predictVar)]
+        seshat[predictVar] = pd.concat([seshat[predictVar].dropna(), pred,]).reindex_like(seshat[predictVar])
     return seshat

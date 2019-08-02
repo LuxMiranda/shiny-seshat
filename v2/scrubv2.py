@@ -7,7 +7,7 @@ import math
 import io
 import re
 from math import log10
-from imputv2 import impute
+from imputv2 import firstImpute, secondImpute
 from tqdm import tqdm
 from dictionaries import POLITY_ID_REPLACEMENTS, NGA_UTMs, COLUMN_NAME_REMAP,\
         RITUAL_VARIABLES, COLUMN_MERGE, RITUAL_VARIABLE_RENAMES,\
@@ -686,6 +686,56 @@ def export(seshat, timeResolved=True):
     outFile = OUT_FILENAME if timeResolved else OUT_UNRESOLVED_FILENAME
     seshat.to_csv(outFile, sep=',')
 
+def fillInWritingInfo(seshat):
+    for i, row in seshat.iterrows():
+        score = row['CC_Writing']
+        if score >= 4:
+            seshat.at[i,'Written_records'] = 0.8
+        elif score >= 3:
+            seshat.at[i,'Script'] = 0.8
+        elif score >= 2:
+            seshat.at[i,'Nonwritten_records'] = 0.8
+        elif score >= 1:
+            seshat.at[i,'Mnemonic_devices'] = 0.8
+        elif score < 1:
+            seshat.at[i,'Mnemonic_devices'] = 0.2
+    return seshat
+
+def fillInMoneyInfo(seshat):
+    for i, row in seshat.iterrows():
+        score = row['CC_Money']
+        if score >= 6:
+            seshat.at[i,'Paper_currency'] = 0.8
+        elif score >= 5:
+            seshat.at[i,'Indigenous_coins'] = 0.8
+        elif score >= 4:
+            seshat.at[i,'Foreign_coins'] = 0.8
+        elif score >= 3:
+            seshat.at[i,'Precious_metals'] = 0.8
+        elif score >= 2:
+            seshat.at[i,'Tokens'] = 0.8
+        elif score >= 1:
+            seshat.at[i,'Articles'] = 0.8
+        elif score < 1:
+            seshat.at[i,'Articles'] = 0.2
+    return seshat
+
+# Using the imputed CCs, fill in as much data as we can garner from the new CCs
+def fillInfoFromImputedCCs(seshat):
+    # Log_10 inverse
+    log10Inv = lambda x: np.round(10**x)
+    # Polity Population
+    seshat['Polity_population'] = seshat['CC_PolPop'].map(log10Inv)
+    # Polity Territory
+    seshat['Polity_territory'] = seshat['CC_PolTerr'].map(log10Inv)
+    # Population of the largest settlement
+    seshat['Population_of_the_largest_settlement'] = seshat['CC_CapPop'].map(log10Inv)
+    # Writing characteristics
+    seshat = fillInWritingInfo(seshat)
+    # Money characteristics
+    seshat = fillInMoneyInfo(seshat)
+    return seshat
+
 def main():
 #    ensureReqs();                            PROGRESS_BAR.update(1)
 #    seshat = getSeshat();                    PROGRESS_BAR.update(1)
@@ -697,11 +747,12 @@ def main():
 #    seshat = createCCs(seshat)
 #    export(seshat, timeResolved=False) 
 #    seshat = createFullTimeSeries(seshat)
-#    export(seshat, timeResolved=True) 
     if DEBUG:
         seshat = pd.read_csv('shiny-seshat.csv')
-    seshat = impute(seshat)
-#    seshat = phase2Tidy(seshat)
+    seshat = firstImpute(seshat)
+    seshat = fillInfoFromImputedCCs(seshat)
+    seshat = secondImpute(seshat)
+    seshat.to_csv('test.csv')
 #    export(seshat)
 
 if __name__ == '__main__':

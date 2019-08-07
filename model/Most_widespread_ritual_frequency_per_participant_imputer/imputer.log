@@ -1,0 +1,110 @@
+2019-08-07 11:45:50,216 [INFO]  CategoricalEncoder for column Most_widespread_ritual_frequency_per_participant                                found only 96 occurrences of value seasonally
+2019-08-07 11:45:50,220 [INFO]  CategoricalEncoder for column Most_widespread_ritual_frequency_per_participant                                found only 90 occurrences of value yearly
+2019-08-07 11:45:50,223 [INFO]  CategoricalEncoder for column Most_widespread_ritual_frequency_per_participant                                found only 62 occurrences of value monthly
+2019-08-07 11:45:50,226 [INFO]  CategoricalEncoder for column Most_widespread_ritual_frequency_per_participant                                found only 29 occurrences of value once in a lifetime
+2019-08-07 11:45:50,229 [INFO]  CategoricalEncoder for column Most_widespread_ritual_frequency_per_participant                                found only 10 occurrences of value once per generation
+2019-08-07 11:45:50,232 [INFO]  CategoricalEncoder for column Most_widespread_ritual_frequency_per_participant                                found only 6 occurrences of value monthly/seasonal
+2019-08-07 11:45:50,236 [INFO]  CategoricalEncoder for column Most_widespread_ritual_frequency_per_participant                                found only 3 occurrences of value seasonal
+2019-08-07 11:45:52,543 [WARNING]  Test set does not contain any ocurrences of values [seasonal] in column [Most_widespread_ritual_frequency_per_participant], consider using a more representative test set.
+2019-08-07 11:45:52,550 [INFO]  
+========== start: fit model
+2019-08-07 11:45:52,552 [WARNING]  Already bound, ignoring bind()
+2019-08-07 11:45:52,713 [INFO]  Epoch[0] Batch [0-21]	Speed: 2271.50 samples/sec	cross-entropy=1.476083	Most_widespread_ritual_frequency_per_participant-accuracy=0.460227
+2019-08-07 11:45:52,859 [INFO]  Epoch[0] Train-cross-entropy=0.930170
+2019-08-07 11:45:52,862 [INFO]  Epoch[0] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.671875
+2019-08-07 11:45:52,865 [INFO]  Epoch[0] Time cost=0.309
+2019-08-07 11:45:52,874 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0000.params"
+2019-08-07 11:45:52,906 [INFO]  Epoch[0] Validation-cross-entropy=1.049830
+2019-08-07 11:45:52,912 [INFO]  Epoch[0] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.512500
+2019-08-07 11:45:53,124 [INFO]  Epoch[1] Batch [0-21]	Speed: 1683.60 samples/sec	cross-entropy=0.562141	Most_widespread_ritual_frequency_per_participant-accuracy=0.792614
+2019-08-07 11:45:53,333 [INFO]  Epoch[1] Train-cross-entropy=0.444945
+2019-08-07 11:45:53,335 [INFO]  Epoch[1] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.853125
+2019-08-07 11:45:53,338 [INFO]  Epoch[1] Time cost=0.424
+2019-08-07 11:45:53,346 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0001.params"
+2019-08-07 11:45:53,377 [INFO]  Epoch[1] Validation-cross-entropy=0.545208
+2019-08-07 11:45:53,380 [INFO]  Epoch[1] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.837500
+2019-08-07 11:45:53,549 [INFO]  Epoch[2] Batch [0-21]	Speed: 2119.72 samples/sec	cross-entropy=0.278103	Most_widespread_ritual_frequency_per_participant-accuracy=0.920455
+2019-08-07 11:45:53,718 [INFO]  Epoch[2] Train-cross-entropy=0.240974
+2019-08-07 11:45:53,721 [INFO]  Epoch[2] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.934375
+2019-08-07 11:45:53,724 [INFO]  Epoch[2] Time cost=0.342
+2019-08-07 11:45:53,734 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0002.params"
+2019-08-07 11:45:53,767 [INFO]  Epoch[2] Validation-cross-entropy=0.411553
+2019-08-07 11:45:53,771 [INFO]  Epoch[2] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.887500
+2019-08-07 11:45:53,946 [INFO]  Epoch[3] Batch [0-21]	Speed: 2067.43 samples/sec	cross-entropy=0.170497	Most_widespread_ritual_frequency_per_participant-accuracy=0.948864
+2019-08-07 11:45:54,121 [INFO]  Epoch[3] Train-cross-entropy=0.146653
+2019-08-07 11:45:54,128 [INFO]  Epoch[3] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.971875
+2019-08-07 11:45:54,132 [INFO]  Epoch[3] Time cost=0.358
+2019-08-07 11:45:54,140 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0003.params"
+2019-08-07 11:45:54,183 [INFO]  Epoch[3] Validation-cross-entropy=0.358673
+2019-08-07 11:45:54,186 [INFO]  Epoch[3] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.900000
+2019-08-07 11:45:54,377 [INFO]  Epoch[4] Batch [0-21]	Speed: 1904.94 samples/sec	cross-entropy=0.112668	Most_widespread_ritual_frequency_per_participant-accuracy=0.957386
+2019-08-07 11:45:54,580 [INFO]  Epoch[4] Train-cross-entropy=0.102149
+2019-08-07 11:45:54,583 [INFO]  Epoch[4] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.981250
+2019-08-07 11:45:54,586 [INFO]  Epoch[4] Time cost=0.397
+2019-08-07 11:45:54,596 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0004.params"
+2019-08-07 11:45:54,630 [INFO]  Epoch[4] Validation-cross-entropy=0.337270
+2019-08-07 11:45:54,633 [INFO]  Epoch[4] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.912500
+2019-08-07 11:45:54,812 [INFO]  Epoch[5] Batch [0-21]	Speed: 2001.82 samples/sec	cross-entropy=0.080883	Most_widespread_ritual_frequency_per_participant-accuracy=0.965909
+2019-08-07 11:45:54,964 [INFO]  Epoch[5] Train-cross-entropy=0.075425
+2019-08-07 11:45:54,967 [INFO]  Epoch[5] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.978125
+2019-08-07 11:45:54,969 [INFO]  Epoch[5] Time cost=0.333
+2019-08-07 11:45:54,977 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0005.params"
+2019-08-07 11:45:55,005 [INFO]  Epoch[5] Validation-cross-entropy=0.307060
+2019-08-07 11:45:55,008 [INFO]  Epoch[5] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.912500
+2019-08-07 11:45:55,170 [INFO]  Epoch[6] Batch [0-21]	Speed: 2214.24 samples/sec	cross-entropy=0.061859	Most_widespread_ritual_frequency_per_participant-accuracy=0.974432
+2019-08-07 11:45:55,321 [INFO]  Epoch[6] Train-cross-entropy=0.058939
+2019-08-07 11:45:55,324 [INFO]  Epoch[6] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.981250
+2019-08-07 11:45:55,326 [INFO]  Epoch[6] Time cost=0.316
+2019-08-07 11:45:55,334 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0006.params"
+2019-08-07 11:45:55,361 [INFO]  Epoch[6] Validation-cross-entropy=0.281345
+2019-08-07 11:45:55,364 [INFO]  Epoch[6] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.912500
+2019-08-07 11:45:55,528 [INFO]  Epoch[7] Batch [0-21]	Speed: 2179.65 samples/sec	cross-entropy=0.050283	Most_widespread_ritual_frequency_per_participant-accuracy=0.980114
+2019-08-07 11:45:55,707 [INFO]  Epoch[7] Train-cross-entropy=0.048826
+2019-08-07 11:45:55,710 [INFO]  Epoch[7] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.981250
+2019-08-07 11:45:55,712 [INFO]  Epoch[7] Time cost=0.346
+2019-08-07 11:45:55,721 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0007.params"
+2019-08-07 11:45:55,753 [INFO]  Epoch[7] Validation-cross-entropy=0.288172
+2019-08-07 11:45:55,756 [INFO]  Epoch[7] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.937500
+2019-08-07 11:45:55,960 [INFO]  Epoch[8] Batch [0-21]	Speed: 1789.76 samples/sec	cross-entropy=0.043486	Most_widespread_ritual_frequency_per_participant-accuracy=0.982955
+2019-08-07 11:45:56,133 [INFO]  Epoch[8] Train-cross-entropy=0.041660
+2019-08-07 11:45:56,136 [INFO]  Epoch[8] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.987500
+2019-08-07 11:45:56,139 [INFO]  Epoch[8] Time cost=0.380
+2019-08-07 11:45:56,147 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0008.params"
+2019-08-07 11:45:56,177 [INFO]  Epoch[8] Validation-cross-entropy=0.274505
+2019-08-07 11:45:56,181 [INFO]  Epoch[8] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.937500
+2019-08-07 11:45:56,362 [INFO]  Epoch[9] Batch [0-21]	Speed: 1978.71 samples/sec	cross-entropy=0.040333	Most_widespread_ritual_frequency_per_participant-accuracy=0.982955
+2019-08-07 11:45:56,523 [INFO]  Epoch[9] Train-cross-entropy=0.037291
+2019-08-07 11:45:56,526 [INFO]  Epoch[9] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.987500
+2019-08-07 11:45:56,530 [INFO]  Epoch[9] Time cost=0.346
+2019-08-07 11:45:56,540 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0009.params"
+2019-08-07 11:45:56,570 [INFO]  Epoch[9] Validation-cross-entropy=0.284546
+2019-08-07 11:45:56,573 [INFO]  Epoch[9] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.950000
+2019-08-07 11:45:56,748 [INFO]  Epoch[10] Batch [0-21]	Speed: 2071.54 samples/sec	cross-entropy=0.035016	Most_widespread_ritual_frequency_per_participant-accuracy=0.988636
+2019-08-07 11:45:56,902 [INFO]  Epoch[10] Train-cross-entropy=0.034632
+2019-08-07 11:45:56,905 [INFO]  Epoch[10] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.987500
+2019-08-07 11:45:56,907 [INFO]  Epoch[10] Time cost=0.332
+2019-08-07 11:45:56,914 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0010.params"
+2019-08-07 11:45:56,942 [INFO]  Epoch[10] Validation-cross-entropy=0.296685
+2019-08-07 11:45:56,944 [INFO]  Epoch[10] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.937500
+2019-08-07 11:45:57,106 [INFO]  Epoch[11] Batch [0-21]	Speed: 2223.26 samples/sec	cross-entropy=0.032709	Most_widespread_ritual_frequency_per_participant-accuracy=0.991477
+2019-08-07 11:45:57,260 [INFO]  Epoch[11] Train-cross-entropy=0.031175
+2019-08-07 11:45:57,263 [INFO]  Epoch[11] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.990625
+2019-08-07 11:45:57,266 [INFO]  Epoch[11] Time cost=0.320
+2019-08-07 11:45:57,273 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0011.params"
+2019-08-07 11:45:57,301 [INFO]  Epoch[11] Validation-cross-entropy=0.317845
+2019-08-07 11:45:57,304 [INFO]  Epoch[11] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.937500
+2019-08-07 11:45:57,479 [INFO]  Epoch[12] Batch [0-21]	Speed: 2050.04 samples/sec	cross-entropy=0.029343	Most_widespread_ritual_frequency_per_participant-accuracy=0.988636
+2019-08-07 11:45:57,673 [INFO]  Epoch[12] Train-cross-entropy=0.029093
+2019-08-07 11:45:57,677 [INFO]  Epoch[12] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.990625
+2019-08-07 11:45:57,680 [INFO]  Epoch[12] Time cost=0.372
+2019-08-07 11:45:57,692 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0012.params"
+2019-08-07 11:45:57,724 [INFO]  Epoch[12] Validation-cross-entropy=0.347417
+2019-08-07 11:45:57,727 [INFO]  Epoch[12] Validation-Most_widespread_ritual_frequency_per_participant-accuracy=0.937500
+2019-08-07 11:45:57,937 [INFO]  Epoch[13] Batch [0-21]	Speed: 1709.05 samples/sec	cross-entropy=0.031635	Most_widespread_ritual_frequency_per_participant-accuracy=0.985795
+2019-08-07 11:45:58,109 [INFO]  Epoch[13] Train-cross-entropy=0.031162
+2019-08-07 11:45:58,112 [INFO]  Epoch[13] Train-Most_widespread_ritual_frequency_per_participant-accuracy=0.990625
+2019-08-07 11:45:58,116 [INFO]  Epoch[13] Time cost=0.386
+2019-08-07 11:45:58,124 [INFO]  Saved checkpoint to "model/Most_widespread_ritual_frequency_per_participant_imputer/model-0013.params"
+2019-08-07 11:45:58,153 [INFO]  No improvement detected for 5 epochs compared to 0.2745048992335796 last error obtained: 0.35257707722485065, stopping here
+2019-08-07 11:45:58,155 [INFO]  
+========== done (5.605536222457886 s) fit model

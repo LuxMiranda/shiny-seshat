@@ -1,70 +1,333 @@
-import numpy as np
+from dictionaries import CCs, NGAs, NON_NUMERIC_COLUMNS, IMPUTABLE_VARS
 import pandas as pd
-from sklearn.experimental import enable_iterative_imputer
-from sklearn.impute import IterativeImputer
+import numpy as np
+import utm.conversion as utmc
+from math import atan2
+import datawig
+import os
 from tqdm import tqdm
 
-FEATURES = ['Polity_Population','Polity_territory','Population_of_the_largest_settlement','Administrative_levels','Military_levels','Religious_levels','Settlement_hierarchy','Professional_military_officers','Professional_soldiers','Professional_priesthood','Full-time_bureaucrats','Bureaucracy_examination_system','Bureaucracy_merit_promotion','Specialized_government_buildings','Courts','Formal_legal_code','Judges','Professional_lawyers','Irrigation_systems','Drinking_water_supply_systems','Markets','Food_storage_sites','Roads','Bridges','Canals','Ports','Mines_or_quarries','Couriers','Postal_stations','General_postal_service','Mnemonic_devices','Non-written_records','Written_records','Script','Non-phonetic_writing','Phonetic_alphabetic_writing','Lists_tables_and_classifications','Calendar','Sacred_Texts','Religious_literature','Practical_literature','History','Philosophy','Scientific_literature','Fiction','Articles','Tokens','Precious_metals','Foreign_coins','Indigenous_coins','Paper_currency']
+# Boolean controlling whether or not to recompute the regression variables for
+# each CC. 
+RECOMPUTE_REGRESSION_VARS = False
 
-BOOLEANS = ['Professional_military_officers', 'Professional_soldiers', 'Professional_priesthood', 'Full-time_bureaucrats', 'Bureaucracy_examination_system', 'Bureaucracy_merit_promotion', 'Specialized_government_buildings', 'Courts', 'Formal_legal_code', 'Judges', 'Professional_lawyers', 'Irrigation_systems', 'Drinking_water_supply_systems', 'Markets', 'Food_storage_sites', 'Roads', 'Bridges', 'Canals', 'Ports', 'Mines_or_quarries', 'Couriers', 'Postal_stations', 'General_postal_service', 'Mnemonic_devices', 'Non-written_records', 'Written_records', 'Script', 'Non-phonetic_writing', 'Phonetic_alphabetic_writing', 'Lists_tables_and_classifications', 'Calendar', 'Sacred_Texts', 'Religious_literature', 'Practical_literature', 'History', 'Philosophy', 'Scientific_literature', 'Fiction', 'Articles', 'Tokens', 'Precious_metals', 'Foreign_coins', 'Indigenous_coins', 'Paper_currency']
+DEBUG = True
 
-def roundBool(x):
-    return 0 if x<0.5 else 1
+def isnan(x):
+    if isinstance(x, str):
+        return False
+    elif isinstance(x, list):
+        return x == []
+    else:
+        return np.isnan(x)
 
-def roundBools(impSeshat):
-    for feat in BOOLEANS:
-        impSeshat[feat] = impSeshat[feat].apply(roundBool)
-    return impSeshat
+def p2prediction(predicted, actual):
+    yBar = np.mean(actual)
+    dem  = np.sum([(yBar - a)**2 for a in actual])
+    if dem == 0:
+        num = np.sum([-np.abs(p - yBar) for p in predicted])
+        return num/yBar + 1
+    else:
+        num  = np.sum([(p - a)**2 for p,a in list(zip(predicted,actual))])
+        return 1.0 - (num/dem)
 
-def impute(shiny):
-    shiny = shiny.reset_index()
-    # Save variables that we want to keep but not impute
-    polities  = shiny['Polity']
-    names     = shiny['Polity_name']
-    nga       = shiny['NGA']
-    eraStarts = shiny['Era_start']
-    eraEnds   = shiny['Era_end']
-    avgSC     = shiny['avgSC']
-    seshat = shiny.set_index('Polity')
-    n_polities, n_features = seshat.shape
-    print(n_polities)
+def regionKFold(seshat):
+    regions = seshat['Region'].map(lambda x: eval(str(x))[0]).unique()
+    regionSelector = lambda reg : seshat['Region'].map(lambda l: reg in l)
+    return [
+        (
+            seshat[~regionSelector(reg)],
+            seshat[regionSelector(reg)],
+            reg
+        )
+        for reg in regions
+    ]
 
-    # Drop features outside of the defined 51
-    seshat = seshat[FEATURES]
+# Pair down to only datapoints with all CCs
+def pairDown(fullSeshat):
+    ccs = fullSeshat[CCs]
+    pairedDown = fullSeshat[ccs.isna().sum(axis=1) == 0]
+    pairedDown.to_csv('training/trainingData.csv')
+    return pairedDown
 
-    # Keep track of how many features we'll be imputing
-    seshat['Percent_imputed'] = seshat.isnull().sum(axis=1) / n_features
+def trackImputes(series):
+    return [1 if null else 0 for null in series]
 
-    num_imputations = 20
-    print('Performing {} imputations...'.format(num_imputations))
+def imputeDict(series):
+    return str(dict(zip(IMPUTABLE_VARS,trackImputes(series))))
 
-    impSeshat = np.matrix([])
+def includeImputeInfo(seshat):
+    seshat['Percent_CCs_imputed'] = seshat[CCs].isnull().sum(axis=1) / len(CCs)
+    seshat['Features_imputed'] = seshat[IMPUTABLE_VARS].isnull().apply(imputeDict, axis=1)
+    return seshat
 
-    for i in tqdm(range(num_imputations)):
-        imp = IterativeImputer(max_iter=100, min_value=0, random_state=i)
-        impIter = imp.fit_transform(seshat)
-        if impSeshat.size == 0:
-            impSeshat = np.matrix(impIter)
+def utmCentroid(utm):
+    number = utm[:-1]
+    letter = utm[-1]
+    return (utmc.zone_letter_to_central_latitude(letter),
+            utmc.zone_number_to_central_longitude(int(number)))
+
+def getCentroid(utms):
+    coords = list(map(utmCentroid,utms))
+    [lats, lons] = zip(*coords)
+    numCoords = len(coords)
+    centerLat = np.sum(lats)/numCoords
+    centerLon = np.sum(lons)/numCoords
+    return (centerLat, centerLon)
+    
+
+def computeDistanceInKm(poli, polj):
+    lat1, lon1 = getCentroid(eval(str((poli['UTM_zone']))))
+    lat2, lon2 = getCentroid(eval(str((polj['UTM_zone']))))
+
+    # approximate radius of earth in km
+    R = 6373.0
+    
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+
+    a = np.sin(dlat / 2)**2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2)**2
+    c = 2 * atan2(np.sqrt(a), np.sqrt(1 - a))
+
+    distance = R * c
+    return distance
+
+
+# A sum function that treats nans as 0s
+def smartSum(vals):
+    return np.sum([v for v in vals if not np.isnan(v)])
+
+def prepareRegressionX1(data, responseVar):
+    regression_x1 = []
+    # For each polity i
+    progBar = tqdm(total=data.shape[0]**2)
+    for i, rowi in data.iterrows():
+        diffusions = [0]
+        # For each other polity j/=i existing at the same time
+        for j, rowj in data.iterrows():
+            progBar.update(1)
+            if j != i and rowi['Period_start'] == rowj['Period_start']:
+                # Compute the distance between the polities
+                distance = computeDistanceInKm(rowi,rowj)
+                # Return exp(-(distance/1100))*responseVar
+                if responseVar in ['CC_Money','CC_Texts']:
+                    diffusions.append(np.exp(-(distance/1100.0))*rowj[responseVar])
+                else:
+                    diffusions.append(np.exp(-(distance/1100.0))*rowi[responseVar])
+        regression_x1.append(smartSum(diffusions))
+    data['{}_Regression_x1'.format(responseVar)] = pd.Series(regression_x1) 
+    progBar.close()
+    return data
+
+def smartMean(vals):
+    ls = [l for l in vals if not isnan(l)]
+    if len(ls) == 0:
+        return np.nan
+    return np.mean(ls)
+
+def aggMean(series):
+    if series.shape[0] <= 1:
+        return series.iloc[0]
+    if series.name in NON_NUMERIC_COLUMNS:
+        return series.iloc[0]
+    else:
+        return smartMean(series)
+
+def sumResponse(seshat, ngaInfo, responseVar):
+    sum = 0
+    prevYear = -20000
+    regName = '{}_Regression_x0'.format(responseVar)
+    for i, row in ngaInfo.iterrows():
+        row[regName] = np.nan
+        if row['Period_start'] >= prevYear:
+            prevYear = row['Period_start']
+            if not isnan(row[responseVar]):
+                try:
+                    if isnan(seshat.at[row['Temperoculture'], regName]):
+                        seshat.at[row['Temperoculture'], regName] = 0
+                except:
+                    seshat.at[row['Temperoculture'], regName] = 0
+                seshat.at[row['Temperoculture'], regName] += sum / len(eval(str(seshat.at[row['Temperoculture'],'NGA'])))
+                sum += row[responseVar]
         else:
-            impSeshat += impIter
+            seshat.at[row['Temperoculture'], regName] = 0
+    return seshat
 
-    impSeshat /= num_imputations
 
-    impSeshat = pd.DataFrame(impSeshat, columns=seshat.columns)
-    impSeshat['Polity']      = polities
-    impSeshat['Polity_name'] = names
-    impSeshat['Era_start']   = eraStarts
-    impSeshat['Era_end']     = eraEnds
-    impSeshat['avgSC']       = avgSC
-    impSeshat['NGA']         = nga
-    impSeshat = impSeshat.set_index('Polity')
-    impSeshat = roundBools(impSeshat)
-    # Replace negative imputed populations with 0 population
-    impSeshat['Polity_Population'] = impSeshat['Polity_Population'].apply(lambda x: x if x>0 else 0)
+def prepareRegressionX0(data, responseVar):
+    seshat = data.set_index('Temperoculture')
+    newRows = []
+    # For each NGA
+    for nga in NGAs:
+        # Fetch info for polities in the NGA
+        ngaInfo = data[data['NGA'].map(lambda ngaList: nga in ngaList)]
+        # Each polity gets the sum of all temporally previous responseVars
+        ngaInfo = ngaInfo.sort_values('Period_start')
+        seshat = sumResponse(seshat, ngaInfo, responseVar)
+    seshat = seshat.reset_index()
+    return seshat
 
-    return impSeshat
 
-if __name__ == '__main__':
-    shiny = pd.read_csv('shiny-seshat-unimputed.csv', index_col='Polity')
-    shiny = impute(shiny)
-    shiny.to_csv('shiny-seshat.csv', sep=',')
+def languageFactor(poli, polj):
+    if poli['Language'] == polj['Language']:
+        return 1
+    elif poli['Linguistic_family'] == polj['Linguistic_family']:
+        return 0.25
+    else:
+        return 0
+
+def prepareRegressionX2(data, responseVar):
+    # For each polity i
+    regression_x2 = []
+    pbar = tqdm(total=data.shape[0]**2)
+    for i, rowi in data.iterrows():
+        diffusions = [0]
+        # For each other polity j/=i existing at the same time
+        for j, rowj in data.iterrows():
+            pbar.update(1)
+            if j != i and rowi['Period_start'] == rowj['Period_start']:
+                # Compute the distance between the polities
+                if responseVar in ['CC_Money', 'CC_Texts']:
+                    diffusions.append(languageFactor(rowi,rowj)*rowj[responseVar])
+                else:
+                    diffusions.append(languageFactor(rowi,rowj)*rowi[responseVar])
+
+        regression_x2.append(smartSum(diffusions))
+    data['{}_Regression_x2'.format(responseVar)] = pd.Series(regression_x2) 
+    pbar.close()
+    return data
+
+def prepareModel(seshat, responseVar):
+    print('Prior')
+    print(seshat.shape)
+    print("Preparing {}_Regression_x0...".format(responseVar))
+    print(seshat.shape)
+    seshat = prepareRegressionX0(seshat, responseVar)
+    print("Preparing {}_Regression_x1...".format(responseVar))
+    print(seshat.shape)
+    seshat = prepareRegressionX1(seshat, responseVar)
+    print("Preparing {}_Regression_x2...".format(responseVar))
+    print(seshat.shape)
+    seshat = prepareRegressionX2(seshat, responseVar)
+    print(seshat.shape)
+    return seshat
+
+def makeRegressionVars(seshat):
+    for i,ccPredict in enumerate(CCs):
+        print('Preparing {} ({}/9)...'.format(ccPredict,i+1))
+        seshat = prepareModel(seshat, ccPredict)
+        seshat.to_csv('model/regression-var-{}.csv'.format(ccPredict))
+    seshat.to_csv('model/seshat-with-regression-vars.csv')
+    return seshat
+
+# Functional list delete
+def lDel(l,x):
+    m = l.copy()
+    m.remove(x)
+    return l
+
+# Scoring function for use with the datawig
+def p2Score(true, predicted, confidence):
+    return p2prediction(predicted, true)
+
+def modelExists(predictVar):
+    return os.path.isdir('model/{}_imputer'.format(predictVar))
+
+
+def ccVars(df):
+    return [col for col in list(df.columns) if col[:2] == 'CC' and col != 'CCs_imputed']
+
+def getCCTrainSet(seshat):
+    trainSet = seshat[ccVars(seshat)]
+    return trainSet[trainSet.isnull().sum(axis=1) == 0]
+
+def combineRegWithSeshat(seshat, trainSet):
+    seshat.set_index('Temperoculture')
+    for regVar in [var for var in list(trainSet.columns) if 'Regression' in var]:
+        seshat[regVar] = trainSet[regVar]
+    return seshat
+
+def testImpute(data, modelVars):
+    train, test = datawig.utils.random_split(data)
+    predictVar = 'CC_PolPop'
+    actual = test[predictVar].copy()
+    test[predictVar] = test[predictVar].map(lambda _ : np.nan)
+
+    imputer = datawig.SimpleImputer(
+                input_columns = lDel(modelVars, predictVar),
+                output_column = predictVar,
+                output_path   = 'model/test_imputer'.format(predictVar)
+                )
+
+    imputer.fit_hpo(train_df=train, num_epochs=1000,
+            user_defined_scores=[(p2Score, 'p2_prediction')])
+    imputed = imputer.predict(test)
+    predicted = imputed['{}_imputed'.format(predictVar)]
+    print('Pred: {}'.format(p2prediction(predicted,actual)))
+
+
+
+def imputeCCs(seshat):
+    trainSet    = getCCTrainSet(seshat)
+    modelVars   = ccVars(seshat)
+
+    for predictVar in CCs:
+        predictData = seshat[modelVars]
+        predictData = predictData[predictData[predictVar].isnull()]
+        if modelExists(predictVar):
+            imputer = datawig.SimpleImputer.load('model/{}_imputer'.format(predictVar))
+            imputer.load_hpo_model(hpo_name=0)
+        else:
+            imputer = datawig.SimpleImputer(
+                        input_columns = lDel(modelVars, predictVar),
+                        output_column = predictVar,
+                        output_path   = 'model/{}_imputer'.format(predictVar)
+                        )
+            imputer.fit_hpo(train_df=trainSet, num_epochs=1000,
+                    user_defined_scores=[(p2Score, 'p2_prediction')])
+
+
+        pred = imputer.predict(predictData)['{}_imputed'.format(predictVar)]
+        seshat[predictVar] = pd.concat([seshat[predictVar].dropna(), pred,]).reindex_like(seshat[predictVar])
+    return seshat
+
+def firstImpute(seshat):
+    # Keep track of which variables we're imputing
+    seshat = includeImputeInfo(seshat)
+    if not DEBUG:
+        seshat = makeRegressionVars(seshat)
+    if DEBUG:
+        seshat = pd.read_csv('model/seshat-with-regression-vars.csv')
+    seshat = imputeCCs(seshat)
+    seshat.set_index('Temperoculture').to_csv('shiny-seshat-CCs-imputed.csv')
+    if DEBUG:
+        seshat = pd.read_csv('shiny-seshat-CCs-imputed.csv')
+    return seshat
+
+def secondImpute(seshat):
+    # Already imputed the CCs, so just grab everything else that is imputable
+    varsToImpute = [v for v in IMPUTABLE_VARS if v not in CCs]
+    for predictVar in tqdm(varsToImpute):
+        imputeData = seshat[IMPUTABLE_VARS]
+        # Train set is all of the entries where the target column is not null
+        trainSet = imputeData[~imputeData[predictVar].isnull()]
+        # And the prediction set is everything else
+        predictSet = imputeData[imputeData[predictVar].isnull()]
+        # If the training set is the entire set, we've hit a CC-related var we've
+        # already imputed, so just skip this feature
+        if trainSet.shape[0] == seshat.shape[0]:
+            continue
+        if modelExists(predictVar):
+            imputer = datawig.SimpleImputer.load('model/{}_imputer'.format(predictVar))
+            imputer.load_hpo_model(hpo_name=0)
+        else:
+            imputer = datawig.SimpleImputer(
+                        input_columns = lDel(IMPUTABLE_VARS, predictVar),
+                        output_column = predictVar,
+                        output_path   = 'model/{}_imputer'.format(predictVar)
+                        )
+            imputer.fit(train_df=trainSet, num_epochs=1000)
+
+        pred = imputer.predict(predictSet)['{}_imputed'.format(predictVar)]
+        seshat[predictVar] = pd.concat([seshat[predictVar].dropna(), pred,]).reindex_like(seshat[predictVar])
+    return seshat

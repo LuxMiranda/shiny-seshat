@@ -37,7 +37,7 @@
     }, 
     {
       "op": "Concat", 
-      "name": "concat71", 
+      "name": "concat62", 
       "attrs": {
         "dim": "1", 
         "num_args": "2"
@@ -69,68 +69,68 @@
     }, 
     {
       "op": "elemwise_sub", 
-      "name": "_minus65", 
+      "name": "_minus59", 
       "inputs": [[9, 0, 0], [10, 0, 0]]
     }, 
     {
       "op": "_power_scalar", 
-      "name": "_powerscalar65", 
+      "name": "_powerscalar59", 
       "attrs": {"scalar": "2.0"}, 
       "inputs": [[11, 0, 0]]
     }, 
     {
       "op": "sum", 
-      "name": "sum77", 
+      "name": "sum65", 
       "inputs": [[12, 0, 0]]
     }, 
     {
       "op": "mean", 
-      "name": "mean71", 
+      "name": "mean62", 
       "inputs": [[13, 0, 0]]
     }, 
     {
       "op": "_plus_scalar", 
-      "name": "_plusscalar83", 
+      "name": "_plusscalar68", 
       "attrs": {"scalar": "1e-05"}, 
       "inputs": [[14, 0, 0]]
     }, 
     {
       "op": "broadcast_div", 
-      "name": "broadcast_div77", 
+      "name": "broadcast_div65", 
       "inputs": [[13, 0, 0], [15, 0, 0]]
     }, 
     {
       "op": "add_n", 
-      "name": "elementwisesum143", 
+      "name": "elementwisesum125", 
       "attrs": {"num_args": "1"}, 
       "inputs": [[16, 0, 0]]
     }, 
     {
       "op": "_div_scalar", 
-      "name": "_divscalar143", 
+      "name": "_divscalar125", 
       "attrs": {"scalar": "1.0"}, 
       "inputs": [[17, 0, 0]]
     }, 
     {
       "op": "add_n", 
-      "name": "elementwisesum142", 
+      "name": "elementwisesum124", 
       "attrs": {"num_args": "1"}, 
       "inputs": [[15, 0, 0]]
     }, 
     {
       "op": "_div_scalar", 
-      "name": "_divscalar142", 
+      "name": "_divscalar124", 
       "attrs": {"scalar": "1.0"}, 
       "inputs": [[19, 0, 0]]
     }, 
     {
       "op": "broadcast_mul", 
-      "name": "broadcast_mul77", 
+      "name": "broadcast_mul65", 
       "inputs": [[18, 0, 0], [20, 0, 0]]
     }, 
     {
       "op": "MakeLoss", 
-      "name": "makeloss71", 
+      "name": "makeloss62", 
       "attrs": {
         "normalization": "valid", 
         "valid_thresh": "1e-06"

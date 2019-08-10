@@ -37,7 +37,7 @@
     }, 
     {
       "op": "Concat", 
-      "name": "concat13", 
+      "name": "concat4", 
       "attrs": {
         "dim": "1", 
         "num_args": "2"
@@ -47,25 +47,20 @@
     {
       "op": "null", 
       "name": "label_Largest_communication_distance_weight", 
-      "attrs": {"num_hidden": "93"}, 
+      "attrs": {"num_hidden": "1"}, 
       "inputs": []
     }, 
     {
       "op": "null", 
       "name": "label_Largest_communication_distance_bias", 
-      "attrs": {"num_hidden": "93"}, 
+      "attrs": {"num_hidden": "1"}, 
       "inputs": []
     }, 
     {
       "op": "FullyConnected", 
       "name": "label_Largest_communication_distance", 
-      "attrs": {"num_hidden": "93"}, 
+      "attrs": {"num_hidden": "1"}, 
       "inputs": [[6, 0, 0], [7, 0, 0], [8, 0, 0]]
-    }, 
-    {
-      "op": "log_softmax", 
-      "name": "log_softmax1", 
-      "inputs": [[9, 0, 0]]
     }, 
     {
       "op": "null", 
@@ -73,175 +68,82 @@
       "inputs": []
     }, 
     {
-      "op": "_mul_scalar", 
-      "name": "_mulscalar2", 
-      "attrs": {"scalar": "0.0"}, 
+      "op": "elemwise_sub", 
+      "name": "_minus4", 
+      "inputs": [[9, 0, 0], [10, 0, 0]]
+    }, 
+    {
+      "op": "_power_scalar", 
+      "name": "_powerscalar4", 
+      "attrs": {"scalar": "2.0"}, 
       "inputs": [[11, 0, 0]]
     }, 
     {
-      "op": "_plus_scalar", 
-      "name": "_plusscalar15", 
-      "attrs": {"scalar": "93"}, 
+      "op": "sum", 
+      "name": "sum4", 
       "inputs": [[12, 0, 0]]
     }, 
     {
-      "op": "broadcast_lesser", 
-      "name": "broadcast_lesser1", 
-      "inputs": [[11, 0, 0], [13, 0, 0]]
+      "op": "mean", 
+      "name": "mean4", 
+      "inputs": [[13, 0, 0]]
     }, 
     {
-      "op": "elemwise_mul", 
-      "name": "_mul3", 
-      "inputs": [[11, 0, 0], [14, 0, 0]]
+      "op": "_plus_scalar", 
+      "name": "_plusscalar4", 
+      "attrs": {"scalar": "1e-05"}, 
+      "inputs": [[14, 0, 0]]
     }, 
     {
-      "op": "SliceChannel", 
-      "name": "split1", 
-      "attrs": {
-        "axis": "1", 
-        "num_outputs": "1", 
-        "squeeze_axis": "1"
-      }, 
-      "inputs": [[15, 0, 0]]
+      "op": "broadcast_div", 
+      "name": "broadcast_div4", 
+      "inputs": [[13, 0, 0], [15, 0, 0]]
     }, 
     {
-      "op": "pick", 
-      "name": "pick2", 
-      "inputs": [[10, 0, 0], [16, 0, 0]]
+      "op": "add_n", 
+      "name": "elementwisesum9", 
+      "attrs": {"num_args": "1"}, 
+      "inputs": [[16, 0, 0]]
     }, 
     {
-      "op": "_mul_scalar", 
-      "name": "_mulscalar3", 
-      "attrs": {"scalar": "-1"}, 
+      "op": "_div_scalar", 
+      "name": "_divscalar9", 
+      "attrs": {"scalar": "1.0"}, 
       "inputs": [[17, 0, 0]]
     }, 
     {
-      "op": "zeros_like", 
-      "name": "zeros_like1", 
-      "inputs": [[16, 0, 0]]
+      "op": "add_n", 
+      "name": "elementwisesum8", 
+      "attrs": {"num_args": "1"}, 
+      "inputs": [[15, 0, 0]]
     }, 
     {
-      "op": "broadcast_greater", 
-      "name": "broadcast_greater1", 
-      "inputs": [[16, 0, 0], [19, 0, 0]]
+      "op": "_div_scalar", 
+      "name": "_divscalar8", 
+      "attrs": {"scalar": "1.0"}, 
+      "inputs": [[19, 0, 0]]
     }, 
     {
-      "op": "elemwise_mul", 
-      "name": "_mul4", 
+      "op": "broadcast_mul", 
+      "name": "broadcast_mul4", 
       "inputs": [[18, 0, 0], [20, 0, 0]]
     }, 
     {
-      "op": "null", 
-      "name": "__empirical_risk_instance_weight__", 
-      "inputs": []
-    }, 
-    {
-      "op": "pick", 
-      "name": "pick3", 
-      "inputs": [[22, 0, 0], [16, 0, 0]]
-    }, 
-    {
-      "op": "elemwise_mul", 
-      "name": "_mul5", 
-      "inputs": [[21, 0, 0], [23, 0, 0]]
-    }, 
-    {
-      "op": "sum", 
-      "name": "sum14", 
-      "inputs": [[20, 0, 0]]
-    }, 
-    {
-      "op": "_plus_scalar", 
-      "name": "_plusscalar16", 
-      "attrs": {"scalar": "1.0"}, 
-      "inputs": [[25, 0, 0]]
-    }, 
-    {
-      "op": "broadcast_div", 
-      "name": "broadcast_div14", 
-      "inputs": [[24, 0, 0], [26, 0, 0]]
-    }, 
-    {
-      "op": "ones_like", 
-      "name": "ones_like1", 
-      "inputs": [[16, 0, 0]]
-    }, 
-    {
-      "op": "sum", 
-      "name": "sum15", 
-      "inputs": [[28, 0, 0]]
-    }, 
-    {
-      "op": "broadcast_mul", 
-      "name": "broadcast_mul14", 
-      "inputs": [[27, 0, 0], [29, 0, 0]]
-    }, 
-    {
-      "op": "mean", 
-      "name": "mean13", 
-      "inputs": [[30, 0, 0]]
-    }, 
-    {
-      "op": "_plus_scalar", 
-      "name": "_plusscalar17", 
-      "attrs": {"scalar": "1e-05"}, 
-      "inputs": [[31, 0, 0]]
-    }, 
-    {
-      "op": "broadcast_div", 
-      "name": "broadcast_div15", 
-      "inputs": [[30, 0, 0], [32, 0, 0]]
-    }, 
-    {
-      "op": "add_n", 
-      "name": "elementwisesum27", 
-      "attrs": {"num_args": "1"}, 
-      "inputs": [[33, 0, 0]]
-    }, 
-    {
-      "op": "_div_scalar", 
-      "name": "_divscalar27", 
-      "attrs": {"scalar": "1.0"}, 
-      "inputs": [[34, 0, 0]]
-    }, 
-    {
-      "op": "add_n", 
-      "name": "elementwisesum26", 
-      "attrs": {"num_args": "1"}, 
-      "inputs": [[32, 0, 0]]
-    }, 
-    {
-      "op": "_div_scalar", 
-      "name": "_divscalar26", 
-      "attrs": {"scalar": "1.0"}, 
-      "inputs": [[36, 0, 0]]
-    }, 
-    {
-      "op": "broadcast_mul", 
-      "name": "broadcast_mul15", 
-      "inputs": [[35, 0, 0], [37, 0, 0]]
-    }, 
-    {
       "op": "MakeLoss", 
-      "name": "makeloss13", 
+      "name": "makeloss4", 
       "attrs": {
         "normalization": "valid", 
         "valid_thresh": "1e-06"
       }, 
-      "inputs": [[38, 0, 0]]
-    }, 
-    {
-      "op": "softmax", 
-      "name": "softmax1", 
-      "inputs": [[9, 0, 0]]
+      "inputs": [[21, 0, 0]]
     }, 
     {
       "op": "BlockGrad", 
       "name": "pred-Largest_communication_distance", 
-      "inputs": [[40, 0, 0]]
+      "inputs": [[9, 0, 0]]
     }
   ], 
-  "arg_nodes": [0, 1, 2, 3, 7, 8, 11, 22], 
+  "arg_nodes": [0, 1, 2, 3, 7, 8, 10], 
   "node_row_ptr": [
     0, 
     1, 
@@ -267,26 +169,8 @@
     21, 
     22, 
     23, 
-    24, 
-    25, 
-    26, 
-    27, 
-    28, 
-    29, 
-    30, 
-    31, 
-    32, 
-    33, 
-    34, 
-    35, 
-    36, 
-    37, 
-    38, 
-    39, 
-    40, 
-    41, 
-    42
+    24
   ], 
-  "heads": [[39, 0, 0], [41, 0, 0]], 
+  "heads": [[22, 0, 0], [23, 0, 0]], 
   "attrs": {"mxnet_version": ["int", 10500]}
 }

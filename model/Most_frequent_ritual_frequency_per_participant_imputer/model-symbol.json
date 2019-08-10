@@ -2,42 +2,42 @@
   "nodes": [
     {
       "op": "null", 
-      "name": "ngram_features-FYzMBkaYjK", 
+      "name": "ngram_features-35jv2V0aL0", 
       "attrs": {"__storage_type__": "2"}, 
       "inputs": []
     }, 
     {
       "op": "null", 
-      "name": "numerical_features-cCiv7a8UE6", 
+      "name": "numerical_features-dKj8wxsOsu", 
       "inputs": []
     }, 
     {
       "op": "null", 
-      "name": "numerical_features-cCiv7a8UE6_fullyconnected0_weight", 
+      "name": "numerical_features-dKj8wxsOsu_fullyconnected0_weight", 
       "attrs": {"num_hidden": "100"}, 
       "inputs": []
     }, 
     {
       "op": "null", 
-      "name": "numerical_features-cCiv7a8UE6_fullyconnected0_bias", 
+      "name": "numerical_features-dKj8wxsOsu_fullyconnected0_bias", 
       "attrs": {"num_hidden": "100"}, 
       "inputs": []
     }, 
     {
       "op": "FullyConnected", 
-      "name": "numerical_features-cCiv7a8UE6_fullyconnected0", 
+      "name": "numerical_features-dKj8wxsOsu_fullyconnected0", 
       "attrs": {"num_hidden": "100"}, 
       "inputs": [[1, 0, 0], [2, 0, 0], [3, 0, 0]]
     }, 
     {
       "op": "Activation", 
-      "name": "numerical_features-cCiv7a8UE6_activation0", 
+      "name": "numerical_features-dKj8wxsOsu_activation0", 
       "attrs": {"act_type": "relu"}, 
       "inputs": [[4, 0, 0]]
     }, 
     {
       "op": "Concat", 
-      "name": "concat105", 
+      "name": "concat95", 
       "attrs": {
         "dim": "1", 
         "num_args": "2"
@@ -64,7 +64,7 @@
     }, 
     {
       "op": "log_softmax", 
-      "name": "log_softmax25", 
+      "name": "log_softmax21", 
       "inputs": [[9, 0, 0]]
     }, 
     {
@@ -74,29 +74,29 @@
     }, 
     {
       "op": "_mul_scalar", 
-      "name": "_mulscalar50", 
+      "name": "_mulscalar42", 
       "attrs": {"scalar": "0.0"}, 
       "inputs": [[11, 0, 0]]
     }, 
     {
       "op": "_plus_scalar", 
-      "name": "_plusscalar155", 
+      "name": "_plusscalar137", 
       "attrs": {"scalar": "8"}, 
       "inputs": [[12, 0, 0]]
     }, 
     {
       "op": "broadcast_lesser", 
-      "name": "broadcast_lesser25", 
+      "name": "broadcast_lesser21", 
       "inputs": [[11, 0, 0], [13, 0, 0]]
     }, 
     {
       "op": "elemwise_mul", 
-      "name": "_mul75", 
+      "name": "_mul63", 
       "inputs": [[11, 0, 0], [14, 0, 0]]
     }, 
     {
       "op": "SliceChannel", 
-      "name": "split25", 
+      "name": "split21", 
       "attrs": {
         "axis": "1", 
         "num_outputs": "1", 
@@ -106,28 +106,28 @@
     }, 
     {
       "op": "pick", 
-      "name": "pick50", 
+      "name": "pick42", 
       "inputs": [[10, 0, 0], [16, 0, 0]]
     }, 
     {
       "op": "_mul_scalar", 
-      "name": "_mulscalar51", 
+      "name": "_mulscalar43", 
       "attrs": {"scalar": "-1"}, 
       "inputs": [[17, 0, 0]]
     }, 
     {
       "op": "zeros_like", 
-      "name": "zeros_like25", 
+      "name": "zeros_like21", 
       "inputs": [[16, 0, 0]]
     }, 
     {
       "op": "broadcast_greater", 
-      "name": "broadcast_greater25", 
+      "name": "broadcast_greater21", 
       "inputs": [[16, 0, 0], [19, 0, 0]]
     }, 
     {
       "op": "elemwise_mul", 
-      "name": "_mul76", 
+      "name": "_mul64", 
       "inputs": [[18, 0, 0], [20, 0, 0]]
     }, 
     {
@@ -137,93 +137,93 @@
     }, 
     {
       "op": "pick", 
-      "name": "pick51", 
+      "name": "pick43", 
       "inputs": [[22, 0, 0], [16, 0, 0]]
     }, 
     {
       "op": "elemwise_mul", 
-      "name": "_mul77", 
+      "name": "_mul65", 
       "inputs": [[21, 0, 0], [23, 0, 0]]
     }, 
     {
       "op": "sum", 
-      "name": "sum130", 
+      "name": "sum116", 
       "inputs": [[20, 0, 0]]
     }, 
     {
       "op": "_plus_scalar", 
-      "name": "_plusscalar156", 
+      "name": "_plusscalar138", 
       "attrs": {"scalar": "1.0"}, 
       "inputs": [[25, 0, 0]]
     }, 
     {
       "op": "broadcast_div", 
-      "name": "broadcast_div130", 
+      "name": "broadcast_div116", 
       "inputs": [[24, 0, 0], [26, 0, 0]]
     }, 
     {
       "op": "ones_like", 
-      "name": "ones_like25", 
+      "name": "ones_like21", 
       "inputs": [[16, 0, 0]]
     }, 
     {
       "op": "sum", 
-      "name": "sum131", 
+      "name": "sum117", 
       "inputs": [[28, 0, 0]]
     }, 
     {
       "op": "broadcast_mul", 
-      "name": "broadcast_mul130", 
+      "name": "broadcast_mul116", 
       "inputs": [[27, 0, 0], [29, 0, 0]]
     }, 
     {
       "op": "mean", 
-      "name": "mean105", 
+      "name": "mean95", 
       "inputs": [[30, 0, 0]]
     }, 
     {
       "op": "_plus_scalar", 
-      "name": "_plusscalar157", 
+      "name": "_plusscalar139", 
       "attrs": {"scalar": "1e-05"}, 
       "inputs": [[31, 0, 0]]
     }, 
     {
       "op": "broadcast_div", 
-      "name": "broadcast_div131", 
+      "name": "broadcast_div117", 
       "inputs": [[30, 0, 0], [32, 0, 0]]
     }, 
     {
       "op": "add_n", 
-      "name": "elementwisesum211", 
+      "name": "elementwisesum191", 
       "attrs": {"num_args": "1"}, 
       "inputs": [[33, 0, 0]]
     }, 
     {
       "op": "_div_scalar", 
-      "name": "_divscalar211", 
+      "name": "_divscalar191", 
       "attrs": {"scalar": "1.0"}, 
       "inputs": [[34, 0, 0]]
     }, 
     {
       "op": "add_n", 
-      "name": "elementwisesum210", 
+      "name": "elementwisesum190", 
       "attrs": {"num_args": "1"}, 
       "inputs": [[32, 0, 0]]
     }, 
     {
       "op": "_div_scalar", 
-      "name": "_divscalar210", 
+      "name": "_divscalar190", 
       "attrs": {"scalar": "1.0"}, 
       "inputs": [[36, 0, 0]]
     }, 
     {
       "op": "broadcast_mul", 
-      "name": "broadcast_mul131", 
+      "name": "broadcast_mul117", 
       "inputs": [[35, 0, 0], [37, 0, 0]]
     }, 
     {
       "op": "MakeLoss", 
-      "name": "makeloss105", 
+      "name": "makeloss95", 
       "attrs": {
         "normalization": "valid", 
         "valid_thresh": "1e-06"
@@ -232,7 +232,7 @@
     }, 
     {
       "op": "softmax", 
-      "name": "softmax25", 
+      "name": "softmax21", 
       "inputs": [[9, 0, 0]]
     }, 
     {

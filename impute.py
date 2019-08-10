@@ -98,6 +98,11 @@ def smartSum(vals):
     return np.sum([v for v in vals if not np.isnan(v)])
 
 def prepareRegressionX1(data, responseVar):
+    # Turns out if we're not looking at money or texts, we don't even need x2!
+    if responseVar not in ['CC_Money', 'CC_Texts']:
+        data['{}_Regression_x1'.format(responseVar)] = pd.Series(np.zeros(data.shape[0]))
+        return data
+
     regression_x1 = []
     # For each polity i
     progBar = tqdm(total=data.shape[0]**2)
@@ -110,10 +115,7 @@ def prepareRegressionX1(data, responseVar):
                 # Compute the distance between the polities
                 distance = computeDistanceInKm(rowi,rowj)
                 # Return exp(-(distance/1100))*responseVar
-                if responseVar in ['CC_Money','CC_Texts']:
-                    diffusions.append(np.exp(-(distance/1100.0))*rowj[responseVar])
-                else:
-                    diffusions.append(np.exp(-(distance/1100.0))*rowi[responseVar])
+                diffusions.append(np.exp(-(distance/1100.0))*rowj[responseVar])
         regression_x1.append(smartSum(diffusions))
     data['{}_Regression_x1'.format(responseVar)] = pd.Series(regression_x1) 
     progBar.close()
@@ -177,9 +179,14 @@ def languageFactor(poli, polj):
         return 0
 
 def prepareRegressionX2(data, responseVar):
-    # For each polity i
+    # Turns out if we're not looking at money or texts, we don't even need x2!
+    if responseVar not in ['CC_Money', 'CC_Texts']:
+        data['{}_Regression_x2'.format(responseVar)] = pd.Series(np.zeros(data.shape[0]))
+        return data
+
     regression_x2 = []
     pbar = tqdm(total=data.shape[0]**2)
+    # For each polity i
     for i, rowi in data.iterrows():
         diffusions = [0]
         # For each other polity j/=i existing at the same time
@@ -187,10 +194,7 @@ def prepareRegressionX2(data, responseVar):
             pbar.update(1)
             if j != i and rowi['Period_start'] == rowj['Period_start']:
                 # Compute the distance between the polities
-                if responseVar in ['CC_Money', 'CC_Texts']:
-                    diffusions.append(languageFactor(rowi,rowj)*rowj[responseVar])
-                else:
-                    diffusions.append(languageFactor(rowi,rowj)*rowi[responseVar])
+                diffusions.append(languageFactor(rowi,rowj)*rowj[responseVar])
 
         regression_x2.append(smartSum(diffusions))
     data['{}_Regression_x2'.format(responseVar)] = pd.Series(regression_x2) 
@@ -198,33 +202,28 @@ def prepareRegressionX2(data, responseVar):
     return data
 
 def prepareModel(seshat, responseVar):
-    print('Prior')
-    print(seshat.shape)
     print("Preparing {}_Regression_x0...".format(responseVar))
-    print(seshat.shape)
     seshat = prepareRegressionX0(seshat, responseVar)
     print("Preparing {}_Regression_x1...".format(responseVar))
-    print(seshat.shape)
     seshat = prepareRegressionX1(seshat, responseVar)
     print("Preparing {}_Regression_x2...".format(responseVar))
-    print(seshat.shape)
     seshat = prepareRegressionX2(seshat, responseVar)
-    print(seshat.shape)
     return seshat
 
 def makeRegressionVars(seshat):
     for i,ccPredict in enumerate(CCs):
+        if ccPredict == 'CC_Texts':
+            print('Preparing final variables. By necessity, this is an O(n²) process (where n ≈ 1700, the number of temperocultures). Saddle in, this will take a minute.')
         print('Preparing {} ({}/9)...'.format(ccPredict,i+1))
         seshat = prepareModel(seshat, ccPredict)
         seshat.to_csv('model/regression-var-{}.csv'.format(ccPredict))
-    seshat.to_csv('model/seshat-with-regression-vars.csv')
     return seshat
 
 # Functional list delete
 def lDel(l,x):
     m = l.copy()
     m.remove(x)
-    return l
+    return m
 
 # Scoring function for use with the datawig
 def p2Score(true, predicted, confidence):
@@ -268,9 +267,10 @@ def testImpute(data, modelVars):
 
 
 def imputeCCs(seshat):
+    print(seshat.columns)
     trainSet    = getCCTrainSet(seshat)
+    print(trainSet)
     modelVars   = ccVars(seshat)
-
     for predictVar in CCs:
         predictData = seshat[modelVars]
         predictData = predictData[predictData[predictVar].isnull()]
@@ -296,11 +296,11 @@ def firstImpute(seshat):
     seshat = includeImputeInfo(seshat)
     if not DEBUG:
         seshat = makeRegressionVars(seshat)
-    if DEBUG:
-        seshat = pd.read_csv('model/seshat-with-regression-vars.csv')
-    seshat = imputeCCs(seshat)
-    seshat.set_index('Temperoculture').to_csv('shiny-seshat-CCs-imputed.csv')
-    if DEBUG:
+        seshat.to_csv('model/seshat-with-regression-vars.csv')
+        seshat = imputeCCs(seshat)
+        seshat.set_index('Temperoculture').to_csv('shiny-seshat-CCs-imputed.csv')
+    else:
+        #seshat = pd.read_csv('model/seshat-with-regression-vars.csv')
         seshat = pd.read_csv('shiny-seshat-CCs-imputed.csv')
     return seshat
 
@@ -308,6 +308,7 @@ def secondImpute(seshat):
     # Already imputed the CCs, so just grab everything else that is imputable
     varsToImpute = [v for v in IMPUTABLE_VARS if v not in CCs]
     for predictVar in tqdm(varsToImpute):
+        print("Imputing: {}".format(predictVar))
         imputeData = seshat[IMPUTABLE_VARS]
         # Train set is all of the entries where the target column is not null
         trainSet = imputeData[~imputeData[predictVar].isnull()]
@@ -317,17 +318,19 @@ def secondImpute(seshat):
         # already imputed, so just skip this feature
         if trainSet.shape[0] == seshat.shape[0]:
             continue
+        modelPath = 'model/{}_imputer'.format(predictVar.replace('/',''))
         if modelExists(predictVar):
-            imputer = datawig.SimpleImputer.load('model/{}_imputer'.format(predictVar))
+            imputer = datawig.SimpleImputer.load(modelPath)
             imputer.load_hpo_model(hpo_name=0)
         else:
             imputer = datawig.SimpleImputer(
                         input_columns = lDel(IMPUTABLE_VARS, predictVar),
                         output_column = predictVar,
-                        output_path   = 'model/{}_imputer'.format(predictVar)
+                        output_path   = modelPath
                         )
             imputer.fit(train_df=trainSet, num_epochs=1000)
 
-        pred = imputer.predict(predictSet)['{}_imputed'.format(predictVar)]
+        predicted = imputer.predict(predictSet)
+        pred = predicted['{}_imputed'.format(predictVar)]
         seshat[predictVar] = pd.concat([seshat[predictVar].dropna(), pred,]).reindex_like(seshat[predictVar])
     return seshat

@@ -18,6 +18,7 @@ OUT_FILENAME = 'shiny-seshat.csv'
 OUT_UNRESOLVED_FILENAME = 'shiny-seshat-unresolved.csv'
 
 pd.options.mode.chained_assignment = None  # default='warn'
+print('Performing initial clean-up...')
 PROGRESS_BAR = tqdm(total=(3+520))
 
 # Enables a few nice features for development such as intermediate points
@@ -277,8 +278,7 @@ def makeTemperocultureWise(seshat):
         getSubPeriods(getDataSlice(nga, polity, seshat))
         for nga,polity in getNgaPolityPairs(seshat)
     ]))
-    if DEBUG:
-        ret.to_csv('phase1.csv')
+    ret.to_csv('phase1.csv')
     return ret
 
 
@@ -412,18 +412,29 @@ def findHomesForThePoorOrphanChildren(seshat):
     seshat.at[49, 'Population_of_the_largest_settlement'] = 22500
     seshat.at[50, 'Population_of_the_largest_settlement'] = 22500
     # This trio of triplets decided to skip 19th-century day in history class
-    seshat.at[781, 'Period_start'] = 1825
-    seshat.at[781, 'Period_end']   = 1830
-    seshat.at[782, 'Period_start'] = 1830
+    seshat.at[954, 'Period_start'] = 1825
+    seshat.at[954, 'Period_end']   = 1830
+    seshat.at[955, 'Period_start'] = 1830
     # Seven silly stays have some six or seven serious administrative levels
-    seshat.at[781, 'Administrative_levels'] = 6.5
-    seshat.at[782, 'Administrative_levels'] = 6.5
-    seshat.at[783, 'Administrative_levels'] = 6.5
-    seshat.at[784, 'Administrative_levels'] = 6.5
-    seshat.at[785, 'Administrative_levels'] = 6.5
-    seshat.at[786, 'Administrative_levels'] = 6.5
-    seshat.at[787, 'Administrative_levels'] = 6.5
-    return seshat
+    seshat.at[954, 'Administrative_levels'] = 6.5
+    seshat.at[955, 'Administrative_levels'] = 6.5
+    seshat.at[956, 'Administrative_levels'] = 6.5
+    seshat.at[957, 'Administrative_levels'] = 6.5
+    seshat.at[958, 'Administrative_levels'] = 6.5
+    seshat.at[959, 'Administrative_levels'] = 6.5
+    seshat.at[960, 'Administrative_levels'] = 6.5
+    # This orphan never ever wanted to be adopted, so much so that they posted
+    # a big sign outside the orphanage indicating so. Unfortunately, this 
+    # advertising led to the orphan receiving an extra amount of attention
+    # from potential adopters. Let's help the orphan out by removing the sign.
+    seshat = seshat.set_index('Temperoculture')
+    seshat.at['PkProto-1', 'Largest_communication_distance'] = np.nan
+    # More extraneous units
+    seshat.at['CnWHan-1', 'Monumental_building_extent'] = 2400
+    seshat.at['CnWHan-2', 'Monumental_building_extent'] = 2400
+    seshat.at['CnWHan-3', 'Monumental_building_extent'] = 2400
+    seshat.at['CnWHan-4', 'Monumental_building_extent'] = 2400
+    return seshat.reset_index()
 
 def addRegionInfo(seshat):
     seshat['Region'] = seshat['NGA'].map(
@@ -484,6 +495,15 @@ def createCC_CapPop(seshat):
         .map(log10float)
     return seshat
 
+# A mean function that treats nans as 0s, but still returns nan if ever
+# element is nan.
+def hierMean(vals):
+    nonNans = [float(v) for v in vals if not np.isnan(float(v))]
+    if len(nonNans) == 0:
+        return np.nan
+    else:
+        return np.mean(nonNans)
+
 # CC_Hier    
 #   Simply average all non-missing hierarchy variables
 def createCC_Hier(seshat):
@@ -491,7 +511,7 @@ def createCC_Hier(seshat):
         'Administrative_levels',
         'Military_levels',
         'Religious_levels',
-        'Settlement_hierarchy']].mean(axis=1)
+        'Settlement_hierarchy']].apply(hierMean, axis=1)
     return seshat
 
 
@@ -763,10 +783,12 @@ def main():
     seshat = createCCs(seshat)
     export(seshat, timeResolved=False) 
     seshat = createFullTimeSeries(seshat)
+    seshat.to_csv('shiny-seshat-unimputed.csv')
     seshat = firstImpute(seshat)
     seshat = fillInfoFromImputedCCs(seshat)
     seshat = secondImpute(seshat)
     export(seshat)
+    print("Exported shiny-seshat.csv!")
 
 if __name__ == '__main__':
     main()

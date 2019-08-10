@@ -2,42 +2,42 @@
   "nodes": [
     {
       "op": "null", 
-      "name": "ngram_features-2fqiMzTm0u", 
+      "name": "ngram_features-wFDta9oJPk", 
       "attrs": {"__storage_type__": "2"}, 
       "inputs": []
     }, 
     {
       "op": "null", 
-      "name": "numerical_features-Ysy8dncuUV", 
+      "name": "numerical_features-Q4FZ9VEIuT", 
       "inputs": []
     }, 
     {
       "op": "null", 
-      "name": "numerical_features-Ysy8dncuUV_fullyconnected0_weight", 
+      "name": "numerical_features-Q4FZ9VEIuT_fullyconnected0_weight", 
       "attrs": {"num_hidden": "100"}, 
       "inputs": []
     }, 
     {
       "op": "null", 
-      "name": "numerical_features-Ysy8dncuUV_fullyconnected0_bias", 
+      "name": "numerical_features-Q4FZ9VEIuT_fullyconnected0_bias", 
       "attrs": {"num_hidden": "100"}, 
       "inputs": []
     }, 
     {
       "op": "FullyConnected", 
-      "name": "numerical_features-Ysy8dncuUV_fullyconnected0", 
+      "name": "numerical_features-Q4FZ9VEIuT_fullyconnected0", 
       "attrs": {"num_hidden": "100"}, 
       "inputs": [[1, 0, 0], [2, 0, 0], [3, 0, 0]]
     }, 
     {
       "op": "Activation", 
-      "name": "numerical_features-Ysy8dncuUV_activation0", 
+      "name": "numerical_features-Q4FZ9VEIuT_activation0", 
       "attrs": {"act_type": "relu"}, 
       "inputs": [[4, 0, 0]]
     }, 
     {
       "op": "Concat", 
-      "name": "concat92", 
+      "name": "concat82", 
       "attrs": {
         "dim": "1", 
         "num_args": "2"
@@ -69,68 +69,68 @@
     }, 
     {
       "op": "elemwise_sub", 
-      "name": "_minus78", 
+      "name": "_minus72", 
       "inputs": [[9, 0, 0], [10, 0, 0]]
     }, 
     {
       "op": "_power_scalar", 
-      "name": "_powerscalar78", 
+      "name": "_powerscalar72", 
       "attrs": {"scalar": "2.0"}, 
       "inputs": [[11, 0, 0]]
     }, 
     {
       "op": "sum", 
-      "name": "sum106", 
+      "name": "sum92", 
       "inputs": [[12, 0, 0]]
     }, 
     {
       "op": "mean", 
-      "name": "mean92", 
+      "name": "mean82", 
       "inputs": [[13, 0, 0]]
     }, 
     {
       "op": "_plus_scalar", 
-      "name": "_plusscalar120", 
+      "name": "_plusscalar102", 
       "attrs": {"scalar": "1e-05"}, 
       "inputs": [[14, 0, 0]]
     }, 
     {
       "op": "broadcast_div", 
-      "name": "broadcast_div106", 
+      "name": "broadcast_div92", 
       "inputs": [[13, 0, 0], [15, 0, 0]]
     }, 
     {
       "op": "add_n", 
-      "name": "elementwisesum185", 
+      "name": "elementwisesum165", 
       "attrs": {"num_args": "1"}, 
       "inputs": [[16, 0, 0]]
     }, 
     {
       "op": "_div_scalar", 
-      "name": "_divscalar185", 
+      "name": "_divscalar165", 
       "attrs": {"scalar": "1.0"}, 
       "inputs": [[17, 0, 0]]
     }, 
     {
       "op": "add_n", 
-      "name": "elementwisesum184", 
+      "name": "elementwisesum164", 
       "attrs": {"num_args": "1"}, 
       "inputs": [[15, 0, 0]]
     }, 
     {
       "op": "_div_scalar", 
-      "name": "_divscalar184", 
+      "name": "_divscalar164", 
       "attrs": {"scalar": "1.0"}, 
       "inputs": [[19, 0, 0]]
     }, 
     {
       "op": "broadcast_mul", 
-      "name": "broadcast_mul106", 
+      "name": "broadcast_mul92", 
       "inputs": [[18, 0, 0], [20, 0, 0]]
     }, 
     {
       "op": "MakeLoss", 
-      "name": "makeloss92", 
+      "name": "makeloss82", 
       "attrs": {
         "normalization": "valid", 
         "valid_thresh": "1e-06"

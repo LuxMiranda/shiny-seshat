@@ -509,7 +509,6 @@ IMPUTABLE_VARS = [
 'Degree_of_centralization',
 'Linguistic_family',
 'Relationship_to_preceding_(quasi)polity',
-'Succeeding_(quasi)polity',
 'Scale_of_supracultural_interaction',
 'Suprapolity_relations',
 # Religion
@@ -535,3 +534,27 @@ IMPUTABLE_VARS = [
 'Most_widespread_ritual_frequency_per_participant'
 ] + CCs
 
+IMPUTABLE_CATEGORICAL_VARS = [
+'Bureaucracy_source_of_support',
+'Degree_of_centralization',
+'Linguistic_family',
+'Relationship_to_preceding_(quasi)polity',
+'Scale_of_supracultural_interaction',
+'Suprapolity_relations',
+'High_gods_(creator_gods)',
+'Largest_scale_collective_ritual_of_the_official_cult_frequency_for_the_audience',
+'Largest_scale_ritual_frequency_for_ritual_specialist',
+'Largest_scale_ritual_frequency_per_participant',
+'Most_dysphoric_ritual_frequency_for_audience',
+'Most_dysphoric_ritual_frequency_for_ritual_specialist',
+'Most_dysphoric_ritual_frequency_per_participant',
+'Most_euphoric_ritual_frequency_for_audience',
+'Most_euphoric_ritual_frequency_for_ritual_specialist',
+'Most_euphoric_ritual_frequency_per_participant',
+'Most_frequent_ritual_frequency_for_audience',
+'Most_frequent_ritual_frequency_for_ritual_specialist',
+'Most_frequent_ritual_frequency_per_participant',
+'Most_widespread_ritual_frequency_for_audience',
+'Most_widespread_ritual_frequency_for_ritual_specialist',
+'Most_widespread_ritual_frequency_per_participant'
+]

@@ -3,7 +3,7 @@ import pandas as pd
 import datawig
 from sklearn.metrics import r2_score, precision_recall_fscore_support
 from sklearn.model_selection import KFold
-from impute import p2prediction
+from impute import p2prediction, p2Score
 import numpy as np
 from impute import regionKFold
 import os
@@ -54,9 +54,9 @@ def main():
         p2s = []
         p2ms = []
         varSet = 'few'
-#        if predictVar in betterWithAllVars:
-#            varSet = 'many'
-#            modelVars = IMPUTABLE_VARS
+        if predictVar in betterWithAllVars:
+            varSet = 'many'
+            modelVars = IMPUTABLE_VARS
         print('Validating {}'.format(predictVar))
         # Select known values
         knownVals = (seshat[~seshat[predictVar].isna()])
@@ -75,7 +75,7 @@ def main():
                         output_column = predictVar,
                         output_path   = modelPath
                         )
-                imputer.fit_hpo(train_df=df_train, num_epochs=1000)
+                imputer.fit(train_df=df_train, num_epochs=1000)
             # Predict the values in the test set
             predicted = imputer.predict(df_test)
             if predictVar in IMPUTABLE_CATEGORICAL_VARS:

@@ -1,4 +1,4 @@
-from dictionaries import CCs, NGAs, NON_NUMERIC_COLUMNS, IMPUTABLE_VARS
+from dictionaries import CCs, NGAs, NON_NUMERIC_COLUMNS, IMPUTABLE_VARS, THE_FIFTY_ONE
 import pandas as pd
 import numpy as np
 import utm.conversion as utmc
@@ -11,7 +11,7 @@ from tqdm import tqdm
 # each CC. 
 RECOMPUTE_REGRESSION_VARS = False
 
-DEBUG = True
+DEBUG = False
 
 def isnan(x):
     if isinstance(x, str):
@@ -59,6 +59,9 @@ def imputeDict(series):
 def includeImputeInfo(seshat):
     seshat['Percent_CCs_imputed'] = seshat[CCs].isnull().sum(axis=1) / len(CCs)
     seshat['Features_imputed'] = seshat[IMPUTABLE_VARS].isnull().apply(imputeDict, axis=1)
+    seshat['Percent_features_imputed'] = seshat[IMPUTABLE_VARS]\
+        .isnull().sum(axis=1) / len(IMPUTABLE_VARS)
+    seshat['Percent_51_imputed'] = seshat[THE_FIFTY_ONE].isnull().sum(axis=1) / 51.0
     return seshat
 
 def utmCentroid(utm):
@@ -267,9 +270,7 @@ def testImpute(data, modelVars):
 
 
 def imputeCCs(seshat):
-    print(seshat.columns)
     trainSet    = getCCTrainSet(seshat)
-    print(trainSet)
     modelVars   = ccVars(seshat)
     for predictVar in CCs:
         predictData = seshat[modelVars]
@@ -295,8 +296,9 @@ def firstImpute(seshat):
     # Keep track of which variables we're imputing
     seshat = includeImputeInfo(seshat)
     if not DEBUG:
-        seshat = makeRegressionVars(seshat)
-        seshat.to_csv('model/seshat-with-regression-vars.csv')
+#        seshat = makeRegressionVars(seshat)
+#        seshat.to_csv('model/seshat-with-regression-vars.csv')
+        seshat = pd.read_csv('model/seshat-with-regression-vars.csv')
         seshat = imputeCCs(seshat)
         seshat.set_index('Temperoculture').to_csv('shiny-seshat-CCs-imputed.csv')
     else:

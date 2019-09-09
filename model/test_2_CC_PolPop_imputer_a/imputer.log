@@ -1,0 +1,211 @@
+2019-08-12 13:11:53,469 [INFO]  
+========== start: fit model
+2019-08-12 13:11:53,469 [WARNING]  Already bound, ignoring bind()
+2019-08-12 13:11:53,475 [INFO]  Epoch[0] Batch [0-6]	Speed: 29001.24 samples/sec	cross-entropy=16.627030	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,478 [INFO]  Epoch[0] Train-cross-entropy=9.069030
+2019-08-12 13:11:53,478 [INFO]  Epoch[0] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,478 [INFO]  Epoch[0] Time cost=0.008
+2019-08-12 13:11:53,480 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0000.params"
+2019-08-12 13:11:53,481 [INFO]  Epoch[0] Validation-cross-entropy=10.412099
+2019-08-12 13:11:53,481 [INFO]  Epoch[0] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,486 [INFO]  Epoch[1] Batch [0-6]	Speed: 23620.18 samples/sec	cross-entropy=5.985040	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,489 [INFO]  Epoch[1] Train-cross-entropy=3.663082
+2019-08-12 13:11:53,489 [INFO]  Epoch[1] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,489 [INFO]  Epoch[1] Time cost=0.008
+2019-08-12 13:11:53,490 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0001.params"
+2019-08-12 13:11:53,492 [INFO]  Epoch[1] Validation-cross-entropy=3.174456
+2019-08-12 13:11:53,492 [INFO]  Epoch[1] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,497 [INFO]  Epoch[2] Batch [0-6]	Speed: 23646.53 samples/sec	cross-entropy=3.372951	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,500 [INFO]  Epoch[2] Train-cross-entropy=2.941051
+2019-08-12 13:11:53,500 [INFO]  Epoch[2] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,500 [INFO]  Epoch[2] Time cost=0.008
+2019-08-12 13:11:53,502 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0002.params"
+2019-08-12 13:11:53,503 [INFO]  Epoch[2] Validation-cross-entropy=2.810436
+2019-08-12 13:11:53,503 [INFO]  Epoch[2] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,508 [INFO]  Epoch[3] Batch [0-6]	Speed: 23397.83 samples/sec	cross-entropy=2.159647	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,511 [INFO]  Epoch[3] Train-cross-entropy=2.599671
+2019-08-12 13:11:53,511 [INFO]  Epoch[3] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,511 [INFO]  Epoch[3] Time cost=0.008
+2019-08-12 13:11:53,513 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0003.params"
+2019-08-12 13:11:53,514 [INFO]  Epoch[3] Validation-cross-entropy=4.126251
+2019-08-12 13:11:53,514 [INFO]  Epoch[3] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,519 [INFO]  Epoch[4] Batch [0-6]	Speed: 23277.44 samples/sec	cross-entropy=1.907920	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,522 [INFO]  Epoch[4] Train-cross-entropy=2.160148
+2019-08-12 13:11:53,522 [INFO]  Epoch[4] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,522 [INFO]  Epoch[4] Time cost=0.008
+2019-08-12 13:11:53,525 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0004.params"
+2019-08-12 13:11:53,526 [INFO]  Epoch[4] Validation-cross-entropy=2.726172
+2019-08-12 13:11:53,526 [INFO]  Epoch[4] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,533 [INFO]  Epoch[5] Batch [0-6]	Speed: 17705.27 samples/sec	cross-entropy=1.525518	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,537 [INFO]  Epoch[5] Train-cross-entropy=1.979254
+2019-08-12 13:11:53,538 [INFO]  Epoch[5] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,538 [INFO]  Epoch[5] Time cost=0.011
+2019-08-12 13:11:53,540 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0005.params"
+2019-08-12 13:11:53,541 [INFO]  Epoch[5] Validation-cross-entropy=2.380583
+2019-08-12 13:11:53,541 [INFO]  Epoch[5] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,547 [INFO]  Epoch[6] Batch [0-6]	Speed: 22947.12 samples/sec	cross-entropy=1.329978	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,550 [INFO]  Epoch[6] Train-cross-entropy=1.866304
+2019-08-12 13:11:53,550 [INFO]  Epoch[6] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,550 [INFO]  Epoch[6] Time cost=0.008
+2019-08-12 13:11:53,551 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0006.params"
+2019-08-12 13:11:53,552 [INFO]  Epoch[6] Validation-cross-entropy=1.980718
+2019-08-12 13:11:53,552 [INFO]  Epoch[6] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,557 [INFO]  Epoch[7] Batch [0-6]	Speed: 23494.76 samples/sec	cross-entropy=1.198432	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,560 [INFO]  Epoch[7] Train-cross-entropy=1.646623
+2019-08-12 13:11:53,561 [INFO]  Epoch[7] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,561 [INFO]  Epoch[7] Time cost=0.008
+2019-08-12 13:11:53,562 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0007.params"
+2019-08-12 13:11:53,563 [INFO]  Epoch[7] Validation-cross-entropy=1.544527
+2019-08-12 13:11:53,563 [INFO]  Epoch[7] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,569 [INFO]  Epoch[8] Batch [0-6]	Speed: 22954.97 samples/sec	cross-entropy=1.098172	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,572 [INFO]  Epoch[8] Train-cross-entropy=1.597983
+2019-08-12 13:11:53,572 [INFO]  Epoch[8] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,572 [INFO]  Epoch[8] Time cost=0.009
+2019-08-12 13:11:53,574 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0008.params"
+2019-08-12 13:11:53,575 [INFO]  Epoch[8] Validation-cross-entropy=1.480229
+2019-08-12 13:11:53,575 [INFO]  Epoch[8] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,581 [INFO]  Epoch[9] Batch [0-6]	Speed: 17418.81 samples/sec	cross-entropy=1.037746	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,585 [INFO]  Epoch[9] Train-cross-entropy=1.414771
+2019-08-12 13:11:53,585 [INFO]  Epoch[9] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,585 [INFO]  Epoch[9] Time cost=0.010
+2019-08-12 13:11:53,589 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0009.params"
+2019-08-12 13:11:53,590 [INFO]  Epoch[9] Validation-cross-entropy=1.291292
+2019-08-12 13:11:53,590 [INFO]  Epoch[9] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,595 [INFO]  Epoch[10] Batch [0-6]	Speed: 25181.56 samples/sec	cross-entropy=0.961363	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,598 [INFO]  Epoch[10] Train-cross-entropy=1.348321
+2019-08-12 13:11:53,598 [INFO]  Epoch[10] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,598 [INFO]  Epoch[10] Time cost=0.008
+2019-08-12 13:11:53,600 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0010.params"
+2019-08-12 13:11:53,601 [INFO]  Epoch[10] Validation-cross-entropy=1.288045
+2019-08-12 13:11:53,601 [INFO]  Epoch[10] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,606 [INFO]  Epoch[11] Batch [0-6]	Speed: 23184.96 samples/sec	cross-entropy=0.926343	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,609 [INFO]  Epoch[11] Train-cross-entropy=1.248690
+2019-08-12 13:11:53,609 [INFO]  Epoch[11] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,609 [INFO]  Epoch[11] Time cost=0.008
+2019-08-12 13:11:53,611 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0011.params"
+2019-08-12 13:11:53,612 [INFO]  Epoch[11] Validation-cross-entropy=1.217683
+2019-08-12 13:11:53,612 [INFO]  Epoch[11] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,617 [INFO]  Epoch[12] Batch [0-6]	Speed: 22436.93 samples/sec	cross-entropy=0.883879	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,624 [INFO]  Epoch[12] Train-cross-entropy=1.160099
+2019-08-12 13:11:53,625 [INFO]  Epoch[12] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,625 [INFO]  Epoch[12] Time cost=0.013
+2019-08-12 13:11:53,626 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0012.params"
+2019-08-12 13:11:53,627 [INFO]  Epoch[12] Validation-cross-entropy=1.203945
+2019-08-12 13:11:53,628 [INFO]  Epoch[12] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,633 [INFO]  Epoch[13] Batch [0-6]	Speed: 23827.04 samples/sec	cross-entropy=0.843401	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,636 [INFO]  Epoch[13] Train-cross-entropy=1.096806
+2019-08-12 13:11:53,636 [INFO]  Epoch[13] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,636 [INFO]  Epoch[13] Time cost=0.009
+2019-08-12 13:11:53,638 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0013.params"
+2019-08-12 13:11:53,639 [INFO]  Epoch[13] Validation-cross-entropy=1.137802
+2019-08-12 13:11:53,639 [INFO]  Epoch[13] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,647 [INFO]  Epoch[14] Batch [0-6]	Speed: 13673.83 samples/sec	cross-entropy=0.811099	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,651 [INFO]  Epoch[14] Train-cross-entropy=1.030726
+2019-08-12 13:11:53,652 [INFO]  Epoch[14] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,652 [INFO]  Epoch[14] Time cost=0.012
+2019-08-12 13:11:53,654 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0014.params"
+2019-08-12 13:11:53,655 [INFO]  Epoch[14] Validation-cross-entropy=1.104810
+2019-08-12 13:11:53,655 [INFO]  Epoch[14] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,660 [INFO]  Epoch[15] Batch [0-6]	Speed: 21637.55 samples/sec	cross-entropy=0.784581	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,663 [INFO]  Epoch[15] Train-cross-entropy=0.966095
+2019-08-12 13:11:53,663 [INFO]  Epoch[15] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,664 [INFO]  Epoch[15] Time cost=0.009
+2019-08-12 13:11:53,666 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0015.params"
+2019-08-12 13:11:53,666 [INFO]  Epoch[15] Validation-cross-entropy=1.086936
+2019-08-12 13:11:53,667 [INFO]  Epoch[15] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,672 [INFO]  Epoch[16] Batch [0-6]	Speed: 22397.00 samples/sec	cross-entropy=0.746739	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,675 [INFO]  Epoch[16] Train-cross-entropy=0.913115
+2019-08-12 13:11:53,675 [INFO]  Epoch[16] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,675 [INFO]  Epoch[16] Time cost=0.008
+2019-08-12 13:11:53,677 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0016.params"
+2019-08-12 13:11:53,678 [INFO]  Epoch[16] Validation-cross-entropy=1.087855
+2019-08-12 13:11:53,678 [INFO]  Epoch[16] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,683 [INFO]  Epoch[17] Batch [0-6]	Speed: 23963.17 samples/sec	cross-entropy=0.717062	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,687 [INFO]  Epoch[17] Train-cross-entropy=0.857834
+2019-08-12 13:11:53,688 [INFO]  Epoch[17] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,688 [INFO]  Epoch[17] Time cost=0.010
+2019-08-12 13:11:53,689 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0017.params"
+2019-08-12 13:11:53,690 [INFO]  Epoch[17] Validation-cross-entropy=1.100550
+2019-08-12 13:11:53,690 [INFO]  Epoch[17] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,704 [INFO]  Epoch[18] Batch [0-6]	Speed: 7726.98 samples/sec	cross-entropy=0.684904	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,707 [INFO]  Epoch[18] Train-cross-entropy=0.809622
+2019-08-12 13:11:53,708 [INFO]  Epoch[18] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,708 [INFO]  Epoch[18] Time cost=0.017
+2019-08-12 13:11:53,710 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0018.params"
+2019-08-12 13:11:53,711 [INFO]  Epoch[18] Validation-cross-entropy=1.100658
+2019-08-12 13:11:53,711 [INFO]  Epoch[18] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,717 [INFO]  Epoch[19] Batch [0-6]	Speed: 17744.28 samples/sec	cross-entropy=0.653736	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,721 [INFO]  Epoch[19] Train-cross-entropy=0.762914
+2019-08-12 13:11:53,722 [INFO]  Epoch[19] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,722 [INFO]  Epoch[19] Time cost=0.011
+2019-08-12 13:11:53,725 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0019.params"
+2019-08-12 13:11:53,727 [INFO]  Epoch[19] Validation-cross-entropy=1.106769
+2019-08-12 13:11:53,727 [INFO]  Epoch[19] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,732 [INFO]  Epoch[20] Batch [0-6]	Speed: 25355.99 samples/sec	cross-entropy=0.627455	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,735 [INFO]  Epoch[20] Train-cross-entropy=0.714230
+2019-08-12 13:11:53,735 [INFO]  Epoch[20] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:53,735 [INFO]  Epoch[20] Time cost=0.008
+2019-08-12 13:11:53,737 [INFO]  Saved checkpoint to "model/test_2_CC_PolPop_imputer_a/model-0020.params"
+2019-08-12 13:11:53,738 [INFO]  No improvement detected for 5 epochs compared to 1.0869356393814087 last error obtained: 1.132653832435608, stopping here
+2019-08-12 13:11:53,739 [INFO]  
+========== done (0.2692866325378418 s) fit model
+2019-08-12 13:11:54,710 [INFO]  
+========== start: fit model
+2019-08-12 13:11:54,710 [WARNING]  Already bound, ignoring bind()
+2019-08-12 13:11:54,716 [INFO]  Epoch[0] Batch [0-6]	Speed: 23591.12 samples/sec	cross-entropy=9.628070	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,719 [INFO]  Epoch[0] Train-cross-entropy=7.684329
+2019-08-12 13:11:54,719 [INFO]  Epoch[0] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,720 [INFO]  Epoch[0] Time cost=0.009
+2019-08-12 13:11:54,721 [INFO]  Saved checkpoint to "model/test_3_CC_PolPop_imputer_a/model-0000.params"
+2019-08-12 13:11:54,722 [INFO]  Epoch[0] Validation-cross-entropy=2.544572
+2019-08-12 13:11:54,722 [INFO]  Epoch[0] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,727 [INFO]  Epoch[1] Batch [0-6]	Speed: 23425.05 samples/sec	cross-entropy=3.902036	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,730 [INFO]  Epoch[1] Train-cross-entropy=2.842069
+2019-08-12 13:11:54,730 [INFO]  Epoch[1] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,731 [INFO]  Epoch[1] Time cost=0.008
+2019-08-12 13:11:54,732 [INFO]  Saved checkpoint to "model/test_3_CC_PolPop_imputer_a/model-0001.params"
+2019-08-12 13:11:54,733 [INFO]  Epoch[1] Validation-cross-entropy=2.765800
+2019-08-12 13:11:54,733 [INFO]  Epoch[1] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,738 [INFO]  Epoch[2] Batch [0-6]	Speed: 22478.27 samples/sec	cross-entropy=2.172573	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,741 [INFO]  Epoch[2] Train-cross-entropy=2.377146
+2019-08-12 13:11:54,742 [INFO]  Epoch[2] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,742 [INFO]  Epoch[2] Time cost=0.008
+2019-08-12 13:11:54,743 [INFO]  Saved checkpoint to "model/test_3_CC_PolPop_imputer_a/model-0002.params"
+2019-08-12 13:11:54,744 [INFO]  Epoch[2] Validation-cross-entropy=1.057276
+2019-08-12 13:11:54,745 [INFO]  Epoch[2] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,757 [INFO]  Epoch[3] Batch [0-6]	Speed: 8644.15 samples/sec	cross-entropy=1.867366	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,760 [INFO]  Epoch[3] Train-cross-entropy=1.767559
+2019-08-12 13:11:54,760 [INFO]  Epoch[3] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,761 [INFO]  Epoch[3] Time cost=0.016
+2019-08-12 13:11:54,763 [INFO]  Saved checkpoint to "model/test_3_CC_PolPop_imputer_a/model-0003.params"
+2019-08-12 13:11:54,765 [INFO]  Epoch[3] Validation-cross-entropy=2.293967
+2019-08-12 13:11:54,765 [INFO]  Epoch[3] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,771 [INFO]  Epoch[4] Batch [0-6]	Speed: 18097.59 samples/sec	cross-entropy=1.348284	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,776 [INFO]  Epoch[4] Train-cross-entropy=1.696447
+2019-08-12 13:11:54,777 [INFO]  Epoch[4] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,777 [INFO]  Epoch[4] Time cost=0.012
+2019-08-12 13:11:54,779 [INFO]  Saved checkpoint to "model/test_3_CC_PolPop_imputer_a/model-0004.params"
+2019-08-12 13:11:54,780 [INFO]  Epoch[4] Validation-cross-entropy=1.126897
+2019-08-12 13:11:54,780 [INFO]  Epoch[4] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,785 [INFO]  Epoch[5] Batch [0-6]	Speed: 21917.87 samples/sec	cross-entropy=1.203991	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,789 [INFO]  Epoch[5] Train-cross-entropy=1.449132
+2019-08-12 13:11:54,789 [INFO]  Epoch[5] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,789 [INFO]  Epoch[5] Time cost=0.009
+2019-08-12 13:11:54,791 [INFO]  Saved checkpoint to "model/test_3_CC_PolPop_imputer_a/model-0005.params"
+2019-08-12 13:11:54,792 [INFO]  Epoch[5] Validation-cross-entropy=1.346875
+2019-08-12 13:11:54,792 [INFO]  Epoch[5] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,797 [INFO]  Epoch[6] Batch [0-6]	Speed: 23776.39 samples/sec	cross-entropy=1.053375	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,800 [INFO]  Epoch[6] Train-cross-entropy=1.345068
+2019-08-12 13:11:54,800 [INFO]  Epoch[6] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,800 [INFO]  Epoch[6] Time cost=0.008
+2019-08-12 13:11:54,802 [INFO]  Saved checkpoint to "model/test_3_CC_PolPop_imputer_a/model-0006.params"
+2019-08-12 13:11:54,803 [INFO]  Epoch[6] Validation-cross-entropy=1.147660
+2019-08-12 13:11:54,804 [INFO]  Epoch[6] Validation-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,808 [INFO]  Epoch[7] Batch [0-6]	Speed: 24483.35 samples/sec	cross-entropy=0.963608	CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,811 [INFO]  Epoch[7] Train-cross-entropy=1.236987
+2019-08-12 13:11:54,812 [INFO]  Epoch[7] Train-CC_PolPop-accuracy=0.000000
+2019-08-12 13:11:54,812 [INFO]  Epoch[7] Time cost=0.008
+2019-08-12 13:11:54,813 [INFO]  Saved checkpoint to "model/test_3_CC_PolPop_imputer_a/model-0007.params"
+2019-08-12 13:11:54,814 [INFO]  No improvement detected for 5 epochs compared to 1.0572764724493027 last error obtained: 1.1895807981491089, stopping here
+2019-08-12 13:11:54,814 [INFO]  
+========== done (0.10486721992492676 s) fit model

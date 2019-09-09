@@ -558,3 +558,5 @@ IMPUTABLE_CATEGORICAL_VARS = [
 'Most_widespread_ritual_frequency_for_ritual_specialist',
 'Most_widespread_ritual_frequency_per_participant'
 ]
+
+THE_FIFTY_ONE = ['Polity_population','Polity_territory','Population_of_the_largest_settlement','Administrative_levels','Military_levels','Religious_levels','Settlement_hierarchy','Professional_military_officers','Professional_soldiers','Professional_priesthood','Fulltime_bureaucrats','Bureaucracy_examination_system','Bureaucracy_merit_promotion','Specialized_government_buildings','Courts','Formal_legal_code','Judges','Professional_lawyers','Irrigation_systems','Drinking_water_supply_systems','Markets','Food_storage_sites','Roads','Bridges','Canals','Ports','Mines_or_quarries','Couriers','Postal_stations','General_postal_service','Mnemonic_devices','Nonwritten_records','Written_records','Script','Nonphonetic_writing','Phonetic_alphabetic_writing','Lists_tables_and_classifications','Calendar','Sacred_texts','Religious_literature','Practical_literature','History','Philosophy','Scientific_literature','Fiction','Articles','Tokens','Precious_metals','Foreign_coins','Indigenous_coins','Paper_currency']

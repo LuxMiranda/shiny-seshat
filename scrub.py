@@ -9,9 +9,10 @@ import re
 from math import log10
 from impute import firstImpute, secondImpute
 from tqdm import tqdm
+from sklearn.decomposition import PCA
 from dictionaries import POLITY_ID_REPLACEMENTS, NGA_UTMs, COLUMN_NAME_REMAP,\
         RITUAL_VARIABLES, COLUMN_MERGE, RITUAL_VARIABLE_RENAMES,\
-        COLUMN_REORDERING, NGA_REGIONS
+        COLUMN_REORDERING, NGA_REGIONS, THE_FIFTY_ONE
 
 SESHAT_URL   = 'http://seshatdatabank.info/moralizinggodsdata/data/download.csv'
 OUT_FILENAME = 'shiny-seshat.csv'
@@ -149,6 +150,9 @@ def getDatesFromDuration(eraStr):
         start = int(start)*np.sign(end)
         if start > 0:
             start -= 1
+    # Quick fix in case we received a range in BCE without the 'BCE'
+    if start > end:
+        return (-1*(start+1), -1*end)
     return start,end
 
 # Fetch the list of integer dates from a single column of the polity data
@@ -404,30 +408,30 @@ def deleteUltraSparse(seshat):
 
 # Fix singular orphaned values arisen from human error in encoding Seshat.
 def findHomesForThePoorOrphanChildren(seshat):
+    seshat = seshat.set_index('Temperoculture')
     # This little child was so busy feasting, they drifted into a deleted column
-    seshat.at[1192,'Most_euphoric_ritual_name'] = 'feast'
+    seshat.at['TrClcER-1','Most_euphoric_ritual_name'] = 'feast'
     # This little child was ~very~ found of extraneous units
-    seshat.at[441, 'Polity_territory'] = 175000
+    seshat.at['IdKahur-1', 'Polity_territory'] = 175000
     # This pair of little twins never really got a hang of intervals in math class
-    seshat.at[49, 'Population_of_the_largest_settlement'] = 22500
-    seshat.at[50, 'Population_of_the_largest_settlement'] = 22500
+    seshat.at['Ashanti-1', 'Population_of_the_largest_settlement'] = 22500
+    seshat.at['Ashanti-2', 'Population_of_the_largest_settlement'] = 22500
     # This trio of triplets decided to skip 19th-century day in history class
-    seshat.at[954, 'Period_start'] = 1825
-    seshat.at[954, 'Period_end']   = 1830
-    seshat.at[955, 'Period_start'] = 1830
+    seshat.at['MlToucl-1', 'Period_start'] = 1825
+    seshat.at['MlToucl-1', 'Period_end']   = 1830
+    seshat.at['MlToucl-2', 'Period_start'] = 1830
     # Seven silly stays have some six or seven serious administrative levels
-    seshat.at[954, 'Administrative_levels'] = 6.5
-    seshat.at[955, 'Administrative_levels'] = 6.5
-    seshat.at[956, 'Administrative_levels'] = 6.5
-    seshat.at[957, 'Administrative_levels'] = 6.5
-    seshat.at[958, 'Administrative_levels'] = 6.5
-    seshat.at[959, 'Administrative_levels'] = 6.5
-    seshat.at[960, 'Administrative_levels'] = 6.5
+    seshat.at['MlToucl-1', 'Administrative_levels'] = 6.5
+    seshat.at['MlToucl-2', 'Administrative_levels'] = 6.5
+    seshat.at['MlToucl-3', 'Administrative_levels'] = 6.5
+    seshat.at['MlToucl-4', 'Administrative_levels'] = 6.5
+    seshat.at['MlToucl-5', 'Administrative_levels'] = 6.5
+    seshat.at['MlToucl-6', 'Administrative_levels'] = 6.5
+    seshat.at['MlToucl-7', 'Administrative_levels'] = 6.5
     # This orphan never ever wanted to be adopted, so much so that they posted
     # a big sign outside the orphanage indicating so. Unfortunately, this 
     # advertising led to the orphan receiving an extra amount of attention
     # from potential adopters. Let's help the orphan out by removing the sign.
-    seshat = seshat.set_index('Temperoculture')
     seshat.at['PkProto-1', 'Largest_communication_distance'] = np.nan
     # More extraneous units
     seshat.at['CnWHan-1', 'Monumental_building_extent'] = 2400
@@ -772,21 +776,35 @@ def fillInfoFromImputedCCs(seshat):
     seshat = fillInMoneyInfo(seshat)
     return seshat
 
+def getPC1(seshat):
+    pca = PCA(n_components=9)
+    basePols = seshat[THE_FIFTY_ONE + ['BasePolity']].groupby(['BasePolity']).mean()
+    data = basePols[THE_FIFTY_ONE].copy()
+    comps = pca.fit_transform(data)
+#    basePols['51-PC1'] = np.transpose(comps)[0]
+#    print(basePols['51-PC1'])
+#    seshat['51-PC1'] = seshat['BasePolity'].apply(lambda pol : basePols.at[pol, '51-PC1'])
+#    return seshat
+
+
 def main():
 #    ensureReqs();                            PROGRESS_BAR.update(1)
 #    seshat = getSeshat();                    PROGRESS_BAR.update(1)
 #    seshat = phase0Tidy(seshat);             PROGRESS_BAR.update(1)
 #    seshat = makeTemperocultureWise(seshat)
-    if DEBUG:
-        seshat = pd.read_csv('phase1.csv',index_col=0)
-    seshat = phase1Tidy(seshat)
-    seshat = createCCs(seshat)
-    export(seshat, timeResolved=False) 
-    seshat = createFullTimeSeries(seshat)
-    seshat.to_csv('shiny-seshat-unimputed.csv')
-    seshat = firstImpute(seshat)
-    seshat = fillInfoFromImputedCCs(seshat)
-    seshat = secondImpute(seshat)
+    #if DEBUG:
+    #    seshat = pd.read_csv('phase1.csv',index_col=0)
+    #seshat = phase1Tidy(seshat)
+    #seshat = createCCs(seshat)
+    #export(seshat, timeResolved=False) 
+    #seshat = createFullTimeSeries(seshat)
+    #seshat.to_csv('shiny-seshat-unimputed.csv')
+#    seshat = pd.read_csv('shiny-seshat-unimputed.csv')
+#    seshat = firstImpute(seshat)
+#    seshat = fillInfoFromImputedCCs(seshat)
+#    seshat = secondImpute(seshat)
+    seshat = pd.read_csv('shiny-seshat.csv')
+    seshat = getPC1(seshat)
     export(seshat)
     print("Exported shiny-seshat.csv!")
 

@@ -12,7 +12,7 @@ from tqdm import tqdm
 from sklearn.decomposition import PCA
 from dictionaries import POLITY_ID_REPLACEMENTS, NGA_UTMs, COLUMN_NAME_REMAP,\
         RITUAL_VARIABLES, COLUMN_MERGE, RITUAL_VARIABLE_RENAMES,\
-        COLUMN_REORDERING, NGA_REGIONS, THE_FIFTY_ONE
+        COLUMN_REORDERING, NGA_REGIONS, THE_FIFTY_ONE, CCs
 
 SESHAT_URL   = 'http://seshatdatabank.info/moralizinggodsdata/data/download.csv'
 OUT_FILENAME = 'shiny-seshat.csv'
@@ -778,13 +778,13 @@ def fillInfoFromImputedCCs(seshat):
 
 def getPC1(seshat):
     pca = PCA(n_components=9)
-    basePols = seshat[THE_FIFTY_ONE + ['BasePolity']].groupby(['BasePolity']).mean()
-    data = basePols[THE_FIFTY_ONE].copy()
-    comps = pca.fit_transform(data)
-#    basePols['51-PC1'] = np.transpose(comps)[0]
-#    print(basePols['51-PC1'])
-#    seshat['51-PC1'] = seshat['BasePolity'].apply(lambda pol : basePols.at[pol, '51-PC1'])
-#    return seshat
+    basePols = seshat[CCs]
+    data = basePols[CCs].copy()
+    pca.fit(data)
+    comps = pca.transform(data)
+    basePols['51-PC1'] = np.transpose(comps)[0]
+    seshat['51-PC1'] = basePols['51-PC1']
+    return seshat
 
 
 def main():
@@ -803,7 +803,7 @@ def main():
 #    seshat = firstImpute(seshat)
 #    seshat = fillInfoFromImputedCCs(seshat)
 #    seshat = secondImpute(seshat)
-    seshat = pd.read_csv('shiny-seshat.csv')
+    seshat = pd.read_csv('backup.csv')
     seshat = getPC1(seshat)
     export(seshat)
     print("Exported shiny-seshat.csv!")

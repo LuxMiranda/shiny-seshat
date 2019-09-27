@@ -30,8 +30,18 @@ The process of fetching the original databank is automated. To download and begi
 python scrub.py
 ```
      
-#### License     
-      
-This work is licensed under Creative Commons Non-Commercial Share-Alike International 4.0
+#### Attribution & Licensing
+
+This derivative work employs data from the Seshat Databank (seshatdatabank.info) under Creative Commons Attribution Non-Commercial (CC By-NC SA) licensing.
 
 [![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+Whitehouse, H., P. François, P.E. Savage, […] P. Turchin. “Complex societies precede moralizing gods throughout world history.” Nature. http://doi.org/10.1038/s41586-019-1043-4.
+
+Turchin, P., T. E. Currie, H. Whitehouse, P. François, K. Feeney,  […] C. Spencer. 2017. “Quantitative historical analysis uncovers a single dimension of complexity that structures global variation in human social organization.” PNAS. http://www.pnas.org/content/early/2017/12/20/1708800115.full.
+
+Turchin, P. 2018. “Fitting Dynamic Regression Models to Seshat Data.” Cliodynamics 9(1): 25-58. https://doi.org/10.21237/C7clio9137696.
+
+Turchin, P., R. Brennan, T. E. Currie, K. Feeney, P. François, […] H. Whitehouse. 2015. “Seshat: The Global History Databank.” Cliodynamics 6(1): 77–107. https://doi.org/10.21237/C7clio6127917.
+
+The views and conclusions contained in this document are those of the authors and should not be interpreted as representing the official positions, either expressed or implied, of the Seshat Databank, its collaborative scholarly community, or the Evolution Institute.

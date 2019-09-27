@@ -1,3 +1,8 @@
+
+
+[![DOI](https://zenodo.org/badge/184840639.svg)](https://zenodo.org/badge/latestdoi/184840639)
+
+
 #### [Click here for downloadable releases of Shiny Seshat](https://github.com/JackMiranda/shiny-seshat/releases)
 
 ## Improved and analysis-ready

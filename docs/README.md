@@ -1,6 +1,7 @@
 
 
-[![DOI](https://zenodo.org/badge/184840639.svg)](https://zenodo.org/badge/latestdoi/184840639)
+[![DOI](https://zenodo.org/badge/184840639.svg)](https://zenodo.org/badge/latestdoi/184840639) 
+[![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 
 #### [Click here for downloadable releases of Shiny Seshat](https://github.com/JackMiranda/shiny-seshat/releases)
@@ -34,7 +35,6 @@ python scrub.py
 
 This derivative work employs data from the Seshat Databank (seshatdatabank.info) under Creative Commons Attribution Non-Commercial (CC By-NC SA) licensing.
 
-[![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 Whitehouse, H., P. François, P.E. Savage, […] P. Turchin. “Complex societies precede moralizing gods throughout world history.” Nature. http://doi.org/10.1038/s41586-019-1043-4.
 

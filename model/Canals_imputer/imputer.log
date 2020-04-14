@@ -34469,3 +34469,397 @@
 ========== done (14.610317707061768 s) fit model
 2019-09-09 08:04:17,481 [INFO]  
 ========== done (14.610317707061768 s) fit model
+2020-02-24 16:35:58,050 [INFO]  
+========== start: fit model
+2020-02-24 16:35:58,050 [INFO]  
+========== start: fit model
+2020-02-24 16:35:58,062 [WARNING]  Already bound, ignoring bind()
+2020-02-24 16:35:58,062 [WARNING]  Already bound, ignoring bind()
+2020-02-24 16:35:58,277 [INFO]  Epoch[0] Batch [0-40]	Speed: 3300.43 samples/sec	cross-entropy=3.606464	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,277 [INFO]  Epoch[0] Batch [0-40]	Speed: 3300.43 samples/sec	cross-entropy=3.606464	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,462 [INFO]  Epoch[0] Train-cross-entropy=2.017538
+2020-02-24 16:35:58,462 [INFO]  Epoch[0] Train-cross-entropy=2.017538
+2020-02-24 16:35:58,464 [INFO]  Epoch[0] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,464 [INFO]  Epoch[0] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,466 [INFO]  Epoch[0] Time cost=0.400
+2020-02-24 16:35:58,466 [INFO]  Epoch[0] Time cost=0.400
+2020-02-24 16:35:58,471 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0000.params"
+2020-02-24 16:35:58,471 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0000.params"
+2020-02-24 16:35:58,509 [INFO]  Epoch[0] Validation-cross-entropy=1.944289
+2020-02-24 16:35:58,509 [INFO]  Epoch[0] Validation-cross-entropy=1.944289
+2020-02-24 16:35:58,511 [INFO]  Epoch[0] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,511 [INFO]  Epoch[0] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,716 [INFO]  Epoch[1] Batch [0-40]	Speed: 3221.46 samples/sec	cross-entropy=1.332612	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,716 [INFO]  Epoch[1] Batch [0-40]	Speed: 3221.46 samples/sec	cross-entropy=1.332612	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,900 [INFO]  Epoch[1] Train-cross-entropy=1.249724
+2020-02-24 16:35:58,900 [INFO]  Epoch[1] Train-cross-entropy=1.249724
+2020-02-24 16:35:58,902 [INFO]  Epoch[1] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,902 [INFO]  Epoch[1] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,904 [INFO]  Epoch[1] Time cost=0.391
+2020-02-24 16:35:58,904 [INFO]  Epoch[1] Time cost=0.391
+2020-02-24 16:35:58,907 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0001.params"
+2020-02-24 16:35:58,907 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0001.params"
+2020-02-24 16:35:58,952 [INFO]  Epoch[1] Validation-cross-entropy=0.723432
+2020-02-24 16:35:58,952 [INFO]  Epoch[1] Validation-cross-entropy=0.723432
+2020-02-24 16:35:58,954 [INFO]  Epoch[1] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:58,954 [INFO]  Epoch[1] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,168 [INFO]  Epoch[2] Batch [0-40]	Speed: 3106.10 samples/sec	cross-entropy=0.751707	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,168 [INFO]  Epoch[2] Batch [0-40]	Speed: 3106.10 samples/sec	cross-entropy=0.751707	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,351 [INFO]  Epoch[2] Train-cross-entropy=0.850331
+2020-02-24 16:35:59,351 [INFO]  Epoch[2] Train-cross-entropy=0.850331
+2020-02-24 16:35:59,353 [INFO]  Epoch[2] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,353 [INFO]  Epoch[2] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,354 [INFO]  Epoch[2] Time cost=0.399
+2020-02-24 16:35:59,354 [INFO]  Epoch[2] Time cost=0.399
+2020-02-24 16:35:59,358 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0002.params"
+2020-02-24 16:35:59,358 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0002.params"
+2020-02-24 16:35:59,402 [INFO]  Epoch[2] Validation-cross-entropy=0.446237
+2020-02-24 16:35:59,402 [INFO]  Epoch[2] Validation-cross-entropy=0.446237
+2020-02-24 16:35:59,404 [INFO]  Epoch[2] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,404 [INFO]  Epoch[2] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,605 [INFO]  Epoch[3] Batch [0-40]	Speed: 3304.74 samples/sec	cross-entropy=0.499347	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,605 [INFO]  Epoch[3] Batch [0-40]	Speed: 3304.74 samples/sec	cross-entropy=0.499347	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,791 [INFO]  Epoch[3] Train-cross-entropy=0.554873
+2020-02-24 16:35:59,791 [INFO]  Epoch[3] Train-cross-entropy=0.554873
+2020-02-24 16:35:59,793 [INFO]  Epoch[3] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,793 [INFO]  Epoch[3] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,794 [INFO]  Epoch[3] Time cost=0.389
+2020-02-24 16:35:59,794 [INFO]  Epoch[3] Time cost=0.389
+2020-02-24 16:35:59,798 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0003.params"
+2020-02-24 16:35:59,798 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0003.params"
+2020-02-24 16:35:59,838 [INFO]  Epoch[3] Validation-cross-entropy=0.304396
+2020-02-24 16:35:59,838 [INFO]  Epoch[3] Validation-cross-entropy=0.304396
+2020-02-24 16:35:59,840 [INFO]  Epoch[3] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:35:59,840 [INFO]  Epoch[3] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,040 [INFO]  Epoch[4] Batch [0-40]	Speed: 3292.77 samples/sec	cross-entropy=0.356830	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,040 [INFO]  Epoch[4] Batch [0-40]	Speed: 3292.77 samples/sec	cross-entropy=0.356830	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,247 [INFO]  Epoch[4] Train-cross-entropy=0.434184
+2020-02-24 16:36:00,247 [INFO]  Epoch[4] Train-cross-entropy=0.434184
+2020-02-24 16:36:00,249 [INFO]  Epoch[4] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,249 [INFO]  Epoch[4] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,250 [INFO]  Epoch[4] Time cost=0.409
+2020-02-24 16:36:00,250 [INFO]  Epoch[4] Time cost=0.409
+2020-02-24 16:36:00,253 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0004.params"
+2020-02-24 16:36:00,253 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0004.params"
+2020-02-24 16:36:00,291 [INFO]  Epoch[4] Validation-cross-entropy=0.342769
+2020-02-24 16:36:00,291 [INFO]  Epoch[4] Validation-cross-entropy=0.342769
+2020-02-24 16:36:00,293 [INFO]  Epoch[4] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,293 [INFO]  Epoch[4] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,491 [INFO]  Epoch[5] Batch [0-40]	Speed: 3337.41 samples/sec	cross-entropy=0.372768	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,491 [INFO]  Epoch[5] Batch [0-40]	Speed: 3337.41 samples/sec	cross-entropy=0.372768	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,673 [INFO]  Epoch[5] Train-cross-entropy=0.333388
+2020-02-24 16:36:00,673 [INFO]  Epoch[5] Train-cross-entropy=0.333388
+2020-02-24 16:36:00,675 [INFO]  Epoch[5] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,675 [INFO]  Epoch[5] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,676 [INFO]  Epoch[5] Time cost=0.382
+2020-02-24 16:36:00,676 [INFO]  Epoch[5] Time cost=0.382
+2020-02-24 16:36:00,679 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0005.params"
+2020-02-24 16:36:00,679 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0005.params"
+2020-02-24 16:36:00,721 [INFO]  Epoch[5] Validation-cross-entropy=0.260325
+2020-02-24 16:36:00,721 [INFO]  Epoch[5] Validation-cross-entropy=0.260325
+2020-02-24 16:36:00,722 [INFO]  Epoch[5] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,722 [INFO]  Epoch[5] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,923 [INFO]  Epoch[6] Batch [0-40]	Speed: 3290.74 samples/sec	cross-entropy=0.228243	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:00,923 [INFO]  Epoch[6] Batch [0-40]	Speed: 3290.74 samples/sec	cross-entropy=0.228243	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,107 [INFO]  Epoch[6] Train-cross-entropy=0.274795
+2020-02-24 16:36:01,107 [INFO]  Epoch[6] Train-cross-entropy=0.274795
+2020-02-24 16:36:01,109 [INFO]  Epoch[6] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,109 [INFO]  Epoch[6] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,110 [INFO]  Epoch[6] Time cost=0.387
+2020-02-24 16:36:01,110 [INFO]  Epoch[6] Time cost=0.387
+2020-02-24 16:36:01,114 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0006.params"
+2020-02-24 16:36:01,114 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0006.params"
+2020-02-24 16:36:01,151 [INFO]  Epoch[6] Validation-cross-entropy=0.260170
+2020-02-24 16:36:01,151 [INFO]  Epoch[6] Validation-cross-entropy=0.260170
+2020-02-24 16:36:01,152 [INFO]  Epoch[6] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,152 [INFO]  Epoch[6] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,367 [INFO]  Epoch[7] Batch [0-40]	Speed: 3065.38 samples/sec	cross-entropy=0.228159	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,367 [INFO]  Epoch[7] Batch [0-40]	Speed: 3065.38 samples/sec	cross-entropy=0.228159	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,556 [INFO]  Epoch[7] Train-cross-entropy=0.251827
+2020-02-24 16:36:01,556 [INFO]  Epoch[7] Train-cross-entropy=0.251827
+2020-02-24 16:36:01,559 [INFO]  Epoch[7] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,559 [INFO]  Epoch[7] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,560 [INFO]  Epoch[7] Time cost=0.407
+2020-02-24 16:36:01,560 [INFO]  Epoch[7] Time cost=0.407
+2020-02-24 16:36:01,564 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0007.params"
+2020-02-24 16:36:01,564 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0007.params"
+2020-02-24 16:36:01,610 [INFO]  Epoch[7] Validation-cross-entropy=0.318926
+2020-02-24 16:36:01,610 [INFO]  Epoch[7] Validation-cross-entropy=0.318926
+2020-02-24 16:36:01,611 [INFO]  Epoch[7] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,611 [INFO]  Epoch[7] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,815 [INFO]  Epoch[8] Batch [0-40]	Speed: 3268.22 samples/sec	cross-entropy=0.209591	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:01,815 [INFO]  Epoch[8] Batch [0-40]	Speed: 3268.22 samples/sec	cross-entropy=0.209591	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,001 [INFO]  Epoch[8] Train-cross-entropy=0.167985
+2020-02-24 16:36:02,001 [INFO]  Epoch[8] Train-cross-entropy=0.167985
+2020-02-24 16:36:02,003 [INFO]  Epoch[8] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,003 [INFO]  Epoch[8] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,005 [INFO]  Epoch[8] Time cost=0.392
+2020-02-24 16:36:02,005 [INFO]  Epoch[8] Time cost=0.392
+2020-02-24 16:36:02,008 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0008.params"
+2020-02-24 16:36:02,008 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0008.params"
+2020-02-24 16:36:02,053 [INFO]  Epoch[8] Validation-cross-entropy=0.171347
+2020-02-24 16:36:02,053 [INFO]  Epoch[8] Validation-cross-entropy=0.171347
+2020-02-24 16:36:02,055 [INFO]  Epoch[8] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,055 [INFO]  Epoch[8] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,265 [INFO]  Epoch[9] Batch [0-40]	Speed: 3167.34 samples/sec	cross-entropy=0.122150	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,265 [INFO]  Epoch[9] Batch [0-40]	Speed: 3167.34 samples/sec	cross-entropy=0.122150	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,449 [INFO]  Epoch[9] Train-cross-entropy=0.163151
+2020-02-24 16:36:02,449 [INFO]  Epoch[9] Train-cross-entropy=0.163151
+2020-02-24 16:36:02,451 [INFO]  Epoch[9] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,451 [INFO]  Epoch[9] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,452 [INFO]  Epoch[9] Time cost=0.395
+2020-02-24 16:36:02,452 [INFO]  Epoch[9] Time cost=0.395
+2020-02-24 16:36:02,455 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0009.params"
+2020-02-24 16:36:02,455 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0009.params"
+2020-02-24 16:36:02,500 [INFO]  Epoch[9] Validation-cross-entropy=0.202239
+2020-02-24 16:36:02,500 [INFO]  Epoch[9] Validation-cross-entropy=0.202239
+2020-02-24 16:36:02,502 [INFO]  Epoch[9] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,502 [INFO]  Epoch[9] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,706 [INFO]  Epoch[10] Batch [0-40]	Speed: 3260.79 samples/sec	cross-entropy=0.108373	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,706 [INFO]  Epoch[10] Batch [0-40]	Speed: 3260.79 samples/sec	cross-entropy=0.108373	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,892 [INFO]  Epoch[10] Train-cross-entropy=0.144931
+2020-02-24 16:36:02,892 [INFO]  Epoch[10] Train-cross-entropy=0.144931
+2020-02-24 16:36:02,894 [INFO]  Epoch[10] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,894 [INFO]  Epoch[10] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,895 [INFO]  Epoch[10] Time cost=0.392
+2020-02-24 16:36:02,895 [INFO]  Epoch[10] Time cost=0.392
+2020-02-24 16:36:02,899 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0010.params"
+2020-02-24 16:36:02,899 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0010.params"
+2020-02-24 16:36:02,941 [INFO]  Epoch[10] Validation-cross-entropy=0.210930
+2020-02-24 16:36:02,941 [INFO]  Epoch[10] Validation-cross-entropy=0.210930
+2020-02-24 16:36:02,943 [INFO]  Epoch[10] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:02,943 [INFO]  Epoch[10] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,148 [INFO]  Epoch[11] Batch [0-40]	Speed: 3242.59 samples/sec	cross-entropy=0.098656	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,148 [INFO]  Epoch[11] Batch [0-40]	Speed: 3242.59 samples/sec	cross-entropy=0.098656	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,332 [INFO]  Epoch[11] Train-cross-entropy=0.165859
+2020-02-24 16:36:03,332 [INFO]  Epoch[11] Train-cross-entropy=0.165859
+2020-02-24 16:36:03,334 [INFO]  Epoch[11] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,334 [INFO]  Epoch[11] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,336 [INFO]  Epoch[11] Time cost=0.392
+2020-02-24 16:36:03,336 [INFO]  Epoch[11] Time cost=0.392
+2020-02-24 16:36:03,342 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0011.params"
+2020-02-24 16:36:03,342 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0011.params"
+2020-02-24 16:36:03,387 [INFO]  Epoch[11] Validation-cross-entropy=0.283831
+2020-02-24 16:36:03,387 [INFO]  Epoch[11] Validation-cross-entropy=0.283831
+2020-02-24 16:36:03,388 [INFO]  Epoch[11] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,388 [INFO]  Epoch[11] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,610 [INFO]  Epoch[12] Batch [0-40]	Speed: 2987.56 samples/sec	cross-entropy=0.103917	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,610 [INFO]  Epoch[12] Batch [0-40]	Speed: 2987.56 samples/sec	cross-entropy=0.103917	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,797 [INFO]  Epoch[12] Train-cross-entropy=0.122092
+2020-02-24 16:36:03,797 [INFO]  Epoch[12] Train-cross-entropy=0.122092
+2020-02-24 16:36:03,799 [INFO]  Epoch[12] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,799 [INFO]  Epoch[12] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,801 [INFO]  Epoch[12] Time cost=0.411
+2020-02-24 16:36:03,801 [INFO]  Epoch[12] Time cost=0.411
+2020-02-24 16:36:03,804 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0012.params"
+2020-02-24 16:36:03,804 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0012.params"
+2020-02-24 16:36:03,845 [INFO]  Epoch[12] Validation-cross-entropy=0.194065
+2020-02-24 16:36:03,845 [INFO]  Epoch[12] Validation-cross-entropy=0.194065
+2020-02-24 16:36:03,847 [INFO]  Epoch[12] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:03,847 [INFO]  Epoch[12] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:04,046 [INFO]  Epoch[13] Batch [0-40]	Speed: 3312.71 samples/sec	cross-entropy=0.094830	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:04,046 [INFO]  Epoch[13] Batch [0-40]	Speed: 3312.71 samples/sec	cross-entropy=0.094830	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:04,231 [INFO]  Epoch[13] Train-cross-entropy=0.151489
+2020-02-24 16:36:04,231 [INFO]  Epoch[13] Train-cross-entropy=0.151489
+2020-02-24 16:36:04,233 [INFO]  Epoch[13] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:04,233 [INFO]  Epoch[13] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 16:36:04,234 [INFO]  Epoch[13] Time cost=0.386
+2020-02-24 16:36:04,234 [INFO]  Epoch[13] Time cost=0.386
+2020-02-24 16:36:04,237 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0013.params"
+2020-02-24 16:36:04,237 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0013.params"
+2020-02-24 16:36:04,274 [INFO]  No improvement detected for 5 epochs compared to 0.1713472559220261 last error obtained: 0.28261125336090726, stopping here
+2020-02-24 16:36:04,274 [INFO]  No improvement detected for 5 epochs compared to 0.1713472559220261 last error obtained: 0.28261125336090726, stopping here
+2020-02-24 16:36:04,276 [INFO]  
+========== done (6.226079225540161 s) fit model
+2020-02-24 16:36:04,276 [INFO]  
+========== done (6.226079225540161 s) fit model
+2020-02-24 19:50:10,230 [INFO]  
+========== start: fit model
+2020-02-24 19:50:10,230 [INFO]  
+========== start: fit model
+2020-02-24 19:50:10,232 [WARNING]  Already bound, ignoring bind()
+2020-02-24 19:50:10,232 [WARNING]  Already bound, ignoring bind()
+2020-02-24 19:50:10,439 [INFO]  Epoch[0] Batch [0-40]	Speed: 3220.64 samples/sec	cross-entropy=3.707218	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:10,439 [INFO]  Epoch[0] Batch [0-40]	Speed: 3220.64 samples/sec	cross-entropy=3.707218	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:10,724 [INFO]  Epoch[0] Train-cross-entropy=2.035863
+2020-02-24 19:50:10,724 [INFO]  Epoch[0] Train-cross-entropy=2.035863
+2020-02-24 19:50:10,726 [INFO]  Epoch[0] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:10,726 [INFO]  Epoch[0] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:10,729 [INFO]  Epoch[0] Time cost=0.494
+2020-02-24 19:50:10,729 [INFO]  Epoch[0] Time cost=0.494
+2020-02-24 19:50:10,734 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0000.params"
+2020-02-24 19:50:10,734 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0000.params"
+2020-02-24 19:50:10,779 [INFO]  Epoch[0] Validation-cross-entropy=1.956889
+2020-02-24 19:50:10,779 [INFO]  Epoch[0] Validation-cross-entropy=1.956889
+2020-02-24 19:50:10,781 [INFO]  Epoch[0] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:10,781 [INFO]  Epoch[0] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,025 [INFO]  Epoch[1] Batch [0-40]	Speed: 2703.17 samples/sec	cross-entropy=1.353375	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,025 [INFO]  Epoch[1] Batch [0-40]	Speed: 2703.17 samples/sec	cross-entropy=1.353375	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,225 [INFO]  Epoch[1] Train-cross-entropy=1.284427
+2020-02-24 19:50:11,225 [INFO]  Epoch[1] Train-cross-entropy=1.284427
+2020-02-24 19:50:11,227 [INFO]  Epoch[1] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,227 [INFO]  Epoch[1] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,229 [INFO]  Epoch[1] Time cost=0.446
+2020-02-24 19:50:11,229 [INFO]  Epoch[1] Time cost=0.446
+2020-02-24 19:50:11,233 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0001.params"
+2020-02-24 19:50:11,233 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0001.params"
+2020-02-24 19:50:11,271 [INFO]  Epoch[1] Validation-cross-entropy=0.737428
+2020-02-24 19:50:11,271 [INFO]  Epoch[1] Validation-cross-entropy=0.737428
+2020-02-24 19:50:11,273 [INFO]  Epoch[1] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,273 [INFO]  Epoch[1] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,472 [INFO]  Epoch[2] Batch [0-40]	Speed: 3325.02 samples/sec	cross-entropy=0.722219	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,472 [INFO]  Epoch[2] Batch [0-40]	Speed: 3325.02 samples/sec	cross-entropy=0.722219	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,655 [INFO]  Epoch[2] Train-cross-entropy=0.882439
+2020-02-24 19:50:11,655 [INFO]  Epoch[2] Train-cross-entropy=0.882439
+2020-02-24 19:50:11,657 [INFO]  Epoch[2] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,657 [INFO]  Epoch[2] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,659 [INFO]  Epoch[2] Time cost=0.385
+2020-02-24 19:50:11,659 [INFO]  Epoch[2] Time cost=0.385
+2020-02-24 19:50:11,662 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0002.params"
+2020-02-24 19:50:11,662 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0002.params"
+2020-02-24 19:50:11,713 [INFO]  Epoch[2] Validation-cross-entropy=0.478201
+2020-02-24 19:50:11,713 [INFO]  Epoch[2] Validation-cross-entropy=0.478201
+2020-02-24 19:50:11,714 [INFO]  Epoch[2] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,714 [INFO]  Epoch[2] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,921 [INFO]  Epoch[3] Batch [0-40]	Speed: 3215.15 samples/sec	cross-entropy=0.550586	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:11,921 [INFO]  Epoch[3] Batch [0-40]	Speed: 3215.15 samples/sec	cross-entropy=0.550586	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:12,108 [INFO]  Epoch[3] Train-cross-entropy=0.611686
+2020-02-24 19:50:12,108 [INFO]  Epoch[3] Train-cross-entropy=0.611686
+2020-02-24 19:50:12,110 [INFO]  Epoch[3] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:12,110 [INFO]  Epoch[3] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:12,111 [INFO]  Epoch[3] Time cost=0.395
+2020-02-24 19:50:12,111 [INFO]  Epoch[3] Time cost=0.395
+2020-02-24 19:50:12,115 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0003.params"
+2020-02-24 19:50:12,115 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0003.params"
+2020-02-24 19:50:12,151 [INFO]  Epoch[3] Validation-cross-entropy=0.418676
+2020-02-24 19:50:12,151 [INFO]  Epoch[3] Validation-cross-entropy=0.418676
+2020-02-24 19:50:12,153 [INFO]  Epoch[3] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:12,153 [INFO]  Epoch[3] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:12,373 [INFO]  Epoch[4] Batch [0-40]	Speed: 2994.10 samples/sec	cross-entropy=0.441327	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:12,373 [INFO]  Epoch[4] Batch [0-40]	Speed: 2994.10 samples/sec	cross-entropy=0.441327	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:12,712 [INFO]  Epoch[4] Train-cross-entropy=0.485830
+2020-02-24 19:50:12,712 [INFO]  Epoch[4] Train-cross-entropy=0.485830
+2020-02-24 19:50:12,714 [INFO]  Epoch[4] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:12,714 [INFO]  Epoch[4] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:12,715 [INFO]  Epoch[4] Time cost=0.561
+2020-02-24 19:50:12,715 [INFO]  Epoch[4] Time cost=0.561
+2020-02-24 19:50:12,720 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0004.params"
+2020-02-24 19:50:12,720 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0004.params"
+2020-02-24 19:50:12,773 [INFO]  Epoch[4] Validation-cross-entropy=0.272527
+2020-02-24 19:50:12,773 [INFO]  Epoch[4] Validation-cross-entropy=0.272527
+2020-02-24 19:50:12,777 [INFO]  Epoch[4] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:12,777 [INFO]  Epoch[4] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,059 [INFO]  Epoch[5] Batch [0-40]	Speed: 2337.21 samples/sec	cross-entropy=0.287810	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,059 [INFO]  Epoch[5] Batch [0-40]	Speed: 2337.21 samples/sec	cross-entropy=0.287810	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,254 [INFO]  Epoch[5] Train-cross-entropy=0.417970
+2020-02-24 19:50:13,254 [INFO]  Epoch[5] Train-cross-entropy=0.417970
+2020-02-24 19:50:13,259 [INFO]  Epoch[5] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,259 [INFO]  Epoch[5] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,260 [INFO]  Epoch[5] Time cost=0.482
+2020-02-24 19:50:13,260 [INFO]  Epoch[5] Time cost=0.482
+2020-02-24 19:50:13,264 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0005.params"
+2020-02-24 19:50:13,264 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0005.params"
+2020-02-24 19:50:13,313 [INFO]  Epoch[5] Validation-cross-entropy=0.588267
+2020-02-24 19:50:13,313 [INFO]  Epoch[5] Validation-cross-entropy=0.588267
+2020-02-24 19:50:13,315 [INFO]  Epoch[5] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,315 [INFO]  Epoch[5] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,528 [INFO]  Epoch[6] Batch [0-40]	Speed: 3101.65 samples/sec	cross-entropy=0.567385	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,528 [INFO]  Epoch[6] Batch [0-40]	Speed: 3101.65 samples/sec	cross-entropy=0.567385	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,741 [INFO]  Epoch[6] Train-cross-entropy=0.391377
+2020-02-24 19:50:13,741 [INFO]  Epoch[6] Train-cross-entropy=0.391377
+2020-02-24 19:50:13,743 [INFO]  Epoch[6] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,743 [INFO]  Epoch[6] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,744 [INFO]  Epoch[6] Time cost=0.428
+2020-02-24 19:50:13,744 [INFO]  Epoch[6] Time cost=0.428
+2020-02-24 19:50:13,748 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0006.params"
+2020-02-24 19:50:13,748 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0006.params"
+2020-02-24 19:50:13,787 [INFO]  Epoch[6] Validation-cross-entropy=0.294879
+2020-02-24 19:50:13,787 [INFO]  Epoch[6] Validation-cross-entropy=0.294879
+2020-02-24 19:50:13,788 [INFO]  Epoch[6] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,788 [INFO]  Epoch[6] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,987 [INFO]  Epoch[7] Batch [0-40]	Speed: 3341.58 samples/sec	cross-entropy=0.274471	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:13,987 [INFO]  Epoch[7] Batch [0-40]	Speed: 3341.58 samples/sec	cross-entropy=0.274471	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,174 [INFO]  Epoch[7] Train-cross-entropy=0.256766
+2020-02-24 19:50:14,174 [INFO]  Epoch[7] Train-cross-entropy=0.256766
+2020-02-24 19:50:14,176 [INFO]  Epoch[7] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,176 [INFO]  Epoch[7] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,177 [INFO]  Epoch[7] Time cost=0.387
+2020-02-24 19:50:14,177 [INFO]  Epoch[7] Time cost=0.387
+2020-02-24 19:50:14,181 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0007.params"
+2020-02-24 19:50:14,181 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0007.params"
+2020-02-24 19:50:14,216 [INFO]  Epoch[7] Validation-cross-entropy=0.253302
+2020-02-24 19:50:14,216 [INFO]  Epoch[7] Validation-cross-entropy=0.253302
+2020-02-24 19:50:14,218 [INFO]  Epoch[7] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,218 [INFO]  Epoch[7] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,417 [INFO]  Epoch[8] Batch [0-40]	Speed: 3316.85 samples/sec	cross-entropy=0.208497	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,417 [INFO]  Epoch[8] Batch [0-40]	Speed: 3316.85 samples/sec	cross-entropy=0.208497	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,604 [INFO]  Epoch[8] Train-cross-entropy=0.231595
+2020-02-24 19:50:14,604 [INFO]  Epoch[8] Train-cross-entropy=0.231595
+2020-02-24 19:50:14,605 [INFO]  Epoch[8] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,605 [INFO]  Epoch[8] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,607 [INFO]  Epoch[8] Time cost=0.387
+2020-02-24 19:50:14,607 [INFO]  Epoch[8] Time cost=0.387
+2020-02-24 19:50:14,610 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0008.params"
+2020-02-24 19:50:14,610 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0008.params"
+2020-02-24 19:50:14,670 [INFO]  Epoch[8] Validation-cross-entropy=0.254342
+2020-02-24 19:50:14,670 [INFO]  Epoch[8] Validation-cross-entropy=0.254342
+2020-02-24 19:50:14,672 [INFO]  Epoch[8] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,672 [INFO]  Epoch[8] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,937 [INFO]  Epoch[9] Batch [0-40]	Speed: 2540.86 samples/sec	cross-entropy=0.183350	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:14,937 [INFO]  Epoch[9] Batch [0-40]	Speed: 2540.86 samples/sec	cross-entropy=0.183350	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:15,150 [INFO]  Epoch[9] Train-cross-entropy=0.196558
+2020-02-24 19:50:15,150 [INFO]  Epoch[9] Train-cross-entropy=0.196558
+2020-02-24 19:50:15,153 [INFO]  Epoch[9] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:15,153 [INFO]  Epoch[9] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:15,154 [INFO]  Epoch[9] Time cost=0.480
+2020-02-24 19:50:15,154 [INFO]  Epoch[9] Time cost=0.480
+2020-02-24 19:50:15,159 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0009.params"
+2020-02-24 19:50:15,159 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0009.params"
+2020-02-24 19:50:15,201 [INFO]  Epoch[9] Validation-cross-entropy=0.283936
+2020-02-24 19:50:15,201 [INFO]  Epoch[9] Validation-cross-entropy=0.283936
+2020-02-24 19:50:15,203 [INFO]  Epoch[9] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:15,203 [INFO]  Epoch[9] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:15,513 [INFO]  Epoch[10] Batch [0-40]	Speed: 2110.74 samples/sec	cross-entropy=0.147032	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:15,513 [INFO]  Epoch[10] Batch [0-40]	Speed: 2110.74 samples/sec	cross-entropy=0.147032	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:15,797 [INFO]  Epoch[10] Train-cross-entropy=0.169476
+2020-02-24 19:50:15,797 [INFO]  Epoch[10] Train-cross-entropy=0.169476
+2020-02-24 19:50:15,799 [INFO]  Epoch[10] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:15,799 [INFO]  Epoch[10] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:15,802 [INFO]  Epoch[10] Time cost=0.597
+2020-02-24 19:50:15,802 [INFO]  Epoch[10] Time cost=0.597
+2020-02-24 19:50:15,806 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0010.params"
+2020-02-24 19:50:15,806 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0010.params"
+2020-02-24 19:50:15,847 [INFO]  Epoch[10] Validation-cross-entropy=0.307697
+2020-02-24 19:50:15,847 [INFO]  Epoch[10] Validation-cross-entropy=0.307697
+2020-02-24 19:50:15,849 [INFO]  Epoch[10] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:15,849 [INFO]  Epoch[10] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:16,146 [INFO]  Epoch[11] Batch [0-40]	Speed: 2216.61 samples/sec	cross-entropy=0.159745	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:16,146 [INFO]  Epoch[11] Batch [0-40]	Speed: 2216.61 samples/sec	cross-entropy=0.159745	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:16,379 [INFO]  Epoch[11] Train-cross-entropy=0.148359
+2020-02-24 19:50:16,379 [INFO]  Epoch[11] Train-cross-entropy=0.148359
+2020-02-24 19:50:16,381 [INFO]  Epoch[11] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:16,381 [INFO]  Epoch[11] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:16,384 [INFO]  Epoch[11] Time cost=0.531
+2020-02-24 19:50:16,384 [INFO]  Epoch[11] Time cost=0.531
+2020-02-24 19:50:16,388 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0011.params"
+2020-02-24 19:50:16,388 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0011.params"
+2020-02-24 19:50:16,435 [INFO]  Epoch[11] Validation-cross-entropy=0.267275
+2020-02-24 19:50:16,435 [INFO]  Epoch[11] Validation-cross-entropy=0.267275
+2020-02-24 19:50:16,437 [INFO]  Epoch[11] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:16,437 [INFO]  Epoch[11] Validation-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:16,750 [INFO]  Epoch[12] Batch [0-40]	Speed: 2096.05 samples/sec	cross-entropy=0.114946	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:16,750 [INFO]  Epoch[12] Batch [0-40]	Speed: 2096.05 samples/sec	cross-entropy=0.114946	Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:17,100 [INFO]  Epoch[12] Train-cross-entropy=0.131390
+2020-02-24 19:50:17,100 [INFO]  Epoch[12] Train-cross-entropy=0.131390
+2020-02-24 19:50:17,102 [INFO]  Epoch[12] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:17,102 [INFO]  Epoch[12] Train-Knowledge/information_buildings-accuracy=0.000000
+2020-02-24 19:50:17,104 [INFO]  Epoch[12] Time cost=0.665
+2020-02-24 19:50:17,104 [INFO]  Epoch[12] Time cost=0.665
+2020-02-24 19:50:17,111 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0012.params"
+2020-02-24 19:50:17,111 [INFO]  Saved checkpoint to "model/Knowledgeinformation_buildings_imputer/model-0012.params"
+2020-02-24 19:50:17,177 [INFO]  No improvement detected for 5 epochs compared to 0.25330228937996757 last error obtained: 0.25545867615275913, stopping here
+2020-02-24 19:50:17,177 [INFO]  No improvement detected for 5 epochs compared to 0.25330228937996757 last error obtained: 0.25545867615275913, stopping here
+2020-02-24 19:50:17,179 [INFO]  
+========== done (6.948979377746582 s) fit model
+2020-02-24 19:50:17,179 [INFO]  
+========== done (6.948979377746582 s) fit model

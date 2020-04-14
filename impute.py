@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 # Boolean controlling whether or not to recompute the regression variables for
 # each CC. 
-RECOMPUTE_REGRESSION_VARS = False
+RECOMPUTE_REGRESSION_VARS = True
 
 DEBUG = False
 
@@ -138,8 +138,13 @@ def aggMean(series):
     else:
         return smartMean(series)
 
+def expDiscountSum(series):
+    # The most recent values are at the back of the series, so sum over its reversed bit
+    return np.sum([np.exp(-1*i)*val for i,val in enumerate(reversed(series))])
+    
+
 def sumResponse(seshat, ngaInfo, responseVar):
-    sum = 0
+    valSeries = []
     prevYear = -20000
     regName = '{}_Regression_x0'.format(responseVar)
     for i, row in ngaInfo.iterrows():
@@ -152,8 +157,10 @@ def sumResponse(seshat, ngaInfo, responseVar):
                         seshat.at[row['Temperoculture'], regName] = 0
                 except:
                     seshat.at[row['Temperoculture'], regName] = 0
-                seshat.at[row['Temperoculture'], regName] += sum / len(eval(str(seshat.at[row['Temperoculture'],'NGA'])))
-                sum += row[responseVar]
+
+                expDiscountedSum = expDiscountSum(valSeries)
+                seshat.at[row['Temperoculture'], regName] += expDiscountedSum / len(eval(str(seshat.at[row['Temperoculture'],'NGA'])))
+                valSeries.append(row[responseVar])
         else:
             seshat.at[row['Temperoculture'], regName] = 0
     return seshat

@@ -1,95 +1,123 @@
-2019-08-12 13:15:44,774 [INFO]  
+2020-02-24 20:00:41,718 [INFO]  
 ========== start: fit model
-2019-08-12 13:15:44,775 [WARNING]  Already bound, ignoring bind()
-2019-08-12 13:15:44,848 [INFO]  Epoch[0] Batch [0-9]	Speed: 2240.34 samples/sec	cross-entropy=10.850236	CC_Money-accuracy=0.000000
-2019-08-12 13:15:44,899 [INFO]  Epoch[0] Train-cross-entropy=8.786066
-2019-08-12 13:15:44,901 [INFO]  Epoch[0] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:44,902 [INFO]  Epoch[0] Time cost=0.125
-2019-08-12 13:15:44,907 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0000.params"
-2019-08-12 13:15:44,924 [INFO]  Epoch[0] Validation-cross-entropy=5.752805
-2019-08-12 13:15:44,926 [INFO]  Epoch[0] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,002 [INFO]  Epoch[1] Batch [0-9]	Speed: 2208.15 samples/sec	cross-entropy=4.907768	CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,054 [INFO]  Epoch[1] Train-cross-entropy=3.918655
-2019-08-12 13:15:45,056 [INFO]  Epoch[1] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,057 [INFO]  Epoch[1] Time cost=0.130
-2019-08-12 13:15:45,062 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0001.params"
-2019-08-12 13:15:45,080 [INFO]  Epoch[1] Validation-cross-entropy=4.259116
-2019-08-12 13:15:45,082 [INFO]  Epoch[1] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,160 [INFO]  Epoch[2] Batch [0-9]	Speed: 2250.78 samples/sec	cross-entropy=3.035930	CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,217 [INFO]  Epoch[2] Train-cross-entropy=2.980069
-2019-08-12 13:15:45,219 [INFO]  Epoch[2] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,222 [INFO]  Epoch[2] Time cost=0.138
-2019-08-12 13:15:45,227 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0002.params"
-2019-08-12 13:15:45,240 [INFO]  Epoch[2] Validation-cross-entropy=2.843639
-2019-08-12 13:15:45,246 [INFO]  Epoch[2] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,320 [INFO]  Epoch[3] Batch [0-9]	Speed: 2188.61 samples/sec	cross-entropy=2.170249	CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,428 [INFO]  Epoch[3] Train-cross-entropy=2.001609
-2019-08-12 13:15:45,429 [INFO]  Epoch[3] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,431 [INFO]  Epoch[3] Time cost=0.184
-2019-08-12 13:15:45,435 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0003.params"
-2019-08-12 13:15:45,452 [INFO]  Epoch[3] Validation-cross-entropy=2.084054
-2019-08-12 13:15:45,454 [INFO]  Epoch[3] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,536 [INFO]  Epoch[4] Batch [0-9]	Speed: 2099.88 samples/sec	cross-entropy=1.283989	CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,610 [INFO]  Epoch[4] Train-cross-entropy=1.276554
-2019-08-12 13:15:45,611 [INFO]  Epoch[4] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,613 [INFO]  Epoch[4] Time cost=0.157
-2019-08-12 13:15:45,616 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0004.params"
-2019-08-12 13:15:45,687 [INFO]  Epoch[4] Validation-cross-entropy=1.803241
-2019-08-12 13:15:45,688 [INFO]  Epoch[4] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,758 [INFO]  Epoch[5] Batch [0-9]	Speed: 2307.66 samples/sec	cross-entropy=0.987005	CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,807 [INFO]  Epoch[5] Train-cross-entropy=0.864849
-2019-08-12 13:15:45,808 [INFO]  Epoch[5] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,810 [INFO]  Epoch[5] Time cost=0.121
-2019-08-12 13:15:45,813 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0005.params"
-2019-08-12 13:15:45,828 [INFO]  Epoch[5] Validation-cross-entropy=1.626026
-2019-08-12 13:15:45,830 [INFO]  Epoch[5] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,901 [INFO]  Epoch[6] Batch [0-9]	Speed: 2355.29 samples/sec	cross-entropy=0.815388	CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,951 [INFO]  Epoch[6] Train-cross-entropy=0.650586
-2019-08-12 13:15:45,953 [INFO]  Epoch[6] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:45,954 [INFO]  Epoch[6] Time cost=0.123
-2019-08-12 13:15:45,958 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0006.params"
-2019-08-12 13:15:45,976 [INFO]  Epoch[6] Validation-cross-entropy=1.530423
-2019-08-12 13:15:45,978 [INFO]  Epoch[6] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,124 [INFO]  Epoch[7] Batch [0-9]	Speed: 1073.86 samples/sec	cross-entropy=0.673606	CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,248 [INFO]  Epoch[7] Train-cross-entropy=0.476262
-2019-08-12 13:15:46,250 [INFO]  Epoch[7] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,252 [INFO]  Epoch[7] Time cost=0.273
-2019-08-12 13:15:46,257 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0007.params"
-2019-08-12 13:15:46,362 [INFO]  Epoch[7] Validation-cross-entropy=1.438226
-2019-08-12 13:15:46,364 [INFO]  Epoch[7] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,525 [INFO]  Epoch[8] Batch [0-9]	Speed: 1024.53 samples/sec	cross-entropy=0.577940	CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,622 [INFO]  Epoch[8] Train-cross-entropy=0.441341
-2019-08-12 13:15:46,624 [INFO]  Epoch[8] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,625 [INFO]  Epoch[8] Time cost=0.260
-2019-08-12 13:15:46,628 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0008.params"
-2019-08-12 13:15:46,649 [INFO]  Epoch[8] Validation-cross-entropy=1.378402
-2019-08-12 13:15:46,651 [INFO]  Epoch[8] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,724 [INFO]  Epoch[9] Batch [0-9]	Speed: 2271.45 samples/sec	cross-entropy=0.512109	CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,774 [INFO]  Epoch[9] Train-cross-entropy=0.421882
-2019-08-12 13:15:46,777 [INFO]  Epoch[9] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,778 [INFO]  Epoch[9] Time cost=0.125
-2019-08-12 13:15:46,783 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0009.params"
-2019-08-12 13:15:46,797 [INFO]  Epoch[9] Validation-cross-entropy=1.717514
-2019-08-12 13:15:46,798 [INFO]  Epoch[9] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,874 [INFO]  Epoch[10] Batch [0-9]	Speed: 2172.25 samples/sec	cross-entropy=0.616659	CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,925 [INFO]  Epoch[10] Train-cross-entropy=0.578773
-2019-08-12 13:15:46,927 [INFO]  Epoch[10] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:46,929 [INFO]  Epoch[10] Time cost=0.129
-2019-08-12 13:15:46,933 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0010.params"
-2019-08-12 13:15:46,949 [INFO]  Epoch[10] Validation-cross-entropy=1.938349
-2019-08-12 13:15:46,951 [INFO]  Epoch[10] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:47,041 [INFO]  Epoch[11] Batch [0-9]	Speed: 1945.08 samples/sec	cross-entropy=0.887613	CC_Money-accuracy=0.000000
-2019-08-12 13:15:47,091 [INFO]  Epoch[11] Train-cross-entropy=0.923744
-2019-08-12 13:15:47,093 [INFO]  Epoch[11] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:47,094 [INFO]  Epoch[11] Time cost=0.141
-2019-08-12 13:15:47,097 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0011.params"
-2019-08-12 13:15:47,113 [INFO]  Epoch[11] Validation-cross-entropy=2.119425
-2019-08-12 13:15:47,115 [INFO]  Epoch[11] Validation-CC_Money-accuracy=0.000000
-2019-08-12 13:15:47,186 [INFO]  Epoch[12] Batch [0-9]	Speed: 2370.80 samples/sec	cross-entropy=1.576001	CC_Money-accuracy=0.000000
-2019-08-12 13:15:47,239 [INFO]  Epoch[12] Train-cross-entropy=1.649919
-2019-08-12 13:15:47,240 [INFO]  Epoch[12] Train-CC_Money-accuracy=0.000000
-2019-08-12 13:15:47,241 [INFO]  Epoch[12] Time cost=0.125
-2019-08-12 13:15:47,245 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0012.params"
-2019-08-12 13:15:47,257 [INFO]  No improvement detected for 5 epochs compared to 1.4382255673408508 last error obtained: 2.9365084171295166, stopping here
-2019-08-12 13:15:47,259 [INFO]  
-========== done (2.4853641986846924 s) fit model
+2020-02-24 20:00:41,719 [WARNING]  Already bound, ignoring bind()
+2020-02-24 20:00:41,784 [INFO]  Epoch[0] Batch [0-9]	Speed: 2505.06 samples/sec	cross-entropy=9.957586	CC_Money-accuracy=0.000000
+2020-02-24 20:00:41,822 [INFO]  Epoch[0] Train-cross-entropy=7.413884
+2020-02-24 20:00:41,824 [INFO]  Epoch[0] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:41,825 [INFO]  Epoch[0] Time cost=0.104
+2020-02-24 20:00:41,828 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0000.params"
+2020-02-24 20:00:41,837 [INFO]  Epoch[0] Validation-cross-entropy=6.481943
+2020-02-24 20:00:41,838 [INFO]  Epoch[0] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:41,892 [INFO]  Epoch[1] Batch [0-9]	Speed: 3036.77 samples/sec	cross-entropy=4.391124	CC_Money-accuracy=0.000000
+2020-02-24 20:00:41,931 [INFO]  Epoch[1] Train-cross-entropy=3.662884
+2020-02-24 20:00:41,932 [INFO]  Epoch[1] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:41,933 [INFO]  Epoch[1] Time cost=0.094
+2020-02-24 20:00:41,936 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0001.params"
+2020-02-24 20:00:41,944 [INFO]  Epoch[1] Validation-cross-entropy=3.979061
+2020-02-24 20:00:41,945 [INFO]  Epoch[1] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,012 [INFO]  Epoch[2] Batch [0-9]	Speed: 2347.55 samples/sec	cross-entropy=2.684887	CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,056 [INFO]  Epoch[2] Train-cross-entropy=2.765733
+2020-02-24 20:00:42,057 [INFO]  Epoch[2] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,058 [INFO]  Epoch[2] Time cost=0.112
+2020-02-24 20:00:42,061 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0002.params"
+2020-02-24 20:00:42,069 [INFO]  Epoch[2] Validation-cross-entropy=3.567904
+2020-02-24 20:00:42,071 [INFO]  Epoch[2] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,130 [INFO]  Epoch[3] Batch [0-9]	Speed: 2667.47 samples/sec	cross-entropy=2.169875	CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,170 [INFO]  Epoch[3] Train-cross-entropy=2.029686
+2020-02-24 20:00:42,171 [INFO]  Epoch[3] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,172 [INFO]  Epoch[3] Time cost=0.100
+2020-02-24 20:00:42,174 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0003.params"
+2020-02-24 20:00:42,183 [INFO]  Epoch[3] Validation-cross-entropy=2.182950
+2020-02-24 20:00:42,184 [INFO]  Epoch[3] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,239 [INFO]  Epoch[4] Batch [0-9]	Speed: 2986.29 samples/sec	cross-entropy=1.306862	CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,280 [INFO]  Epoch[4] Train-cross-entropy=1.257388
+2020-02-24 20:00:42,282 [INFO]  Epoch[4] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,283 [INFO]  Epoch[4] Time cost=0.098
+2020-02-24 20:00:42,286 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0004.params"
+2020-02-24 20:00:42,295 [INFO]  Epoch[4] Validation-cross-entropy=1.795316
+2020-02-24 20:00:42,296 [INFO]  Epoch[4] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,353 [INFO]  Epoch[5] Batch [0-9]	Speed: 2815.48 samples/sec	cross-entropy=0.979307	CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,392 [INFO]  Epoch[5] Train-cross-entropy=0.863373
+2020-02-24 20:00:42,393 [INFO]  Epoch[5] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,394 [INFO]  Epoch[5] Time cost=0.097
+2020-02-24 20:00:42,397 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0005.params"
+2020-02-24 20:00:42,405 [INFO]  Epoch[5] Validation-cross-entropy=1.522962
+2020-02-24 20:00:42,407 [INFO]  Epoch[5] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,460 [INFO]  Epoch[6] Batch [0-9]	Speed: 3042.32 samples/sec	cross-entropy=0.767812	CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,498 [INFO]  Epoch[6] Train-cross-entropy=0.658366
+2020-02-24 20:00:42,500 [INFO]  Epoch[6] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,500 [INFO]  Epoch[6] Time cost=0.093
+2020-02-24 20:00:42,503 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0006.params"
+2020-02-24 20:00:42,512 [INFO]  Epoch[6] Validation-cross-entropy=1.639926
+2020-02-24 20:00:42,513 [INFO]  Epoch[6] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,574 [INFO]  Epoch[7] Batch [0-9]	Speed: 2587.96 samples/sec	cross-entropy=0.674632	CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,613 [INFO]  Epoch[7] Train-cross-entropy=0.563083
+2020-02-24 20:00:42,615 [INFO]  Epoch[7] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,616 [INFO]  Epoch[7] Time cost=0.102
+2020-02-24 20:00:42,619 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0007.params"
+2020-02-24 20:00:42,627 [INFO]  Epoch[7] Validation-cross-entropy=1.463989
+2020-02-24 20:00:42,629 [INFO]  Epoch[7] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,695 [INFO]  Epoch[8] Batch [0-9]	Speed: 2396.03 samples/sec	cross-entropy=0.686075	CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,746 [INFO]  Epoch[8] Train-cross-entropy=0.564463
+2020-02-24 20:00:42,747 [INFO]  Epoch[8] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,748 [INFO]  Epoch[8] Time cost=0.118
+2020-02-24 20:00:42,750 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0008.params"
+2020-02-24 20:00:42,763 [INFO]  Epoch[8] Validation-cross-entropy=1.861691
+2020-02-24 20:00:42,764 [INFO]  Epoch[8] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,832 [INFO]  Epoch[9] Batch [0-9]	Speed: 2478.03 samples/sec	cross-entropy=0.729016	CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,877 [INFO]  Epoch[9] Train-cross-entropy=0.671436
+2020-02-24 20:00:42,878 [INFO]  Epoch[9] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,879 [INFO]  Epoch[9] Time cost=0.113
+2020-02-24 20:00:42,881 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0009.params"
+2020-02-24 20:00:42,894 [INFO]  Epoch[9] Validation-cross-entropy=1.759170
+2020-02-24 20:00:42,895 [INFO]  Epoch[9] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:42,970 [INFO]  Epoch[10] Batch [0-9]	Speed: 2207.14 samples/sec	cross-entropy=0.842678	CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,017 [INFO]  Epoch[10] Train-cross-entropy=0.569221
+2020-02-24 20:00:43,018 [INFO]  Epoch[10] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,019 [INFO]  Epoch[10] Time cost=0.123
+2020-02-24 20:00:43,022 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0010.params"
+2020-02-24 20:00:43,030 [INFO]  Epoch[10] Validation-cross-entropy=1.678229
+2020-02-24 20:00:43,031 [INFO]  Epoch[10] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,085 [INFO]  Epoch[11] Batch [0-9]	Speed: 3001.16 samples/sec	cross-entropy=0.887785	CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,125 [INFO]  Epoch[11] Train-cross-entropy=1.183207
+2020-02-24 20:00:43,126 [INFO]  Epoch[11] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,127 [INFO]  Epoch[11] Time cost=0.095
+2020-02-24 20:00:43,130 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0011.params"
+2020-02-24 20:00:43,138 [INFO]  Epoch[11] Validation-cross-entropy=1.456450
+2020-02-24 20:00:43,139 [INFO]  Epoch[11] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,205 [INFO]  Epoch[12] Batch [0-9]	Speed: 2400.98 samples/sec	cross-entropy=0.795156	CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,248 [INFO]  Epoch[12] Train-cross-entropy=1.499917
+2020-02-24 20:00:43,249 [INFO]  Epoch[12] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,250 [INFO]  Epoch[12] Time cost=0.110
+2020-02-24 20:00:43,253 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0012.params"
+2020-02-24 20:00:43,261 [INFO]  Epoch[12] Validation-cross-entropy=1.628807
+2020-02-24 20:00:43,262 [INFO]  Epoch[12] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,328 [INFO]  Epoch[13] Batch [0-9]	Speed: 2393.59 samples/sec	cross-entropy=1.052808	CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,372 [INFO]  Epoch[13] Train-cross-entropy=1.435487
+2020-02-24 20:00:43,373 [INFO]  Epoch[13] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,374 [INFO]  Epoch[13] Time cost=0.111
+2020-02-24 20:00:43,377 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0013.params"
+2020-02-24 20:00:43,385 [INFO]  Epoch[13] Validation-cross-entropy=1.541085
+2020-02-24 20:00:43,386 [INFO]  Epoch[13] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,452 [INFO]  Epoch[14] Batch [0-9]	Speed: 2420.09 samples/sec	cross-entropy=1.585266	CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,494 [INFO]  Epoch[14] Train-cross-entropy=1.319889
+2020-02-24 20:00:43,495 [INFO]  Epoch[14] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,496 [INFO]  Epoch[14] Time cost=0.108
+2020-02-24 20:00:43,498 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0014.params"
+2020-02-24 20:00:43,507 [INFO]  Epoch[14] Validation-cross-entropy=2.414057
+2020-02-24 20:00:43,508 [INFO]  Epoch[14] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,567 [INFO]  Epoch[15] Batch [0-9]	Speed: 2698.95 samples/sec	cross-entropy=1.090648	CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,617 [INFO]  Epoch[15] Train-cross-entropy=1.115921
+2020-02-24 20:00:43,618 [INFO]  Epoch[15] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,619 [INFO]  Epoch[15] Time cost=0.111
+2020-02-24 20:00:43,624 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0015.params"
+2020-02-24 20:00:43,637 [INFO]  Epoch[15] Validation-cross-entropy=2.498611
+2020-02-24 20:00:43,639 [INFO]  Epoch[15] Validation-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,706 [INFO]  Epoch[16] Batch [0-9]	Speed: 2544.91 samples/sec	cross-entropy=1.106556	CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,755 [INFO]  Epoch[16] Train-cross-entropy=1.181708
+2020-02-24 20:00:43,756 [INFO]  Epoch[16] Train-CC_Money-accuracy=0.000000
+2020-02-24 20:00:43,760 [INFO]  Epoch[16] Time cost=0.118
+2020-02-24 20:00:43,765 [INFO]  Saved checkpoint to "model/test_4_CC_Money_imputer_many/model-0016.params"
+2020-02-24 20:00:43,779 [INFO]  No improvement detected for 5 epochs compared to 1.4564499855041504 last error obtained: 2.4582521319389343, stopping here
+2020-02-24 20:00:43,781 [INFO]  
+========== done (2.0629851818084717 s) fit model
